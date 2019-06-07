@@ -26,7 +26,10 @@ module.exports = (env = {}) => {
       new webpack.DefinePlugin({ foo: 'bar' }),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
-        title: '🚨'
+        title: '🚨',
+        meta: {
+          viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'
+        }
       }),
     ],
   }
