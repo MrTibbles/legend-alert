@@ -7,14 +7,20 @@
     "ApexLegends",
     "lit-html"
   ],
+  "repository": "https://github.com/MrTibbles/legend-alert",
   "author": "@mrtibbles",
   "license": "ISC",
   "devDependencies": {
     "@raddad/eslint-config": "0.0.2",
+    "clean-webpack-plugin": "^3.0.0",
     "eslint": "^5.16.0",
     "eslint-plugin-import": "^2.17.3",
+    "html-webpack-plugin": "^3.2.0",
     "husky": "^2.4.0",
-    "prettier": "^1.18.1"
+    "prettier": "^1.18.1",
+    "webpack": "^4.33.0",
+    "webpack-cli": "^3.3.3",
+    "webpack-dev-server": "^3.7.1"
   },
   "husky": {
     "hooks": {
@@ -22,6 +28,7 @@
     }
   },
   "scripts": {
-    "lint:js": "prettier --write src/**/*.js && eslint --fix \"src/**/*.js\""
+    "lint:js": "prettier --write src/**/*.js && eslint --fix \"src/**/*.js\"",
+    "start:dev": "webpack-dev-server"
   }
 }
