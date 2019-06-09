@@ -7,17 +7,18 @@ import keyboardIcon from "../images/keyboard-icon.svg";
 
 const container = css`
   min-height: 100vh;
-  padding: 6.25rem 0 3.125rem;
+  padding: 6.25rem 1rem 3.125rem;
 
   h1 {
     font-size: 3rem;
     text-align: center;
     margin: 1rem 0;
+    color: var(--color-primary);
   }
 
   h2 {
     font-size: 2rem;
-    margin: 1.5rem 0;
+    margin: 1.5rem 0 0;
   }
 
   h3 {
@@ -35,6 +36,10 @@ const logo = css`
   svg {
     width: 100%;
     height: 100%;
+
+    g {
+      fill: var(--color-primary);
+    }
   }
 `;
 
@@ -73,7 +78,7 @@ const formGroup = css`
   input {
     padding: 1rem 0.5rem;
     border-width: 0 0 2px;
-    border-color: red;
+    border-color: var(--color-primary);
     font-size: 1.25rem;
   }
 `;
