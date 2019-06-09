@@ -21,7 +21,7 @@ const container = css`
   }
 
   h3 {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     margin: 1rem 0;
   }
 `;
@@ -66,7 +66,16 @@ const platformChoice = css`
 `;
 
 const formGroup = css`
-  margin: 2rem 0;
+  padding: 2rem 0 0;
+  display: flex;
+  flex-direction: column;
+
+  input {
+    padding: 1rem 0.5rem;
+    border-width: 0 0 2px;
+    border-color: red;
+    font-size: 1.25rem;
+  }
 `;
 
 const markup = html`
@@ -93,7 +102,7 @@ const markup = html`
                 alt="playstation by Valter Bispo from the Noun Project"
               />
             </label>
-            <input type="radio" name="platform" value="psn" />
+            <input type="radio" id="platform" name="platform" value="psn" />
           </div>
           <div>
             <label for="xbox">
@@ -102,7 +111,7 @@ const markup = html`
                 alt="xbox by Valter Bispo from the Noun Project"
               />
             </label>
-            <input type="radio" name="platform" value="xbox" />
+            <input type="radio" id="platform" name="platform" value="xbox" />
           </div>
           <div>
             <label for="pc">
@@ -111,12 +120,12 @@ const markup = html`
                 alt="Keyboard by businessicons13 from the Noun Project"
               />
             </label>
-            <input type="radio" name="platform" value="pc" />
+            <input type="radio" id="platform" name="platform" value="pc" />
           </div>
         </div>
       </div>
       <div class=${formGroup}>
-        <label for="player-tag">Player tag</label>
+        <h3>Player tag</h3>
         <input type="text" name="player-tag" placeholder="absolute-legend" />
       </div>
     </form>

@@ -64,6 +64,7 @@ module.exports = (env = {}) => {
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         title: '🚨',
+        template: path.resolve(__dirname, 'src/static/index.html'),
         meta: {
           viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'
         }
