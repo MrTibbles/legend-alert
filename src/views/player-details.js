@@ -1,29 +1,15 @@
 import { html } from "lit-html";
 import { css } from "linaria";
 
-import psIcon from "../images/ps-icon.svg";
-import xboxIcon from "../images/xbox-icon.svg";
-import keyboardIcon from "../images/keyboard-icon.svg";
+import { keyboardIcon, psIcon, xboxIcon } from "../svg";
 
 const container = css`
   min-height: 100vh;
   padding: 6.25rem 1rem 3.125rem;
 
-  h1 {
-    font-size: 3rem;
-    text-align: center;
-    margin: 1rem 0;
-    color: var(--color-primary);
-  }
-
-  h2 {
-    font-size: 2rem;
-    margin: 1.5rem 0 0;
-  }
-
-  h3 {
-    font-size: 1.75rem;
-    margin: 1rem 0;
+  @media (min-width: 600px) {
+    width: 500px;
+    margin: 0 auto;
   }
 `;
 
@@ -51,6 +37,14 @@ const platformChoice = css`
     flex: 1;
     display: flex;
     justify-content: center;
+    padding: 0.5rem;
+
+    &.selected svg {
+      path,
+      g {
+        fill: var(--color-primary);
+      }
+    }
   }
 
   input {
@@ -61,9 +55,10 @@ const platformChoice = css`
     display: block;
     width: 100%;
     height: 4rem;
+    cursor: pointer;
   }
 
-  img {
+  svg {
     display: block;
     height: 100%;
     margin: 0 auto;
@@ -83,6 +78,23 @@ const formGroup = css`
   }
 `;
 
+const confirmBtn = css`
+  margin: 3rem 0 0;
+  width: 100%;
+  height: 4.6875rem;
+  background-color: var(--color-primary);
+  border-radius: 3px;
+  font-size: 2rem;
+  color: var(--color-magnolia);
+`;
+
+const onConfirmPlayerDetails = () => {
+  const platformChoice = document.querySelector("#platform").value;
+  const playerTag = document.querySelector("#player-tag").value;
+
+  console.info(`Platform: ${platformChoice}, Player tag: ${playerTag}`);
+};
+
 const markup = html`
   <section class=${container}>
     <div class=${logo}>
@@ -101,38 +113,35 @@ const markup = html`
         <h3>Which Platform?</h3>
         <div class=${platformChoice}>
           <div>
-            <label for="psn">
-              <img
-                src=${psIcon}
-                alt="playstation by Valter Bispo from the Noun Project"
-              />
-            </label>
             <input type="radio" id="platform" name="platform" value="psn" />
+            <label for="psn">${psIcon}</label>
           </div>
           <div>
-            <label for="xbox">
-              <img
-                src=${xboxIcon}
-                alt="xbox by Valter Bispo from the Noun Project"
-              />
-            </label>
             <input type="radio" id="platform" name="platform" value="xbox" />
+            <label for="xbox">${xboxIcon}</label>
           </div>
           <div>
-            <label for="pc">
-              <img
-                src=${keyboardIcon}
-                alt="Keyboard by businessicons13 from the Noun Project"
-              />
-            </label>
             <input type="radio" id="platform" name="platform" value="pc" />
+            <label for="pc">${keyboardIcon}</label>
           </div>
         </div>
       </div>
       <div class=${formGroup}>
         <h3>Player tag</h3>
-        <input type="text" name="player-tag" placeholder="absolute-legend" />
+        <input
+          type="text"
+          id="player-tag"
+          name="player-tag"
+          placeholder="absolute-legend"
+        />
       </div>
+      <button
+        class=${confirmBtn}
+        @click=${onConfirmPlayerDetails}
+        type="button"
+      >
+        CONFIRM
+      </button>
     </form>
   </section>
 `;

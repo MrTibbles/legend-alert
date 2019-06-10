@@ -11,6 +11,8 @@
   margin-inline-end: 0;
 
   --color-primary: rgb(146, 35, 44);
+  --color-magnolia: #f7f7f7;
+  --color-disabled: dimgrey;
 }
 
 body,
@@ -29,4 +31,22 @@ button {
 
 button:disabled {
   cursor: auto;
+  background-color: var(--color-disabled);
+}
+
+h1 {
+  font-size: 3rem;
+  text-align: center;
+  margin: 1rem 0;
+  color: var(--color-primary);
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 1.5rem 0 0;
+}
+
+h3 {
+  font-size: 1.75rem;
+  margin: 1rem 0;
 }
