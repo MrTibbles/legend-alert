@@ -11,6 +11,17 @@ const onConfirmPlayerDetails = () => {
   console.info(`Platform: ${platformChoice}, Player tag: ${playerTag}`);
 };
 
+const onPlatformOptionSelected = ({ target }) => {
+  const options = document.querySelectorAll(".platform-opt button")
+  const platformChoice = document.querySelector("#platform")
+
+  options.forEach(input => input.removeAttribute('selected'))
+
+  target.setAttribute('selected', '')
+
+  platformChoice.value = target.dataset['option']
+}
+
 const markup = html`
   <section class=${styles.container}>
     <div class=${styles.logo}>
@@ -21,19 +32,17 @@ const markup = html`
     <form>
       <div class=${styles.formGroup}>
         <h3>Which Platform?</h3>
-        <div class=${styles.platformChoice}>
-          <div>
-            <input type="radio" id="platform" name="platform" value="psn" />
-            <label for="psn">${psIcon}</label>
+        <div class=${styles.platformChoices}>
+          <div class="platform-opt">
+            <button type="button" @click=${onPlatformOptionSelected} data-option="ps">${psIcon}</button>
           </div>
-          <div>
-            <input type="radio" id="platform" name="platform" value="xbox" />
-            <label for="xbox">${xboxIcon}</label>
+          <div class="platform-opt">
+            <button type="button" @click=${onPlatformOptionSelected} data-option="xbox">${xboxIcon}</button>
           </div>
-          <div>
-            <input type="radio" id="platform" name="platform" value="pc" />
-            <label for="pc">${keyboardIcon}</label>
+          <div class="platform-opt">
+            <button type="button" @click=${onPlatformOptionSelected} data-option="pc">${keyboardIcon}</button>
           </div>
+          <input type="hidden" id="platform" />
         </div>
       </div>
       <div class=${styles.formGroup}>
