@@ -67,7 +67,8 @@ module.exports = (env = {}) => {
         template: path.resolve(__dirname, 'src/static/index.html'),
         meta: {
           viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'
-        }
+        },
+        favicon: path.resolve(__dirname, 'src/favicon.ico')
       }),
       new MiniCssExtractPlugin({
         filename: 'linaria-styles.css',
