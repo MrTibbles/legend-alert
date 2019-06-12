@@ -16,13 +16,8 @@ const logo = css`
   height: 13rem;
   margin: 0 auto 2rem;
 
-  svg {
-    width: 100%;
+  img {
     height: 100%;
-
-    g {
-      fill: var(--color-primary);
-    }
   }
 `;
 
