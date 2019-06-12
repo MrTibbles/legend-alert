@@ -21,17 +21,24 @@ const logo = css`
   }
 `;
 
-const platformChoice = css`
+const platformChoices = css`
   display: flex;
   justify-content: space-between;
 
-  div {
+  .platform-opt {
     flex: 1;
     display: flex;
     justify-content: center;
     padding: 0.5rem;
+  }
 
-    &.selected svg {
+  button {
+    display: block;
+    width: 100%;
+    height: 4rem;
+    cursor: pointer;
+
+    &[selected] svg {
       path,
       g {
         fill: var(--color-primary);
@@ -39,21 +46,14 @@ const platformChoice = css`
     }
   }
 
-  input {
-    display: none;
-  }
-
-  label {
-    display: block;
-    width: 100%;
-    height: 4rem;
-    cursor: pointer;
-  }
-
   svg {
     display: block;
     height: 100%;
     margin: 0 auto;
+
+    &, & * {
+      pointer-events: none;
+    }
   }
 `;
 
@@ -83,7 +83,7 @@ const confirmBtn = css`
 export {
   container,
   logo,
-  platformChoice,
+  platformChoices,
   formGroup,
   confirmBtn,
 }
