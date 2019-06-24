@@ -4,11 +4,29 @@ import * as styles from './styles'
 import { keyboardIcon, psIcon, xboxIcon } from "../../components";
 import logo from '../../images/legend-alert-logo.svg'
 
-const onConfirmPlayerDetails = () => {
+const onConfirmPlayerDetails = async () => {
   const platformChoice = document.querySelector("#platform").value;
   const playerTag = document.querySelector("#player-tag").value;
 
   console.info(`Platform: ${platformChoice}, Player tag: ${playerTag}`);
+
+  try {
+    const { data } = await fetch(
+      `/apex-api/v2/apex/standard/search?platform=${platformChoice}&query=${playerTag}`,
+      {
+        credentials: 'omit',
+        headers: {
+          'Content-Type': 'application/json',
+          'TRN-Api-Key': 'b8b9affa-afeb-41dd-ade1-025f9d1f1f77', // MOVE TO ENV FILE
+        },
+        mode: 'cors',
+    }).then(res => res.json())
+
+    console.info(data)
+
+  } catch (err) {
+    console.warn(err)
+  }
 };
 
 const onPlatformOptionSelected = ({ target }) => {
@@ -34,7 +52,7 @@ const markup = html`
         <h3>Which Platform?</h3>
         <div class=${styles.platformChoices}>
           <div class="platform-opt">
-            <button type="button" @click=${onPlatformOptionSelected} data-option="ps">${psIcon}</button>
+            <button type="button" @click=${onPlatformOptionSelected} data-option="psn">${psIcon}</button>
           </div>
           <div class="platform-opt">
             <button type="button" @click=${onPlatformOptionSelected} data-option="xbox">${xboxIcon}</button>

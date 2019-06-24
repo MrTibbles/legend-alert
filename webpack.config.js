@@ -16,7 +16,14 @@ module.exports = (env = {}) => {
       hot: true,
       contentBase: path.join(__dirname, 'dist'),
       port: 3000,
-      stats: 'errors-warnings'
+      stats: 'errors-warnings',
+      proxy: {
+        '/apex-api/*': {
+          target: 'https://public-api.tracker.gg',
+          pathRewrite: { '/apex-api/': '/' },
+          changeOrigin: true
+        }
+      }
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
