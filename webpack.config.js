@@ -18,9 +18,9 @@ module.exports = (env = {}) => {
       port: 3000,
       stats: 'errors-warnings',
       proxy: {
-        '/apex-api/*': {
+        '/apex-api/**': {
           target: 'https://public-api.tracker.gg',
-          pathRewrite: { '/apex-api/': '/' },
+          pathRewrite: { '/apex-api/': '' },
           changeOrigin: true
         }
       }
