@@ -67,7 +67,7 @@ module.exports = (env = {}) => {
      ]
     },
     plugins: [
-      new webpack.DefinePlugin({ foo: 'bar' }),
+      new webpack.DefinePlugin({ TRN_TOKEN: "'b8b9affa-afeb-41dd-ade1-025f9d1f1f77'" }),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         title: '🚨',

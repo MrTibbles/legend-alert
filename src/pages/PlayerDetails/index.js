@@ -17,7 +17,7 @@ const onConfirmPlayerDetails = async () => {
         credentials: 'omit',
         headers: {
           'Content-Type': 'application/json',
-          'TRN-Api-Key': 'b8b9affa-afeb-41dd-ade1-025f9d1f1f77', // MOVE TO ENV FILE
+          'TRN-Api-Key': TRN_TOKEN,
         },
         mode: 'cors',
     }).then(res => res.json())
