@@ -5,18 +5,18 @@ import { keyboardIcon, psIcon, xboxIcon } from "../../components";
 import logo from '../../images/legend-alert-logo.svg'
 import * as templates from './templates'
 
-const onConfirmPlayerDetails = async () => {
+const onConfirmPlayerSearch = async () => {
   const platformChoice = document.querySelector("#platform").value;
   const playerTag = document.querySelector("#player-tag").value;
 
   if (!platformChoice || !playerTag) {
-    return renderPlayerDetailsView({
+    return renderPlayerSearchView({
       errorMsg: 'Please complete the form',
       hasError: true,
     });
   }
 
-  renderPlayerDetailsView({ isLoadingResults: true })
+  renderPlayerSearchView({ isLoadingResults: true })
 
   const { data } = await fetch(
     `/apex-api/v2/apex/standard/search?platform=${platformChoice}&query=${playerTag}`,
@@ -30,7 +30,7 @@ const onConfirmPlayerDetails = async () => {
   .catch(err => {
     console.warn(err)
 
-    return renderPlayerDetailsView({
+    return renderPlayerSearchView({
       errorMsg: 'Something went wrong with that search',
       hasError: true,
     });
@@ -39,19 +39,19 @@ const onConfirmPlayerDetails = async () => {
     if (!res.ok) {
       console.warn('Something went wrong')
 
-      return renderPlayerDetailsView({
+      return renderPlayerSearchView({
         errorMsg: 'Something went wrong with that search',
         hasError: true,
       });
     }
 
-    renderPlayerDetailsView({ isLoadingResults: false })
+    renderPlayerSearchView({ isLoadingResults: false })
 
     return res.json()
   })
 
   if (!data.length) {
-    return renderPlayerDetailsView({
+    return renderPlayerSearchView({
       errorMsg: 'Sorry, no players were found',
       hasError: true,
     });
@@ -59,12 +59,12 @@ const onConfirmPlayerDetails = async () => {
 
   toggleShowReults(true)
 
-  return renderPlayerDetailsView({ searchResults: data })
+  return renderPlayerSearchView({ searchResults: data })
 };
 
 const toggleShowReults = show => {
   // Feels like overkill to create custom WC for the slider (#slider-container),
-  // its only used in one place and improves the readability of PlayerDetails,
+  // its only used in one place and improves the readability of PlayerSearch,
   // so class toggle is preferred over props
   return show
     ? document.querySelector('#slider-container').classList.add('show-results')
@@ -91,7 +91,7 @@ const onPlatformOptionSelected = ({ target }) => {
  * @param  {Array}   [searchResults]          TRN CollectorSearchResult objects
  * @return {Object}                           lit-html renderResult
  */
-function renderPlayerDetailsView({
+function renderPlayerSearchView({
   errorMsg = '',
   isLoadingResults = false,
   hasError = false,
@@ -139,7 +139,7 @@ function renderPlayerDetailsView({
               }
               ${templates.submitFormButton({
                 disabled: isLoadingResults,
-                onSubmit: onConfirmPlayerDetails
+                onSubmit: onConfirmPlayerSearch
               })}
             </form>
           </section>
@@ -159,9 +159,9 @@ function renderPlayerDetailsView({
 }
 
 // Potentially pass in data from app root? 🤔
-const PlayerDetails = () => {
+const PlayerSearch = () => {
 
-  return renderPlayerDetailsView()
+  return renderPlayerSearchView()
 }
 
-export default PlayerDetails;
+export default PlayerSearch;
