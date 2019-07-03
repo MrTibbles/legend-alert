@@ -4,13 +4,13 @@ import { backButton, searchResultsContainer, searchResultsList } from '../styles
 
 /**
  * Render search results returned from TRN Tracker Search API
- * @param  {Array}    results           TRN CollectorSearchResult objects
- * @param  {Function} toggleShowReults  Handler to go back to details form
- * @return {Object}                     lit-html renderResult
+ * @param  {Function} goBack  Handler to go back to details form
+ * @param  {Array}    results TRN CollectorSearchResult objects
+ * @return {Object}           lit-html renderResult
  */
-const searchResultsMarkup = (results, toggleShowReults) => {
+const searchResultsMarkup = ({ goBack, results }) => {
 
-  const goBack = () => toggleShowReults(false)
+  const onClickGoBack = () => goBack(false)
 
   const onSelectLegend = legendIdx => {
     console.info(results[legendIdx])
@@ -18,7 +18,7 @@ const searchResultsMarkup = (results, toggleShowReults) => {
 
   return html`
     <div class=${searchResultsContainer}>
-      <button class=${backButton} @click=${goBack} type="button">
+      <button class=${backButton} @click=${onClickGoBack} type="button">
         <p>Search again</p>
       </button>
       <h3>The following players matched your search</h3>

@@ -53,16 +53,22 @@ const onConfirmPlayerDetails = async () => {
   })
 
   if (!data.length) {
-    return console.warn('no players returned in search')
+    return renderPlayerDetailsView({
+      errorMsg: 'Sorry, no players were found',
+      hasError: true,
+    });
   }
 
   toggleShowReults(true)
 
-  // CHANGE TO ARGUMENT ON RENDER METHOD
-  render(
-    templates.searchResults(data, toggleShowReults),
-    document.getElementById('search-results')
-  )
+  return renderPlayerDetailsView({ searchResults: data })
+  // render(
+  //   templates.searchResults({
+  //     goBack: toggleShowReults,
+  //     results: data,
+  //   }),
+  //   document.getElementById('search-results')
+  // )
 };
 
 const toggleShowReults = show => {
@@ -94,9 +100,10 @@ const onPlatformOptionSelected = ({ target }) => {
  * @return {Object}                           lit-html renderResult
  */
 function renderPlayerDetailsView({
+  errorMsg = '',
   isLoadingResults = false,
   hasError = false,
-  errorMsg = ''
+  searchResults = []
 } = {}) {
 
   return render(html`
@@ -107,7 +114,7 @@ function renderPlayerDetailsView({
       <h1>Legend Alert</h1>
       <div id="slider-container" class=${styles.detailsSlider}>
         <div class="slider">
-          <section class="pane" id="enter-player-details">
+          <section class="pane">
             <h2>Enter your player details below</h2>
             <form>
               <div class=${styles.formGroup}>
@@ -144,7 +151,15 @@ function renderPlayerDetailsView({
               })}
             </form>
           </section>
-          <section class="pane" id="search-results"></section>
+          <section class="pane">
+            ${searchResults.length
+              ? templates.searchResults({
+                goBack: toggleShowReults,
+                results: searchResults
+              })
+              : null
+            }
+          </section>
         </div>
       </div>
     </section>
