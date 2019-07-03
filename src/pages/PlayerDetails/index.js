@@ -30,7 +30,7 @@ const onConfirmPlayerDetails = async () => {
   })
 
   if (!data.length) {
-    console.warn('no players returned in search')
+    return console.warn('no players returned in search')
   }
 
   render(searchResultsTpl(data), document.getElementById('search-results'))
@@ -53,41 +53,47 @@ const playerDetailsMarkup = html`
       <img src=${logo} alt="Legend Alert Logo | Siren by Mohamad Arif Prasetyo from the Noun Project" />
     </div>
     <h1>Legend Alert</h1>
-    <h2>Enter your player details below</h2>
-    <form>
-      <div class=${styles.formGroup}>
-        <h3>Which Platform?</h3>
-        <div class=${styles.platformChoices}>
-          <div class="platform-opt">
-            <button type="button" @click=${onPlatformOptionSelected} data-option="psn">${psIcon}</button>
-          </div>
-          <div class="platform-opt">
-            <button type="button" @click=${onPlatformOptionSelected} data-option="xbl">${xboxIcon}</button>
-          </div>
-          <div class="platform-opt">
-            <button type="button" @click=${onPlatformOptionSelected} data-option="origin">${keyboardIcon}</button>
-          </div>
-          <input type="hidden" id="platform" />
-        </div>
+    <div class=${styles.detailsSlider}>
+      <div class="slider">
+        <section class="pane" id="enter-player-details">
+          <h2>Enter your player details below</h2>
+          <form>
+            <div class=${styles.formGroup}>
+              <h3>Which Platform?</h3>
+              <div class=${styles.platformChoices}>
+                <div class="platform-opt">
+                  <button type="button" @click=${onPlatformOptionSelected} data-option="psn">${psIcon}</button>
+                </div>
+                <div class="platform-opt">
+                  <button type="button" @click=${onPlatformOptionSelected} data-option="xbl">${xboxIcon}</button>
+                </div>
+                <div class="platform-opt">
+                  <button type="button" @click=${onPlatformOptionSelected} data-option="origin">${keyboardIcon}</button>
+                </div>
+                <input type="hidden" id="platform" />
+              </div>
+            </div>
+            <div class=${styles.formGroup}>
+              <h3>Player tag</h3>
+              <input
+                type="text"
+                id="player-tag"
+                name="player-tag"
+                placeholder="absolute-legend"
+              />
+            </div>
+            <button
+              class=${styles.confirmBtn}
+              @click=${onConfirmPlayerDetails}
+              type="button"
+            >
+              CONFIRM
+            </button>
+          </form>
+        </section>
+        <section class="pane" id="search-results"></section>
       </div>
-      <div class=${styles.formGroup}>
-        <h3>Player tag</h3>
-        <input
-          type="text"
-          id="player-tag"
-          name="player-tag"
-          placeholder="absolute-legend"
-        />
-      </div>
-      <button
-        class=${styles.confirmBtn}
-        @click=${onConfirmPlayerDetails}
-        type="button"
-      >
-        CONFIRM
-      </button>
-      <section id="search-results"></section>
-    </form>
+    </div>
   </section>
 `;
 
