@@ -11,7 +11,7 @@ const onConfirmPlayerDetails = async () => {
 
   if (!platformChoice || !playerTag) {
     // Keen to find better solution to mimic React-like controlflow for re-renders
-    // this approach has a confusing controlflow IMO 🤷‍♂️
+    // this approach has a _slightly_ confusing controlflow IMO 🤷‍♂️
     return renderPlayerDetailsView({
       errorMsg: 'Please complete the form',
       hasError: true,
@@ -90,13 +90,13 @@ const onPlatformOptionSelected = ({ target }) => {
  *
  * @param  {Boolean} [isLoadingResults=false] Network loading state for player search
  * @param  {Boolean} [hasError=false]         Invalid form or network error
- * @param  {String}  errorMsg                 Error message to display in UI
+ * @param  {String}  [errorMsg]               Error message to display in UI
  * @return {Object}                           lit-html renderResult
  */
 function renderPlayerDetailsView({
   isLoadingResults = false,
   hasError = false,
-  errorMsg
+  errorMsg = ''
 } = {}) {
 
   return render(html`
@@ -135,7 +135,7 @@ function renderPlayerDetailsView({
                 />
               </div>
               ${hasError
-                ? html`<p>${errorMsg}</p>`
+                ? html`<p class="error-msg">${errorMsg}</p>`
                 : null
               }
               ${templates.submitFormButton({
