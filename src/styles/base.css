@@ -13,6 +13,7 @@
   --color-primary: #92232C;
   --color-magnolia: #f7f7f7;
   --color-disabled: dimgrey;
+  --color-error: #E98F96;
 }
 
 body,
@@ -61,4 +62,10 @@ p {
 
 .highlight {
   color: var(--color-primary);
+}
+
+.error-msg {
+  color: var(--color-error);
+  padding: 0.75rem 0;
+  font-weight: bold;;
 }

@@ -12,7 +12,7 @@ const submitFormButton = ({disabled = false, onSubmit}) => {
         @click=${onSubmit}
         type="button"
       >
-        CONFIRM
+        LOADING...
       </button>
     `
     : html`

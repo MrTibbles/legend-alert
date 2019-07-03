@@ -121,7 +121,7 @@ const searchResultsList = css`
 
   li {
     display: flex;
-    cusror: pointer;
+    cursor: pointer;
   }
 `
 
