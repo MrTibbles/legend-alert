@@ -1,4 +1,5 @@
 import { html } from "lit-html";
+import localforage from 'localforage'
 
 import { backButton, searchResultsContainer, searchResultsList } from '../styles'
 
@@ -12,8 +13,9 @@ const searchResultsMarkup = ({ goBack, results }) => {
 
   const onClickGoBack = () => goBack(false)
 
-  const onSelectLegend = legendIdx => {
-    console.info(results[legendIdx])
+  const onSelectLegend = async legendIdx => {
+    // Enhance this storage to persist stats object also, PWA
+    await localforage.setItem('activeLegend', results[legendIdx])
   }
 
   return html`

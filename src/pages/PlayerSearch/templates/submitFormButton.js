@@ -7,18 +7,18 @@ const submitFormButton = ({disabled = false, onSubmit}) => {
   return disabled
     ? html`
       <button
-        class=${confirmBtn}
-        disabled
         @click=${onSubmit}
+        class=${confirmBtn}
         type="button"
+        disabled
       >
         LOADING...
       </button>
     `
     : html`
       <button
-        class=${confirmBtn}
         @click=${onSubmit}
+        class=${confirmBtn}
         type="button"
       >
         CONFIRM
