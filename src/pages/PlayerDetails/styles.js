@@ -47,7 +47,7 @@ const detailsSlider = css`
 const backButton = css`
   display: block;
   background: url(${leftArrow}) left center no-repeat;
-  background-size: auto 2rem;
+  background-size: auto 100%;
   padding-left: 3rem;
   margin-bottom: 1.5rem;
 `
