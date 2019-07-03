@@ -1,4 +1,5 @@
 import { css } from "linaria";
+import leftArrow from '../../images/left-arrow.20x36.svg'
 
 const container = css`
   min-height: 100vh;
@@ -41,6 +42,14 @@ const detailsSlider = css`
   .pane {
     width: 50%;
   }
+`
+
+const backButton = css`
+  display: block;
+  background: url(${leftArrow}) left center no-repeat;
+  background-size: auto 2rem;
+  padding-left: 3rem;
+  margin-bottom: 1.5rem;
 `
 
 const platformChoices = css`
@@ -103,7 +112,7 @@ const confirmBtn = css`
 `;
 
 const searchResultsContainer = css`
-  padding-top: 2rem;
+  padding-top: 1rem;
 `
 
 const searchResultsList = css`
@@ -116,6 +125,7 @@ const searchResultsList = css`
 `
 
 export {
+  backButton,
   confirmBtn,
   container,
   detailsSlider,
