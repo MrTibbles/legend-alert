@@ -33,8 +33,15 @@ const onConfirmPlayerDetails = async () => {
     return console.warn('no players returned in search')
   }
 
+  toggleShowReults(true)
   render(searchResultsTpl(data), document.getElementById('search-results'))
 };
+
+const toggleShowReults = show => {
+  return show
+    ? document.querySelector('#slider-container').classList.add('show-results')
+    : document.querySelector('#slider-container').classList.remove('show-results')
+}
 
 const onPlatformOptionSelected = ({ target }) => {
   const options = document.querySelectorAll(".platform-opt button")
@@ -47,13 +54,15 @@ const onPlatformOptionSelected = ({ target }) => {
   platformChoice.value = target.dataset['option']
 }
 
+// Feels like overkill to create custom WC for the slider (#slider-container),
+// its only used in one place and improves the readability of the PlayerDetails page
 const playerDetailsMarkup = html`
   <section class=${styles.container}>
     <div class=${styles.logo}>
       <img src=${logo} alt="Legend Alert Logo | Siren by Mohamad Arif Prasetyo from the Noun Project" />
     </div>
     <h1>Legend Alert</h1>
-    <div class=${styles.detailsSlider}>
+    <div id="slider-container" class=${styles.detailsSlider}>
       <div class="slider">
         <section class="pane" id="enter-player-details">
           <h2>Enter your player details below</h2>
