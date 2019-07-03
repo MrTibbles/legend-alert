@@ -30,12 +30,12 @@ const detailsSlider = css`
     display: flex;
     flex: none;
     width: 200%;
-    transition: transform 2000ms ease-in-out;
+    transition: transform 750ms ease-in-out;
     transform: translate3d(0, 0, 0);
   }
 
   &.show-results .slider {
-    transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-50%, 0, 0);
   }
 
   .pane {
