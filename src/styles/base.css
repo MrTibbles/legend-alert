@@ -50,3 +50,11 @@ h3 {
   font-size: 1.75rem;
   margin: 1rem 0;
 }
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.highlight {
+  color: var(--color-primary);
+}
