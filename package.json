@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "linaria": "^1.4.0-alpha.1",
-    "lit-html": "^1.1.0"
+    "lit-html": "^1.1.0",
+    "localforage": "^1.7.3"
   }
 }
