@@ -1,6 +1,6 @@
 {
-  "extends": "@raddad/eslint-config",
-  "globals": {
+  extends: "@raddad/eslint-config",
+  globals: {
     TRN_TOKEN: false
   }
 }

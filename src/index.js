@@ -1,7 +1,24 @@
 import './styles/base.css'
+import localforage from 'localforage'
 
-import PlayerDetails from './pages/PlayerDetails'
+import * as Pages from './pages'
 
-document.addEventListener("DOMContentLoaded", () => {
-  PlayerDetails()
+localforage.config({
+  description: 'Apex Legends player stats tracker',
+  name: 'legend-alert'
+})
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+  let activeLegend
+
+  try {
+    activeLegend = await localforage.getItem('activeLegend')
+  } catch (err) {
+    console.warn('Something went wrong getting the last legend', err)
+  }
+
+  return activeLegend
+    ? Pages.PlayerStats(activeLegend)
+    : Pages.PlayerSearch()
 });
