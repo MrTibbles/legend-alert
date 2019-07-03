@@ -34,7 +34,7 @@ const onConfirmPlayerDetails = async () => {
   }
 
   toggleShowReults(true)
-  render(searchResultsTpl(data), document.getElementById('search-results'))
+  render(searchResultsTpl(data, toggleShowReults), document.getElementById('search-results'))
 };
 
 const toggleShowReults = show => {
