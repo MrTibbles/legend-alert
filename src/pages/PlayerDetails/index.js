@@ -10,8 +10,6 @@ const onConfirmPlayerDetails = async () => {
   const playerTag = document.querySelector("#player-tag").value;
 
   if (!platformChoice || !playerTag) {
-    // Keen to find better solution to mimic React-like controlflow for re-renders
-    // this approach has a _slightly_ confusing controlflow IMO 🤷‍♂️
     return renderPlayerDetailsView({
       errorMsg: 'Please complete the form',
       hasError: true,
@@ -62,13 +60,6 @@ const onConfirmPlayerDetails = async () => {
   toggleShowReults(true)
 
   return renderPlayerDetailsView({ searchResults: data })
-  // render(
-  //   templates.searchResults({
-  //     goBack: toggleShowReults,
-  //     results: data,
-  //   }),
-  //   document.getElementById('search-results')
-  // )
 };
 
 const toggleShowReults = show => {
@@ -88,7 +79,7 @@ const onPlatformOptionSelected = ({ target }) => {
 
   target.setAttribute('selected', '')
 
-  platformChoice.value = target.dataset['option']
+  platformChoice.value = target.dataset.option
 }
 
 /**
@@ -97,6 +88,7 @@ const onPlatformOptionSelected = ({ target }) => {
  * @param  {Boolean} [isLoadingResults=false] Network loading state for player search
  * @param  {Boolean} [hasError=false]         Invalid form or network error
  * @param  {String}  [errorMsg]               Error message to display in UI
+ * @param  {Array}   [searchResults]          TRN CollectorSearchResult objects
  * @return {Object}                           lit-html renderResult
  */
 function renderPlayerDetailsView({
