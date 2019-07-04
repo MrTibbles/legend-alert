@@ -43,6 +43,8 @@ const fetchPlayerStats = async (platformSlug, platformUserHandle) => {
 };
 
 const PlayerStats = async activePlayer => {
+  document.body.classList.add('dark');
+
   const stats = await fetchPlayerStats(
     activePlayer.platformSlug,
     activePlayer.platformUserHandle
