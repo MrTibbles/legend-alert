@@ -1,50 +1,56 @@
 import { html, render } from "lit-html";
 
-function renderPlayerStatsView({
-  activeLegend
-}) {
+import * as utils from "./utils";
+import * as templates from "./templates";
+
+function renderPlayerStatsView({ activeLegend }) {
+  const activeLegendIconImage = utils.getLegendIconImage(activeLegend);
 
   return render(
-    html`<p>${activeLegend.platformUserHandle} Stats</p>`,
+    html`
+      ${templates.heroSection({ image: activeLegendIconImage })}
+      ${templates.statsGrid({ stats: activeLegend.stats })}
+    `,
     document.body
-  )
+  );
 }
 
 const fetchPlayerStats = async (platformSlug, platformUserHandle) => {
-  console.info('loading')
+  console.info("loading");
 
   const { data } = await fetch(
     `/apex-api/v1/apex/standard/profile/${platformSlug}/${platformUserHandle}`,
     {
-      credentials: 'omit',
+      credentials: "omit",
       headers: {
-        'TRN-Api-Key': TRN_TOKEN,
+        "TRN-Api-Key": TRN_TOKEN
       },
-      mode: 'cors',
-  })
-  .catch(err => {
-    console.warn(err)
-  })
-  .then(res => {
-    if (!res.ok) {
-      console.warn('Something went wron')
+      mode: "cors"
     }
-
-    return res.json()
-  })
-
-  return data
-}
-
-const PlayerStats = async activeLegend => {
-
-  const stats = await fetchPlayerStats(
-    activeLegend.platformSlug, activeLegend.platformUserHandle
   )
+    .catch(err => {
+      console.warn(err);
+    })
+    .then(res => {
+      if (!res.ok) {
+        console.warn("Something went wron");
+      }
 
-  console.info(stats)
+      return res.json();
+    });
 
-  return renderPlayerStatsView({ activeLegend })
-}
+  return data;
+};
 
-export default PlayerStats
+const PlayerStats = async activePlayer => {
+  const stats = await fetchPlayerStats(
+    activePlayer.platformSlug,
+    activePlayer.platformUserHandle
+  );
+
+  const activeLegend = utils.getActiveLegend(stats.children);
+
+  return renderPlayerStatsView({ activeLegend });
+};
+
+export default PlayerStats;

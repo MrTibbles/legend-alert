@@ -9,11 +9,6 @@
   margin-block-end: 0;
   margin-inline-start: 0;
   margin-inline-end: 0;
-
-  --color-primary: #92232C;
-  --color-magnolia: #f7f7f7;
-  --color-disabled: dimgrey;
-  --color-error: #E98F96;
 }
 
 body,
@@ -21,6 +16,17 @@ html {
   font-size: 18px;
   font-family: 'Nova Square', cursive;
   font-weight: normal;
+
+  --color-primary: #92232C;
+  --color-magnolia: #f7f7f7;
+  --color-disabled: dimgrey;
+  --color-error: #E98F96;
+
+  --spacing-base: 1rem;
+
+  --depth-base: 0;
+  --depth-layer1: 25;
+  --depth-layer2: 50;
 }
 
 button {
