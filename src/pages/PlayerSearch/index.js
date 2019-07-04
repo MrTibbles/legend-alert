@@ -135,7 +135,7 @@ function renderPlayerSearchView({
               </div>
               ${hasError
                 ? html`<p class="error-msg">${errorMsg}</p>`
-                : null
+                : ''
               }
               ${templates.submitFormButton({
                 disabled: isLoadingResults,
@@ -149,7 +149,7 @@ function renderPlayerSearchView({
                 goBack: toggleShowReults,
                 results: searchResults
               })
-              : null
+              : ''
             }
           </section>
         </div>

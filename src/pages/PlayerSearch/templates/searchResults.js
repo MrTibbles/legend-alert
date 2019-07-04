@@ -15,7 +15,10 @@ const searchResultsMarkup = ({ goBack, results }) => {
 
   const onSelectLegend = async legendIdx => {
     // Enhance this storage to persist stats object also, PWA
-    await localforage.setItem('activeLegend', results[legendIdx])
+    await localforage.setItem('activePlayer', results[legendIdx])
+
+    // tmp solution to change route - change to custom event or something
+    window.location.reload()
   }
 
   return html`
