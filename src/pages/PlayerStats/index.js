@@ -33,7 +33,7 @@ const fetchPlayerStats = async (platformSlug, platformUserHandle) => {
     })
     .then(res => {
       if (!res.ok) {
-        console.warn("Something went wron");
+        console.warn("Something went wrong");
       }
 
       return res.json();

@@ -6,6 +6,12 @@ const styles = {
   grid: css`
     display: grid;
     grid-template-columns: repeat(2, 50vw);
+  `,
+  statsContainer: css`
+    background-color: var(--color-primary);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
   `
 }
 
@@ -13,33 +19,13 @@ class StatItem extends HTMLElement {
   constructor() {
     super();
 
-    const shadow = this.attachShadow({ mode: "open" });
-    const styles = document.createElement("style");
-    styles.textContent = `
-      .container {
-        background-color: var(--color-primary);
-        display: flex;
-        flex-direction: column;
-      }
-
-      p {
-        color: white;
-      }
-    `;
-
-    const statContainer = document.createElement("div");
-    statContainer.setAttribute("class", "container");
-
-    this.categoryDisplay = document.createElement("p");
-    this.nameDisplay = document.createElement("h3");
-    this.valueDisplay = document.createElement("h2");
-
-    shadow.appendChild(styles);
-    shadow.appendChild(statContainer);
-
-    statContainer.appendChild(this.valueDisplay);
-    statContainer.appendChild(this.nameDisplay);
-    statContainer.appendChild(this.categoryDisplay);
+    this.innerHTML = `
+      <div class=${styles.statsContainer}>
+        <h2 class="stat-value"></h2>
+        <h3 class="stat-name"></h3>
+        <p class="stat-category"></p>
+      </div>
+    `
   }
 
   static get observedAttributes() {
@@ -47,8 +33,10 @@ class StatItem extends HTMLElement {
   }
 
   attributeChangedCallback(attr, oldValue, newValue) {
+    // On construction the attr' values are null, annoyingly, i believe this to
+    // be in relation to using html`` - INVESTIGATE FURTHER
     if (oldValue !== newValue) {
-      return (this[`${attr}Display`].innerText = newValue);
+      return this.querySelector(`.stat-${attr}`).innerText = newValue
     }
   }
 
