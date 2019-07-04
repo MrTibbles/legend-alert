@@ -3,16 +3,57 @@ import { repeat } from "lit-html/directives/repeat";
 import { css } from 'linaria'
 
 const styles = {
+  container: css`
+    position: relative;
+    z-index: var(--depth-layer2);
+    background: transparent;
+    margin-top: -120px;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      display: block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 0 50px 100vw;
+      border-color: transparent transparent var(--color-primary) transparent;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      display: block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 50px 100vw 0 0;
+      border-color: var(--color-primary) transparent transparent transparent;
+    }
+  `,
   grid: css`
     display: grid;
-    grid-template-columns: repeat(2, 50vw);
-  `,
-  statsContainer: css`
+    grid-template-columns: repeat(1, 100vw);
     background-color: var(--color-primary);
+  `,
+  statsItem: css`
     display: flex;
     flex-direction: column;
     text-align: center;
-  `
+    padding: 1rem 25vw;
+
+    .stat-value {
+      color: var(--color-white);
+      font-size: 3.5rem;
+      margin: 0 0 1rem;
+    }
+
+    .stat-name {
+      margin: 0;
+    }
+  `,
 }
 
 class StatItem extends HTMLElement {
@@ -20,10 +61,16 @@ class StatItem extends HTMLElement {
     super();
 
     this.innerHTML = `
-      <div class=${styles.statsContainer}>
-        <h2 class="stat-value"></h2>
-        <h3 class="stat-name"></h3>
-        <p class="stat-category"></p>
+      <div class=${styles.statsItem}>
+        <div>
+          <h2 class="stat-value"></h2>
+        </div>
+        <div>
+          <h3 class="stat-name"></h3>
+        </div>
+        <div>
+          <p>Category: <span class="stat-category"></span></p>
+        </div>
       </div>
     `
   }
@@ -33,14 +80,15 @@ class StatItem extends HTMLElement {
   }
 
   attributeChangedCallback(attr, oldValue, newValue) {
-    // On construction the attr' values are null, annoyingly, i believe this to
-    // be in relation to using html`` - INVESTIGATE FURTHER
+    // On construction the attr' values are null - INVESTIGATE FURTHER
     if (oldValue !== newValue) {
       return this.querySelector(`.stat-${attr}`).innerText = newValue
     }
   }
 
-  // connectedCallback() {}
+  connectedCallback() {
+    console.info('connected', this.getAttribute('name'))
+  }
   // disconnectedCallback() {}
 }
 
@@ -54,7 +102,7 @@ customElements.define("stat-item", StatItem);
  */
 const statsGrid = ({ stats }) => {
   return html`
-    <main class="container">
+    <main class=${styles.container}>
       <div class=${styles.grid}>
         ${repeat(
           stats,

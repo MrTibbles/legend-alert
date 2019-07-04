@@ -4,8 +4,8 @@ import { css } from 'linaria'
 const styles = {
   container: css`
     display: flex;
-    height: 25vh;
-    background-color: #1D1D1D;
+    height: 60vh;
+    background-color: var(--color-dark);
     z-index: var(--depth-layer1);
     justify-content: center;
     overflow: hidden;
@@ -17,7 +17,7 @@ const styles = {
     img {
       display: block
       width: 100%;
-      transform: translateY(-25px);
+      transform: translateY(-45px);
     }
   `
 }

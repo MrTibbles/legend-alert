@@ -109,7 +109,7 @@ const confirmBtn = css`
   background-color: var(--color-primary);
   border-radius: 3px;
   font-size: 2rem;
-  color: var(--color-magnolia);
+  color: var(--color-offwhite);
 `;
 
 const searchResultsContainer = css`
