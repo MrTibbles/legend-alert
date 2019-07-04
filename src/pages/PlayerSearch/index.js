@@ -1,9 +1,9 @@
 import { html, render } from "lit-html";
 
-import * as styles from './styles'
+import * as styles from "./styles";
 import { keyboardIcon, psIcon, xboxIcon } from "../../components";
-import logo from '../../images/legend-alert-logo.svg'
-import * as templates from './templates'
+import logo from "../../images/legend-alert-logo.svg";
+import * as templates from "./templates";
 
 const onConfirmPlayerSearch = async () => {
   const platformChoice = document.querySelector("#platform").value;
@@ -11,55 +11,56 @@ const onConfirmPlayerSearch = async () => {
 
   if (!platformChoice || !playerTag) {
     return renderPlayerSearchView({
-      errorMsg: 'Please complete the form',
-      hasError: true,
+      errorMsg: "Please complete the form",
+      hasError: true
     });
   }
 
-  renderPlayerSearchView({ isLoadingResults: true })
+  renderPlayerSearchView({ isLoadingResults: true });
 
   const { data } = await fetch(
     `/apex-api/v2/apex/standard/search?platform=${platformChoice}&query=${playerTag}`,
     {
-      credentials: 'omit',
+      credentials: "omit",
       headers: {
-        'TRN-Api-Key': TRN_TOKEN,
+        "TRN-Api-Key": TRN_TOKEN
       },
-      mode: 'cors',
-  })
-  .catch(err => {
-    console.warn(err)
-
-    return renderPlayerSearchView({
-      errorMsg: 'Something went wrong with that search',
-      hasError: true,
-    });
-  })
-  .then(res => {
-    if (!res.ok) {
-      console.warn('Something went wrong')
+      mode: "cors"
+    }
+  )
+    .catch(err => {
+      console.warn(err);
 
       return renderPlayerSearchView({
-        errorMsg: 'Something went wrong with that search',
-        hasError: true,
+        errorMsg: "Something went wrong with that search",
+        hasError: true
       });
-    }
+    })
+    .then(res => {
+      if (!res.ok) {
+        console.warn("Something went wrong");
 
-    renderPlayerSearchView({ isLoadingResults: false })
+        return renderPlayerSearchView({
+          errorMsg: "Something went wrong with that search",
+          hasError: true
+        });
+      }
 
-    return res.json()
-  })
+      renderPlayerSearchView({ isLoadingResults: false });
+
+      return res.json();
+    });
 
   if (!data.length) {
     return renderPlayerSearchView({
-      errorMsg: 'Sorry, no players were found',
-      hasError: true,
+      errorMsg: "Sorry, no players were found",
+      hasError: true
     });
   }
 
-  toggleShowReults(true)
+  toggleShowReults(true);
 
-  return renderPlayerSearchView({ searchResults: data })
+  return renderPlayerSearchView({ searchResults: data });
 };
 
 const toggleShowReults = show => {
@@ -67,20 +68,22 @@ const toggleShowReults = show => {
   // its only used in one place and improves the readability of PlayerSearch,
   // so class toggle is preferred over props
   return show
-    ? document.querySelector('#slider-container').classList.add('show-results')
-    : document.querySelector('#slider-container').classList.remove('show-results')
-}
+    ? document.querySelector("#slider-container").classList.add("show-results")
+    : document
+        .querySelector("#slider-container")
+        .classList.remove("show-results");
+};
 
 const onPlatformOptionSelected = ({ target }) => {
-  const options = document.querySelectorAll(".platform-opt button")
-  const platformChoice = document.querySelector("#platform")
+  const options = document.querySelectorAll(".platform-opt button");
+  const platformChoice = document.querySelector("#platform");
 
-  options.forEach(input => input.removeAttribute('selected'))
+  options.forEach(input => input.removeAttribute("selected"));
 
-  target.setAttribute('selected', '')
+  target.setAttribute("selected", "");
 
-  platformChoice.value = target.dataset.option
-}
+  platformChoice.value = target.dataset.option;
+};
 
 /**
  * Dynamic template renderer
@@ -92,76 +95,98 @@ const onPlatformOptionSelected = ({ target }) => {
  * @return {Object}                           lit-html renderResult
  */
 function renderPlayerSearchView({
-  errorMsg = '',
+  errorMsg = "",
   isLoadingResults = false,
   hasError = false,
   searchResults = []
 } = {}) {
-
-  return render(html`
-    <section class=${styles.container}>
-      <div class=${styles.logo}>
-        <img src=${logo} alt="Legend Alert Logo | Siren by Mohamad Arif Prasetyo from the Noun Project" />
-      </div>
-      <h1>Legend Alert</h1>
-      <div id="slider-container" class=${styles.detailsSlider}>
-        <div class="slider">
-          <section class="pane">
-            <h2>Enter your player details below</h2>
-            <form>
-              <div class=${styles.formGroup}>
-                <h3>Which Platform?</h3>
-                <div class=${styles.platformChoices}>
-                  <div class="platform-opt">
-                    <button type="button" @click=${onPlatformOptionSelected} data-option="psn">${psIcon}</button>
-                  </div>
-                  <div class="platform-opt">
-                    <button type="button" @click=${onPlatformOptionSelected} data-option="xbl">${xboxIcon}</button>
-                  </div>
-                  <div class="platform-opt">
-                    <button type="button" @click=${onPlatformOptionSelected} data-option="origin">${keyboardIcon}</button>
-                  </div>
-                  <input type="hidden" id="platform" />
-                </div>
-              </div>
-              <div class=${styles.formGroup}>
-                <h3>Player tag</h3>
-                <input
-                  type="text"
-                  id="player-tag"
-                  name="player-tag"
-                  placeholder="absolute-legend"
-                />
-              </div>
-              ${hasError
-                ? html`<p class="error-msg">${errorMsg}</p>`
-                : ''
-              }
-              ${templates.submitFormButton({
-                disabled: isLoadingResults,
-                onSubmit: onConfirmPlayerSearch
-              })}
-            </form>
-          </section>
-          <section class="pane">
-            ${searchResults.length
-              ? templates.searchResults({
-                goBack: toggleShowReults,
-                results: searchResults
-              })
-              : ''
-            }
-          </section>
+  return render(
+    html`
+      <section class=${styles.container}>
+        <div class=${styles.logo}>
+          <img
+            src=${logo}
+            alt="Legend Alert Logo | Siren by Mohamad Arif Prasetyo from the Noun Project"
+          />
         </div>
-      </div>
-    </section>
-  `, document.body)
+        <h1>Legend Alert</h1>
+        <div id="slider-container" class=${styles.detailsSlider}>
+          <div class="slider">
+            <section class="pane">
+              <h2>Enter your player details below</h2>
+              <form>
+                <div class=${styles.formGroup}>
+                  <h3>Which Platform?</h3>
+                  <div class=${styles.platformChoices}>
+                    <div class="platform-opt">
+                      <button
+                        type="button"
+                        @click=${onPlatformOptionSelected}
+                        data-option="psn"
+                      >
+                        ${psIcon}
+                      </button>
+                    </div>
+                    <div class="platform-opt">
+                      <button
+                        type="button"
+                        @click=${onPlatformOptionSelected}
+                        data-option="xbl"
+                      >
+                        ${xboxIcon}
+                      </button>
+                    </div>
+                    <div class="platform-opt">
+                      <button
+                        type="button"
+                        @click=${onPlatformOptionSelected}
+                        data-option="origin"
+                      >
+                        ${keyboardIcon}
+                      </button>
+                    </div>
+                    <input type="hidden" id="platform" />
+                  </div>
+                </div>
+                <div class=${styles.formGroup}>
+                  <h3>Player tag</h3>
+                  <input
+                    type="text"
+                    id="player-tag"
+                    name="player-tag"
+                    placeholder="absolute-legend"
+                  />
+                </div>
+                ${hasError
+                  ? html`
+                      <p class="error-msg">${errorMsg}</p>
+                    `
+                  : ""}
+                ${templates.submitFormButton({
+                  disabled: isLoadingResults,
+                  onSubmit: onConfirmPlayerSearch
+                })}
+              </form>
+            </section>
+            <section class="pane">
+              ${searchResults.length
+                ? templates.searchResults({
+                    goBack: toggleShowReults,
+                    results: searchResults
+                  })
+                : ""}
+            </section>
+          </div>
+        </div>
+      </section>
+    `,
+    document.body
+  );
 }
 
 // Potentially pass in data from app root? 🤔
 const PlayerSearch = () => {
-
-  return renderPlayerSearchView()
-}
+  return renderPlayerSearchView();
+};
 
 export default PlayerSearch;

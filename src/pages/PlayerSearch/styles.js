@@ -1,5 +1,5 @@
 import { css } from "linaria";
-import leftArrow from '../../images/left-arrow.20x36.svg'
+import leftArrow from "../../images/left-arrow.20x36.svg";
 
 const container = css`
   min-height: 100vh;
@@ -42,7 +42,7 @@ const detailsSlider = css`
   .pane {
     width: 50%;
   }
-`
+`;
 
 const backButton = css`
   display: block;
@@ -50,7 +50,7 @@ const backButton = css`
   background-size: auto 100%;
   padding-left: 3rem;
   margin-bottom: 1.5rem;
-`
+`;
 
 const platformChoices = css`
   display: flex;
@@ -82,7 +82,8 @@ const platformChoices = css`
     height: 100%;
     margin: 0 auto;
 
-    &, & * {
+    &,
+    & * {
       pointer-events: none;
     }
   }
@@ -113,7 +114,7 @@ const confirmBtn = css`
 
 const searchResultsContainer = css`
   padding-top: 1rem;
-`
+`;
 
 const searchResultsList = css`
   list-style: none;
@@ -123,7 +124,7 @@ const searchResultsList = css`
     display: flex;
     cursor: pointer;
   }
-`
+`;
 
 export {
   backButton,
@@ -135,4 +136,4 @@ export {
   platformChoices,
   searchResultsContainer,
   searchResultsList
-}
+};
