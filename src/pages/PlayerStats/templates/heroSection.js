@@ -17,7 +17,11 @@ const styles = {
     img {
       display: block
       width: 100%;
-      transform: translateY(-45px);
+      transform: translateY(0);
+
+      @media (min-width: 450px) {
+        transform: translateY(-45px);
+      }
     }
   `
 };

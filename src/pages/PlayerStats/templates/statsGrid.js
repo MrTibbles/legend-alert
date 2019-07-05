@@ -12,24 +12,24 @@ const styles = {
     &:before {
       content: "";
       position: absolute;
-      top: -50px;
+      top: -75px;
       display: block;
       width: 0;
       height: 0;
       border-style: solid;
-      border-width: 0 0 50px 100vw;
+      border-width: 0 0 77px 100vw;
       border-color: transparent transparent var(--color-primary) transparent;
     }
 
     &:after {
       content: "";
       position: absolute;
-      bottom: -50px;
+      bottom: -75px;
       display: block;
       width: 0;
       height: 0;
       border-style: solid;
-      border-width: 50px 100vw 0 0;
+      border-width: 77px 100vw 0 0;
       border-color: var(--color-primary) transparent transparent transparent;
     }
   `,
