@@ -1,5 +1,6 @@
 import "./styles/base.css";
 import localforage from "localforage";
+import { html, render } from "lit-html";
 
 import * as Pages from "./pages";
 
@@ -18,5 +19,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.warn("Something went wrong getting the last legend", err);
   }
 
-  return activePlayer ? Pages.PlayerStats(activePlayer) : Pages.PlayerSearch();
+  // return activePlayer ? Pages.PlayerStats(activePlayer) : Pages.PlayerSearch();
+  return activePlayer
+    ? render(
+        html`
+          <player-stats-view
+            .initialState=${{ activePlayer }}
+          ></player-stats-view>
+        `,
+        document.body
+      )
+    : Pages.PlayerSearch();
 });
