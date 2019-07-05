@@ -1,6 +1,6 @@
 import { html } from "lit-html";
 import { repeat } from "lit-html/directives/repeat";
-import { css } from 'linaria'
+import { css } from "linaria";
 
 const styles = {
   container: css`
@@ -10,7 +10,7 @@ const styles = {
     margin-top: -120px;
 
     &:before {
-      content: '';
+      content: "";
       position: absolute;
       top: -50px;
       display: block;
@@ -22,7 +22,7 @@ const styles = {
     }
 
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: -50px;
       display: block;
@@ -53,8 +53,8 @@ const styles = {
     .stat-name {
       margin: 0;
     }
-  `,
-}
+  `
+};
 
 class StatItem extends HTMLElement {
   constructor() {
@@ -72,7 +72,7 @@ class StatItem extends HTMLElement {
           <p>Category: <span class="stat-category"></span></p>
         </div>
       </div>
-    `
+    `;
   }
 
   static get observedAttributes() {
@@ -82,12 +82,12 @@ class StatItem extends HTMLElement {
   attributeChangedCallback(attr, oldValue, newValue) {
     // On construction the attr' values are null - INVESTIGATE FURTHER
     if (oldValue !== newValue) {
-      return this.querySelector(`.stat-${attr}`).innerText = newValue
+      return (this.querySelector(`.stat-${attr}`).innerText = newValue);
     }
   }
 
   connectedCallback() {
-    console.info('connected', this.getAttribute('name'))
+    console.info("connected", this.getAttribute("name"));
   }
   // disconnectedCallback() {}
 }

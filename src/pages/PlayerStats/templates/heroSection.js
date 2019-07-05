@@ -1,5 +1,5 @@
 import { html } from "lit-html";
-import { css } from 'linaria'
+import { css } from "linaria";
 
 const styles = {
   container: css`
@@ -20,17 +20,16 @@ const styles = {
       transform: translateY(-45px);
     }
   `
-}
+};
 
 const heroSection = ({ image }) => {
-
   return html`
     <section class=${styles.container}>
       <div class=${styles.legendImage}>
         <img src="${image}" alt="Active Legend | Legend Alert" />
       </div>
     </section>
-  `
-}
+  `;
+};
 
-export default heroSection
+export default heroSection;

@@ -32,7 +32,7 @@
     }
   },
   "scripts": {
-    "lint:js": "prettier --write src/**/*.js && eslint --fix \"src/**/*.js\"",
+    "lint:js": "prettier --write \"src/**/*.js\" && eslint --fix \"src/**/*.js\"",
     "start:dev": "webpack-dev-server"
   },
   "dependencies": {
