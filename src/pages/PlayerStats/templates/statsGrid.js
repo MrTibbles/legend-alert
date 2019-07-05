@@ -102,7 +102,7 @@ customElements.define("stat-item", StatItem);
  */
 const statsGrid = ({ stats }) => {
   return html`
-    <main class=${styles.container}>
+    <section class=${styles.container}>
       <div class=${styles.grid}>
         ${repeat(
           stats,
@@ -117,7 +117,7 @@ const statsGrid = ({ stats }) => {
           `
         )}
       </div>
-    </main>
+    </section>
   `;
 };
 
