@@ -1,7 +1,11 @@
 import { html } from "lit-html";
-import localforage from 'localforage'
+import localforage from "localforage";
 
-import { backButton, searchResultsContainer, searchResultsList } from '../styles'
+import {
+  backButton,
+  searchResultsContainer,
+  searchResultsList
+} from "../styles";
 
 /**
  * Render search results returned from TRN Tracker Search API
@@ -10,16 +14,15 @@ import { backButton, searchResultsContainer, searchResultsList } from '../styles
  * @return {Object}           lit-html renderResult
  */
 const searchResultsMarkup = ({ goBack, results }) => {
-
-  const onClickGoBack = () => goBack(false)
+  const onClickGoBack = () => goBack(false);
 
   const onSelectLegend = async legendIdx => {
     // Enhance this storage to persist stats object also, PWA
-    await localforage.setItem('activePlayer', results[legendIdx])
+    await localforage.setItem("activePlayer", results[legendIdx]);
 
     // tmp solution to change route - change to custom event or something
-    window.location.reload()
-  }
+    window.location.reload();
+  };
 
   return html`
     <div class=${searchResultsContainer}>
@@ -29,16 +32,20 @@ const searchResultsMarkup = ({ goBack, results }) => {
       <h3>The following players matched your search</h3>
       <p>Select one to see how much of a legend they are:</p>
       <ul class=${searchResultsList}>
-        ${results.map(({ platformSlug, platformUserHandle }, idx) =>
-          html`
-            <li @click=${() => onSelectLegend(idx)}>
-              <h3><span class="highlight">${platformUserHandle}</span> on <span class="highlight uppercase">${platformSlug}</span></h3>
-            </li>
-          `
+        ${results.map(
+          ({ platformSlug, platformUserHandle }, idx) =>
+            html`
+              <li @click=${() => onSelectLegend(idx)}>
+                <h3>
+                  <span class="highlight">${platformUserHandle}</span> on
+                  <span class="highlight uppercase">${platformSlug}</span>
+                </h3>
+              </li>
+            `
         )}
       </ul>
     </div>
-  `
-}
+  `;
+};
 
-export default searchResultsMarkup
+export default searchResultsMarkup;

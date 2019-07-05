@@ -4,7 +4,8 @@
  * @param  {Array} legends Array of stats objects specific to a single Apex Legend
  * @return {Object}        Apex Legend that is currently being used in-game
  */
-const getActiveLegend = legends => legends.find(({ metadata }) => metadata.isActive)
+const getActiveLegend = legends =>
+  legends.find(({ metadata }) => metadata.isActive);
 
 /**
  * Return the icon image from the active legend object
@@ -15,9 +16,6 @@ const getActiveLegend = legends => legends.find(({ metadata }) => metadata.isAct
  * @param  {Object} activeLegend Active in-app Legend
  * @return {String}              URL for legend icon image
  */
-const getLegendIconImage = ({ metadata }) => metadata.icon
+const getLegendIconImage = ({ metadata }) => metadata.icon;
 
-export {
-  getActiveLegend,
-  getLegendIconImage
-}
+export { getActiveLegend, getLegendIconImage };
