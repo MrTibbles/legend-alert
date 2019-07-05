@@ -3,12 +3,16 @@ import { html, render } from "lit-html";
 import * as utils from "./utils";
 import * as templates from "./templates";
 
-function renderPlayerStatsView({ activeLegend }) {
+function renderPlayerStatsView({ activeLegend, activePlayer }) {
   const activeLegendIconImage = utils.getLegendIconImage(activeLegend);
 
   return render(
     html`
-      ${templates.heroSection({ image: activeLegendIconImage })}
+      ${templates.heroSection({
+        image: activeLegendIconImage,
+        playerHandle: activePlayer.platformUserHandle,
+        playerPlatform: activePlayer.platformSlug
+      })}
       ${templates.statsGrid({ stats: activeLegend.stats })}
     `,
     document.body
@@ -52,7 +56,7 @@ const PlayerStats = async activePlayer => {
 
   const activeLegend = utils.getActiveLegend(stats.children);
 
-  return renderPlayerStatsView({ activeLegend });
+  return renderPlayerStatsView({ activeLegend, activePlayer });
 };
 
 export default PlayerStats;

@@ -3,11 +3,10 @@ import { css } from "linaria";
 
 const styles = {
   container: css`
-    display: flex;
     height: 60vh;
     background-color: var(--color-dark);
     z-index: var(--depth-layer1);
-    justify-content: center;
+    padding-top: 75px; /* height of the playerInfo row */
     overflow: hidden;
   `,
   legendImage: css`
@@ -23,12 +22,31 @@ const styles = {
         transform: translateY(-45px);
       }
     }
+  `,
+  playerInfo: css`
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing-base) 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 75px;
+  `,
+  playerName: css`
+    color: var(--color-white);
+    margin: 0;
   `
 };
 
-const heroSection = ({ image }) => {
+const heroSection = ({ image, playerHandle, playerPlatform }) => {
   return html`
     <section class=${styles.container}>
+      <div class=${styles.playerInfo}>
+        <h3 class=${styles.playerName}>
+          ${playerHandle} | <span class="uppercase">${playerPlatform}</span>
+        </h3>
+      </div>
       <div class=${styles.legendImage}>
         <img src="${image}" alt="Active Legend | Legend Alert" />
       </div>
