@@ -23,9 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   return activePlayer
     ? render(
         html`
-          <player-stats-view
-            .initialState=${{ activePlayer }}
-          ></player-stats-view>
+          <player-stats-view .activePlayer=${activePlayer}></player-stats-view>
         `,
         document.body
       )
