@@ -62,44 +62,6 @@ const styles = {
   `
 };
 
-class StatItem extends HTMLElement {
-  constructor() {
-    super();
-
-    this.innerHTML = `
-      <div class=${styles.statsItem}>
-        <div>
-          <h2 class="stat-value"></h2>
-        </div>
-        <div>
-          <h3 class="stat-name"></h3>
-        </div>
-        <div>
-          <p>Category: <span class="stat-category"></span></p>
-        </div>
-      </div>
-    `;
-  }
-
-  static get observedAttributes() {
-    return ["category", "value", "name"];
-  }
-
-  attributeChangedCallback(attr, oldValue, newValue) {
-    // On construction the attr' values are null - INVESTIGATE FURTHER
-    if (oldValue !== newValue) {
-      return (this.querySelector(`.stat-${attr}`).innerText = newValue);
-    }
-  }
-
-  connectedCallback() {
-    console.info("connected", this.getAttribute("name"));
-  }
-  // disconnectedCallback() {}
-}
-
-customElements.define("stat-item", StatItem);
-
 /**
  * Main stats grid for a single Apex Legend
  *
@@ -114,12 +76,22 @@ const statsGrid = ({ stats }) => {
           stats,
           ({ metadata }) => metadata.key,
           stat => html`
-            <stat-item
-              category=${stat.metadata.categoryName}
-              value=${stat.displayValue}
-              name=${stat.metadata.name}
-            >
-            </stat-item>
+            <div class=${styles.statsItem}>
+              <div>
+                <h2 class="stat-value">${stat.displayValue}</h2>
+              </div>
+              <div>
+                <h3 class="stat-name">${stat.metadata.name}</h3>
+              </div>
+              <div>
+                <p>
+                  Category:
+                  <span class="stat-category"
+                    >${stat.metadata.categoryName}</span
+                  >
+                </p>
+              </div>
+            </div>
           `
         )}
       </div>
