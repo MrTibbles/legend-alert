@@ -36,13 +36,19 @@ const styles = {
   grid: css`
     display: grid;
     grid-template-columns: repeat(1, 100vw);
+    /* display: flex;
+    flex-direction: column; */
     background-color: var(--color-primary);
+
+    @media (min-width: 1100px) {
+      grid-template-columns: repeat(3, 33.333vw);
+    }
   `,
   statsItem: css`
     display: flex;
     flex-direction: column;
     text-align: center;
-    padding: 1rem 25vw;
+    padding: 1rem 0;
 
     .stat-value {
       color: var(--color-white);

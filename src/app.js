@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.warn("Something went wrong getting the last legend", err);
   }
 
-  // return activePlayer ? Pages.PlayerStats(activePlayer) : Pages.PlayerSearch();
   return activePlayer
     ? render(
         html`
