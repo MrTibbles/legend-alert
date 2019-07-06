@@ -34,11 +34,13 @@ class PlayerStats extends HTMLElement {
         mode: "cors"
       }
     )
-      .catch(err =>
+      .catch(err => {
         this.setState({
           fetchState: { ...this.state.fetchState, error: err.message }
-        })
-      )
+        });
+
+        return this._render();
+      })
       .then(res => {
         if (!res.ok) {
           this.setState({
@@ -47,6 +49,8 @@ class PlayerStats extends HTMLElement {
               error: "Something went wrong"
             }
           });
+
+          return this._render();
         }
 
         return res.json();
@@ -70,9 +74,7 @@ class PlayerStats extends HTMLElement {
 
       this.setState({ activePlayer: this.activePlayer });
 
-      const {
-        activePlayer: { platformSlug, platformUserHandle }
-      } = this.state;
+      const { platformSlug, platformUserHandle } = this.activePlayer;
 
       return this.fetchPlayerStats(platformSlug, platformUserHandle);
     }
@@ -93,9 +95,19 @@ class PlayerStats extends HTMLElement {
       fetchState: { error, loading }
     } = this.state;
 
-    if (loading) return console.info("loading");
+    if (loading) {
+      return render(
+        templates.fetchStateDisplay("loading"),
+        document.querySelector("player-stats-view")
+      );
+    }
 
-    if (error) return console.warn("something went wrong");
+    if (error) {
+      return render(
+        templates.fetchStateDisplay("error", error),
+        document.querySelector("player-stats-view")
+      );
+    }
 
     const activeLegendIconImage = utils.getLegendIconImage(activeLegend);
 

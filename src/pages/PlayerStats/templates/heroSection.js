@@ -16,6 +16,8 @@ const styles = {
     img {
       display: block
       width: 100%;
+      max-width: 650px;
+      margin: 0 auto;
       transform: translateY(0);
 
       @media (min-width: 450px) {
