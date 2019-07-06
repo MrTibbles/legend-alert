@@ -15,13 +15,12 @@ class PlayerStats extends HTMLElement {
   }
 
   async fetchPlayerStats(platformSlug, platformUserHandle) {
-    this.state = {
-      ...this.state,
+    this.setState({
       fetchState: {
         ...this.state.fetchState,
         loading: true
       }
-    };
+    });
 
     this._render();
 
@@ -35,30 +34,32 @@ class PlayerStats extends HTMLElement {
         mode: "cors"
       }
     )
-      .catch(err => {
-        console.warn(err);
-      })
+      .catch(err =>
+        this.setState({
+          fetchState: { ...this.state.fetchState, error: err.message }
+        })
+      )
       .then(res => {
         if (!res.ok) {
-          console.warn("Something went wrong");
+          this.setState({
+            fetchState: {
+              ...this.state.fetchState,
+              error: "Something went wrong"
+            }
+          });
         }
 
         return res.json();
       });
 
-    // the below is ridiculous
-    // need state machine
-    this.state = {
-      ...this.state,
-      activeLegend: !this.state.activeLegend
-        ? utils.getActiveLegend(data.children)
-        : this.state.activeLegend,
+    this.setState({
+      activeLegend: utils.getActiveLegend(data.children),
       fetchState: {
         data,
         error: undefined,
         loading: false
       }
-    };
+    });
 
     return this._render();
   }
@@ -67,10 +68,7 @@ class PlayerStats extends HTMLElement {
     if (this.isConnected) {
       document.body.classList.add("dark");
 
-      this.state = {
-        ...this.state,
-        ...this.initialState
-      };
+      this.setState({ activePlayer: this.activePlayer });
 
       const {
         activePlayer: { platformSlug, platformUserHandle }
@@ -78,6 +76,14 @@ class PlayerStats extends HTMLElement {
 
       return this.fetchPlayerStats(platformSlug, platformUserHandle);
     }
+  }
+
+  // using sync updates to avoid added complexity of async state updates causing renders
+  setState(newState) {
+    return (this.state = {
+      ...this.state,
+      ...newState
+    });
   }
 
   _render() {
