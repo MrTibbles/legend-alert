@@ -23,27 +23,6 @@ const logo = css`
   }
 `;
 
-const detailsSlider = css`
-  display: flex;
-  overflow: hidden;
-
-  .slider {
-    display: flex;
-    flex: none;
-    width: 200%;
-    transition: transform 750ms ease-in-out;
-    transform: translate3d(0, 0, 0);
-  }
-
-  &.show-results .slider {
-    transform: translate3d(-50%, 0, 0);
-  }
-
-  .pane {
-    width: 50%;
-  }
-`;
-
 const backButton = css`
   display: block;
   background: url(${leftArrow}) left center no-repeat;
@@ -67,14 +46,6 @@ const platformChoices = css`
     display: block;
     width: 100%;
     height: 4rem;
-    cursor: pointer;
-
-    &[selected] svg {
-      path,
-      g {
-        fill: var(--color-primary);
-      }
-    }
   }
 
   svg {
@@ -130,7 +101,6 @@ export {
   backButton,
   confirmBtn,
   container,
-  detailsSlider,
   formGroup,
   logo,
   platformChoices,
