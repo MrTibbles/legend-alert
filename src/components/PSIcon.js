@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const PSIcon = ({ color = "#000" }) => (
   <svg viewBox="0 0 90 56" xmlns="http://www.w3.org/2000/svg">
@@ -9,5 +10,9 @@ const PSIcon = ({ color = "#000" }) => (
     />
   </svg>
 );
+
+PSIcon.propTypes = {
+  color: PropTypes.string
+};
 
 export default PSIcon;
