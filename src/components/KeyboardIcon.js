@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const KeyboardIcon = ({ color = "#000" }) => (
   <svg viewBox="0 0 30 28">
@@ -8,5 +9,9 @@ const KeyboardIcon = ({ color = "#000" }) => (
     </g>
   </svg>
 );
+
+KeyboardIcon.propTypes = {
+  color: PropTypes.string
+};
 
 export default KeyboardIcon;

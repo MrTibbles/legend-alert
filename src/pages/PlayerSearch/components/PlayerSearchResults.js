@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import localforage from "localforage";
 
 import {
@@ -31,7 +32,8 @@ const PlayerSearchResults = ({ goBack, results = [] }) => {
           {results.map(({ platformSlug, platformUserHandle }, idx) => (
             <li key={platformSlug} onClick={() => onSelectLegend(idx)}>
               <h3>
-                <span className="highlight">{platformUserHandle}</span> on
+                <span className="highlight">{platformUserHandle}</span>
+                &nbsp;on&nbsp;
                 <span className="highlight uppercase">{platformSlug}</span>
               </h3>
             </li>
@@ -40,6 +42,11 @@ const PlayerSearchResults = ({ goBack, results = [] }) => {
       </div>
     </section>
   );
+};
+
+PlayerSearchResults.propTypes = {
+  goBack: PropTypes.func.isRequired,
+  results: PropTypes.array
 };
 
 export default PlayerSearchResults;

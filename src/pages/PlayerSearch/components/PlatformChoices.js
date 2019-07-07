@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { platformChoices as container } from "../styles";
 import palette from "../../../styles/theme";
 import { PSIcon, XboxIcon, KeyboardIcon } from "../../../components";
@@ -28,5 +29,10 @@ const PlatformChoices = ({ onPlatformOptionSelected, platformChoice }) => (
     </div>
   </div>
 );
+
+PlatformChoices.propTypes = {
+  onPlatformOptionSelected: PropTypes.func.isRequired,
+  platformChoice: PropTypes.string.isRequired
+};
 
 export default React.memo(PlatformChoices);

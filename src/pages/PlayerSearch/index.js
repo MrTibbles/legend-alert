@@ -72,6 +72,7 @@ const PlayerSearch = () => {
       <Components.DetailsSlider showResults={showResults}>
         <div className="slider">
           <Components.PlayerDetailsForm
+            searching={networkState.loading}
             submitPlayerSearch={submitPlayerSearch}
           />
           <Components.PlayerSearchResults

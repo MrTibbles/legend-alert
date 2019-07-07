@@ -1,8 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 import * as styles from "../styles";
 import PlatformChoices from "./PlatformChoices";
 
-const PlayerDetailsForm = ({ submitPlayerSearch }) => {
+const PlayerDetailsForm = ({ searching, submitPlayerSearch }) => {
   const [formValidation, setFormValidation] = React.useState({
     isValid: true,
     msg: ""
@@ -46,14 +47,20 @@ const PlayerDetailsForm = ({ submitPlayerSearch }) => {
         </div>
         <button
           className={styles.confirmBtn}
+          disabled={searching}
           onClick={onConfirmPlayerSearch}
           type="button"
         >
-          Confirm
+          {searching ? "Loading..." : "Confirm"}
         </button>
       </form>
     </section>
   );
+};
+
+PlayerDetailsForm.propTypes = {
+  searching: PropTypes.bool.isRequired,
+  submitPlayerSearch: PropTypes.func.isRequired
 };
 
 export default PlayerDetailsForm;

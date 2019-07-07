@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const XboxIcon = ({ color = "#000" }) => (
   <svg viewBox="0 0 90 64" xmlns="http://www.w3.org/2000/svg">
@@ -9,5 +10,9 @@ const XboxIcon = ({ color = "#000" }) => (
     />
   </svg>
 );
+
+XboxIcon.propTypes = {
+  color: PropTypes.string
+};
 
 export default XboxIcon;
