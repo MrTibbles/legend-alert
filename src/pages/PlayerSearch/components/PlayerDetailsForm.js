@@ -1,18 +1,25 @@
 import React from "react";
 import * as styles from "../styles";
-import palette from "../../../styles/theme";
-import { KeyboardIcon, PSIcon, XboxIcon } from "../../../components";
+import PlatformChoices from "./PlatformChoices";
 
-/*
-  TODOS:
-    - Create Button component with default type attribute
- */
-
-const PlayerDetailsForm = () => {
+const PlayerDetailsForm = ({ submitPlayerSearch }) => {
+  const [formValidation, setFormValidation] = React.useState({
+    isValid: true,
+    msg: ""
+  });
   const [platformChoice, setPlatformChoice] = React.useState("");
   const [playerHandle, setPlayerHandle] = React.useState("");
 
-  const onPlatformOptionSelected = option => setPlatformChoice(option);
+  const onConfirmPlayerSearch = () => {
+    if (!platformChoice || !playerHandle) {
+      return setFormValidation({
+        isValid: false,
+        msg: "Please complete the form"
+      });
+    }
+
+    return submitPlayerSearch(platformChoice, playerHandle);
+  };
 
   return (
     <section className="pane">
@@ -20,44 +27,10 @@ const PlayerDetailsForm = () => {
       <form>
         <div className={styles.formGroup}>
           <h3>Which Platform?</h3>
-          <div className={styles.platformChoices}>
-            <div className="platform-opt">
-              <button
-                onClick={() => onPlatformOptionSelected("psn")}
-                type="button"
-              >
-                <PSIcon
-                  color={
-                    platformChoice === "psn" ? palette.primary : palette.dark
-                  }
-                />
-              </button>
-            </div>
-            <div className="platform-opt">
-              <button
-                onClick={() => onPlatformOptionSelected("xbl")}
-                type="button"
-              >
-                <XboxIcon
-                  color={
-                    platformChoice === "xbl" ? palette.primary : palette.dark
-                  }
-                />
-              </button>
-            </div>
-            <div className="platform-opt">
-              <button
-                onClick={() => onPlatformOptionSelected("origin")}
-                type="button"
-              >
-                <KeyboardIcon
-                  color={
-                    platformChoice === "origin" ? palette.primary : palette.dark
-                  }
-                />
-              </button>
-            </div>
-          </div>
+          <PlatformChoices
+            onPlatformOptionSelected={setPlatformChoice}
+            platformChoice={platformChoice}
+          />
           <div className={styles.formGroup}>
             <h3>Player tag</h3>
             <input
@@ -67,8 +40,15 @@ const PlayerDetailsForm = () => {
               value={playerHandle}
             />
           </div>
+          {!formValidation.isValid ? (
+            <p className="error-msg">{formValidation.msg}</p>
+          ) : null}
         </div>
-        <button className={styles.confirmBtn} type="button">
+        <button
+          className={styles.confirmBtn}
+          onClick={onConfirmPlayerSearch}
+          type="button"
+        >
           Confirm
         </button>
       </form>
