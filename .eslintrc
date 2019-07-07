@@ -1,6 +1,7 @@
 {
-  extends: "@raddad/eslint-config",
+  extends: "@raddad/eslint-config/react-rules",
   globals: {
     TRN_TOKEN: false
-  }
+  },
+  parser: "babel-eslint"
 }
