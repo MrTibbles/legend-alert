@@ -17,8 +17,6 @@ const PlayerStats = () => {
   });
 
   React.useEffect(() => {
-    document.body.classList.add("dark");
-
     if (!activePlayer) return;
 
     const { platformSlug, platformUserHandle } = activePlayer;

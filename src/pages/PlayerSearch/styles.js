@@ -5,11 +5,24 @@ const container = css`
   min-height: 100vh;
   padding: 6.25rem 1rem 3.125rem;
   overflow: hidden;
+  position: relative;
 
   @media (min-width: 600px) {
     width: 500px;
     margin: 0 auto;
   }
+`;
+
+const viewActivePlayerContainer = css`
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: var(--color-primary);
+  z-index: var(--depth-layer2);
+  box-shadow: 0 -10px 30px var(--color-primary);
 `;
 
 const logo = css`
@@ -105,5 +118,6 @@ export {
   logo,
   platformChoices,
   searchResultsContainer,
-  searchResultsList
+  searchResultsList,
+  viewActivePlayerContainer
 };
