@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import localforage from "localforage";
+import { withRouter } from "react-router-dom";
 
 import {
   backButton,
@@ -8,7 +9,7 @@ import {
   searchResultsList
 } from "../styles";
 
-const PlayerSearchResults = ({ goBack, results = [] }) => {
+const PlayerSearchResults = ({ goBack, history, results = [] }) => {
   if (!results.length) return null;
 
   const onClickGoBack = () => goBack(false);
@@ -17,7 +18,7 @@ const PlayerSearchResults = ({ goBack, results = [] }) => {
     await localforage.setItem("activePlayer", results[legendIdx]);
 
     // tmp solution to change route - change to custom event or something
-    window.location.reload();
+    history.push("/stats");
   };
 
   return (
@@ -49,4 +50,4 @@ PlayerSearchResults.propTypes = {
   results: PropTypes.array
 };
 
-export default PlayerSearchResults;
+export default withRouter(PlayerSearchResults);
