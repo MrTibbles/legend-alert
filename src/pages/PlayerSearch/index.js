@@ -1,5 +1,6 @@
 import React from "react";
 
+import useTrackerNetworkAPI from "../../hooks/useTrackerNetworkAPI";
 import * as styles from "./styles";
 import logo from "../../images/legend-alert-logo.svg";
 import { useActivePlayer } from "../../context/ActivePlayer";
@@ -9,60 +10,17 @@ import * as Components from "./components";
 const PlayerSearch = () => {
   const activePlayer = useActivePlayer();
   const [showResults, toggleShowReults] = React.useState(false);
-  const [networkState, setNeworkState] = React.useState({
-    data: undefined,
-    error: undefined,
-    loading: false
+  const [networkState, doFetch] = useTrackerNetworkAPI();
+
+  const submitPlayerSearch = React.useRef((platformChoice, playerHandle) => {
+    doFetch(
+      `/apex-api/v2/apex/standard/search?platform=${platformChoice}&query=${playerHandle}`
+    );
   });
 
-  const submitPlayerSearch = async (platformChoice, playerHandle) => {
-    setNeworkState({ ...networkState, error: undefined, loading: true });
-
-    const { data } = await fetch(
-      `/apex-api/v2/apex/standard/search?platform=${platformChoice}&query=${playerHandle}`,
-      {
-        credentials: "omit",
-        headers: {
-          "TRN-Api-Key": TRN_TOKEN
-        },
-        mode: "cors"
-      }
-    )
-      .catch(err => {
-        console.warn(err);
-
-        return setNeworkState({
-          ...networkState,
-          error: "Something went wrong with that search",
-          loading: false
-        });
-      })
-      .then(res => {
-        if (!res.ok) {
-          console.warn("Something went wrong");
-
-          return setNeworkState({
-            ...networkState,
-            error: "Something went wrong with that search",
-            loading: false
-          });
-        }
-
-        return res.json();
-      });
-
-    if (!data.length) {
-      return setNeworkState({
-        ...networkState,
-        error: "Sorry, no players were found",
-        loading: false
-      });
-    }
-
-    toggleShowReults(true);
-
-    return setNeworkState({ ...networkState, data, loading: false });
-  };
+  React.useEffect(() => {
+    if (networkState.data) toggleShowReults(true);
+  }, [networkState]);
 
   return (
     <section className={styles.container}>
@@ -77,7 +35,7 @@ const PlayerSearch = () => {
         <div className="slider">
           <Components.PlayerDetailsForm
             searching={networkState.loading}
-            submitPlayerSearch={submitPlayerSearch}
+            submitPlayerSearch={submitPlayerSearch.current}
           />
           <Components.PlayerSearchResults
             goBack={toggleShowReults}
