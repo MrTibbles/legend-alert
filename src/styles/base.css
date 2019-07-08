@@ -13,10 +13,6 @@
 
 body,
 html {
-  font-size: 18px;
-  font-family: 'Nova Square', cursive;
-  font-weight: normal;
-
   --color-primary: #92232C;
   --color-offwhite: #f7f7f7;
   --color-dark: #1D1D1D;
@@ -29,6 +25,11 @@ html {
   --depth-base: 0;
   --depth-layer1: 25;
   --depth-layer2: 50;
+
+  font-size: 18px;
+  font-family: 'Nova Square', cursive;
+  font-weight: normal;
+  background-color: var(--color-dark);
 }
 
 body.dark {

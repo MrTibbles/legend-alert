@@ -6,6 +6,7 @@ const container = css`
   padding: 6.25rem 1rem 3.125rem;
   overflow: hidden;
   position: relative;
+  background-color: var(--color-offwhite);
 
   @media (min-width: 600px) {
     width: 500px;
