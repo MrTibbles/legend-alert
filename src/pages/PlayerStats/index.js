@@ -85,11 +85,14 @@ const PlayerStats = () => {
   const activeLegendIconImage = utils.getLegendIconImage(activeLegend);
 
   return (
-    <Components.HeroSection
-      image={activeLegendIconImage}
-      playerHandle={activePlayer.platformUserHandle}
-      playerPlatform={activePlayer.platformSlug}
-    />
+    <React.Fragment>
+      <Components.HeroSection
+        image={activeLegendIconImage}
+        playerHandle={activePlayer.platformUserHandle}
+        playerPlatform={activePlayer.platformSlug}
+      />
+      <Components.StatsGrid stats={activeLegend.stats} />
+    </React.Fragment>
   );
 };
 

@@ -1,5 +1,4 @@
-import { html } from "lit-html";
-import { repeat } from "lit-html/directives/repeat";
+import React from "react";
 import { css } from "linaria";
 
 const styles = {
@@ -68,35 +67,27 @@ const styles = {
  * @param  {Array} stats Available stats from TRN response
  * @return {Object}      lit-html renderResult
  */
-const statsGrid = ({ stats }) => {
-  return html`
-    <section class=${styles.container}>
-      <div class=${styles.grid}>
-        ${repeat(
-          stats,
-          ({ metadata }) => metadata.key,
-          stat => html`
-            <div class=${styles.statsItem}>
-              <div>
-                <h2 class="stat-value">${stat.displayValue}</h2>
-              </div>
-              <div>
-                <h3 class="stat-name">${stat.metadata.name}</h3>
-              </div>
-              <div>
-                <p>
-                  Category:
-                  <span class="stat-category"
-                    >${stat.metadata.categoryName}</span
-                  >
-                </p>
-              </div>
-            </div>
-          `
-        )}
-      </div>
-    </section>
-  `;
-};
+const StatsGrid = ({ stats }) => (
+  <section className={styles.container}>
+    <div className={styles.grid}>
+      {stats.map(({ displayValue, metadata }) => (
+        <div className={styles.statsItem} key={metadata.key}>
+          <div>
+            <h2 className="stat-value">{displayValue}</h2>
+          </div>
+          <div>
+            <h3 className="stat-name">{metadata.name}</h3>
+          </div>
+          <div>
+            <p>
+              Category:
+              <span className="stat-category">{metadata.categoryName}</span>
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+);
 
-export default statsGrid;
+export default StatsGrid;
