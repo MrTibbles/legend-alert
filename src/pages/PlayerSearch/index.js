@@ -2,9 +2,12 @@ import React from "react";
 
 import * as styles from "./styles";
 import logo from "../../images/legend-alert-logo.svg";
+import { useActivePlayer } from "../../context/ActivePlayer";
+
 import * as Components from "./components";
 
 const PlayerSearch = () => {
+  const activePlayer = useActivePlayer();
   const [showResults, toggleShowReults] = React.useState(false);
   const [networkState, setNeworkState] = React.useState({
     data: undefined,
@@ -59,6 +62,8 @@ const PlayerSearch = () => {
 
     return setNeworkState({ ...networkState, data });
   };
+
+  console.info(activePlayer);
 
   return (
     <section className={styles.container}>
