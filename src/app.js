@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDom from "react-dom";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import localforage from "localforage";
 import "./styles/base.css";
 
@@ -16,7 +16,10 @@ localforage.config({
 const App = () => (
   <ActivePlayerProvider>
     <Router>
-      <Route component={Pages.PlayerSearch} exact path="/" />
+      <Switch>
+        <Route component={Pages.PlayerSearch} exact path="/" />
+        <Route component={Pages.PlayerStats} exact path="/stats" />
+      </Switch>
     </Router>
   </ActivePlayerProvider>
 );

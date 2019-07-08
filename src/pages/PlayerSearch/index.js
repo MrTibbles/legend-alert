@@ -16,7 +16,7 @@ const PlayerSearch = () => {
   });
 
   const submitPlayerSearch = async (platformChoice, playerHandle) => {
-    setNeworkState({ ...networkState, loading: true });
+    setNeworkState({ ...networkState, error: undefined, loading: true });
 
     const { data } = await fetch(
       `/apex-api/v2/apex/standard/search?platform=${platformChoice}&query=${playerHandle}`,
@@ -33,7 +33,8 @@ const PlayerSearch = () => {
 
         return setNeworkState({
           ...networkState,
-          error: "Something went wrong with that search"
+          error: "Something went wrong with that search",
+          loading: false
         });
       })
       .then(res => {
@@ -42,11 +43,10 @@ const PlayerSearch = () => {
 
           return setNeworkState({
             ...networkState,
-            error: "Something went wrong with that search"
+            error: "Something went wrong with that search",
+            loading: false
           });
         }
-
-        setNeworkState({ ...networkState, loading: false });
 
         return res.json();
       });
@@ -54,16 +54,15 @@ const PlayerSearch = () => {
     if (!data.length) {
       return setNeworkState({
         ...networkState,
-        error: "Sorry, no players were found"
+        error: "Sorry, no players were found",
+        loading: false
       });
     }
 
     toggleShowReults(true);
 
-    return setNeworkState({ ...networkState, data });
+    return setNeworkState({ ...networkState, data, loading: false });
   };
-
-  console.info(activePlayer);
 
   return (
     <section className={styles.container}>

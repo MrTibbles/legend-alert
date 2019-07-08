@@ -14,6 +14,7 @@ module.exports = (env = {}) => {
     devtool: isInDev ? "eval" : "source-map",
     devServer: {
       hot: true,
+      historyApiFallback: true,
       contentBase: path.join(__dirname, "dist"),
       port: 3000,
       stats: "errors-warnings",
