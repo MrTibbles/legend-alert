@@ -1,60 +1,20 @@
 import React from "react";
 import { useActivePlayer } from "../../context/ActivePlayer";
 
+import useTrackerNetworkAPI from "../../hooks/useTrackerNetworkAPI";
 import * as utils from "./utils";
 import * as Components from "./components";
 
 const PlayerStats = () => {
   const activePlayer = useActivePlayer();
   const [activeLegend, setActiveLegend] = React.useState(null);
-  const [networkState, setNeworkState] = React.useState({
-    data: undefined,
-    error: undefined,
-    loading: false
+  const [networkState, doFetch] = useTrackerNetworkAPI();
+
+  const fetchPlayerStats = React.useRef((platformSlug, platformUserHandle) => {
+    doFetch(
+      `/apex-api/v1/apex/standard/profile/${platformSlug}/${platformUserHandle}`
+    );
   });
-
-  const fetchPlayerStats = React.useRef(
-    async (platformSlug, platformUserHandle) => {
-      setNeworkState({ ...networkState, error: undefined, loading: true });
-
-      const { data } = await fetch(
-        `/apex-api/v1/apex/standard/profile/${platformSlug}/${platformUserHandle}`,
-        {
-          credentials: "omit",
-          headers: {
-            "TRN-Api-Key": TRN_TOKEN
-          },
-          mode: "cors"
-        }
-      )
-        .catch(err => {
-          setNeworkState({
-            ...networkState,
-            error: err.message,
-            loading: false
-          });
-        })
-        .then(res => {
-          if (!res.ok) {
-            setNeworkState({
-              ...networkState,
-              error: "Something went wrong",
-              loading: false
-            });
-          }
-
-          return res.json();
-        });
-
-      setNeworkState({
-        ...networkState,
-        data,
-        loading: false
-      });
-
-      setActiveLegend(utils.getActiveLegend(data.children));
-    }
-  );
 
   React.useEffect(() => {
     document.body.classList.add("dark");
@@ -65,6 +25,12 @@ const PlayerStats = () => {
 
     fetchPlayerStats.current(platformSlug, platformUserHandle);
   }, [activePlayer, fetchPlayerStats]);
+
+  React.useEffect(() => {
+    if (networkState.data) {
+      setActiveLegend(utils.getActiveLegend(networkState.data.children));
+    }
+  }, [networkState]);
 
   if (networkState.loading || !activeLegend) {
     return (
