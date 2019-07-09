@@ -3,6 +3,7 @@ import ReactDom from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import localforage from "localforage";
 import "./styles/base.css";
+import "whatwg-fetch";
 
 import { ActivePlayerProvider } from "./context/ActivePlayer";
 import * as Pages from "./pages";
