@@ -7,21 +7,33 @@ import { PSIcon, XboxIcon, KeyboardIcon } from "../../../components";
 const PlatformChoices = ({ onPlatformOptionSelected, platformChoice }) => (
   <div className={container}>
     <div className="platform-opt">
-      <button onClick={() => onPlatformOptionSelected("psn")} type="button">
+      <button
+        data-testid="platform-psn"
+        onClick={() => onPlatformOptionSelected("psn")}
+        type="button"
+      >
         <PSIcon
           color={platformChoice === "psn" ? palette.primary : palette.dark}
         />
       </button>
     </div>
     <div className="platform-opt">
-      <button onClick={() => onPlatformOptionSelected("xbl")} type="button">
+      <button
+        data-testid="platform-xbl"
+        onClick={() => onPlatformOptionSelected("xbl")}
+        type="button"
+      >
         <XboxIcon
           color={platformChoice === "xbl" ? palette.primary : palette.dark}
         />
       </button>
     </div>
     <div className="platform-opt">
-      <button onClick={() => onPlatformOptionSelected("origin")} type="button">
+      <button
+        data-testid="platform-origin"
+        onClick={() => onPlatformOptionSelected("origin")}
+        type="button"
+      >
         <KeyboardIcon
           color={platformChoice === "origin" ? palette.primary : palette.dark}
         />

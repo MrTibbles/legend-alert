@@ -47,6 +47,7 @@ const PlayerDetailsForm = ({ searching, submitPlayerSearch }) => {
         </div>
         <button
           className={styles.confirmBtn}
+          data-testid="submit-btn"
           disabled={searching}
           onClick={onConfirmPlayerSearch}
           type="button"

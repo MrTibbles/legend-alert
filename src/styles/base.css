@@ -77,6 +77,10 @@ p {
   color: var(--color-primary);
 }
 
+.text-center {
+  text-align: center;
+}
+
 .error-msg {
   color: var(--color-error);
   padding: 0.75rem 0;

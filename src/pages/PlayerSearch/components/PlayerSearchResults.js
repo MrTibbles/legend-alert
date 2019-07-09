@@ -10,7 +10,20 @@ import {
 } from "../styles";
 
 const PlayerSearchResults = ({ goBack, history, results = [] }) => {
-  if (!results.length) return null;
+  if (!results.length) {
+    return (
+      <section className="pane">
+        <div className={searchResultsContainer}>
+          <button className={backButton} onClick={onClickGoBack} type="button">
+            <p>Search again</p>
+          </button>
+          <h3 className="error-msg text-center">
+            No players were found with those details
+          </h3>
+        </div>
+      </section>
+    );
+  }
 
   const onClickGoBack = () => goBack(false);
 
@@ -22,7 +35,7 @@ const PlayerSearchResults = ({ goBack, history, results = [] }) => {
   };
 
   return (
-    <section className="pane">
+    <section className="pane" data-testid="search-results">
       <div className={searchResultsContainer}>
         <button className={backButton} onClick={onClickGoBack} type="button">
           <p>Search again</p>

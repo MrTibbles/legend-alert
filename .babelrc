@@ -15,6 +15,11 @@
         "@babel/preset-react",
         "linaria/babel"
       ]
+    },
+    "production": {
+      "plugins": [
+        ["react-remove-properties", { "properties": ["data-testid"] }]
+      ]
     }
   }
 }
