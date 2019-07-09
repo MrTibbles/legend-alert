@@ -42,13 +42,24 @@ const PlayerSearchResults = ({ goBack, history, results = [] }) => {
         </button>
         <h3>The following players matched your search</h3>
         <p>Select one to see how much of a legend they are:</p>
-        <ul className={searchResultsList}>
+        <ul className={searchResultsList} data-testid="search-results">
           {results.map(({ platformSlug, platformUserHandle }, idx) => (
-            <li key={platformSlug} onClick={() => onSelectLegend(idx)}>
+            <li
+              data-testid={`${platformSlug}-${platformUserHandle}`}
+              key={platformSlug}
+              onClick={() => onSelectLegend(idx)}
+            >
               <h3>
-                <span className="highlight">{platformUserHandle}</span>
+                <span className="highlight" data-testid="user-handle">
+                  {platformUserHandle}
+                </span>
                 &nbsp;on&nbsp;
-                <span className="highlight uppercase">{platformSlug}</span>
+                <span
+                  className="highlight uppercase"
+                  data-testid="user-platform"
+                >
+                  {platformSlug}
+                </span>
               </h3>
             </li>
           ))}
