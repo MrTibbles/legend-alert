@@ -20,6 +20,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "core-js": "^3.1.4",
     "css-loader": "^2.1.1",
+    "cypress": "^3.3.2",
     "dotenv": "^8.0.0",
     "eslint": "^5.16.0",
     "eslint-plugin-import": "^2.17.3",
@@ -42,7 +43,8 @@
   },
   "scripts": {
     "lint:js": "prettier --write \"src/**/*.js\" && eslint --fix \"src/**/*.js\"",
-    "start:dev": "webpack-dev-server"
+    "start:dev": "webpack-dev-server",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "linaria": "^1.4.0-alpha.1",
