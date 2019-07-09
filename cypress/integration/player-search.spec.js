@@ -10,12 +10,25 @@ describe('Integration :: Player Search', () => {
 
     cy.get('button[data-testid="submit-btn"]').as('submitBtn')
 
-    cy.server({ delay: 750 })
+    cy.server({ delay: 500 })
     cy.route({
-      method: 'GET',
       url: 'http://localhost:3000/apex-api/v2/apex/standard/search?platform=psn&query=leroyjenkins',
       response: { data: [] }
     }).as('searchLeroyJenkins')
+
+    cy.fixture('player-search-DIRTiG').then(response => {
+      cy.route({
+        url: 'http://localhost:3000/apex-api/v2/apex/standard/search?platform=psn&query=DiRTiG',
+        response
+      }).as('searchDiRTiG')
+    })
+
+    cy.fixture('player-stats-DIRTiG').then(response => {
+      cy.route({
+        url: 'http://localhost:3000/apex-api/v1/apex/standard/profile/psn/DiRTiG',
+        response
+      }).as('DiRTiGStatsPage')
+    })
   })
 
   it('Should not submit a player search with empty fields', () => {
@@ -50,5 +63,45 @@ describe('Integration :: Player Search', () => {
     cy.get('@submitBtn').contains('Loading...')
 
     cy.wait('@searchLeroyJenkins')
+
+    cy.get('.error-msg').contains('No players were found with those details')
+  })
+
+  it('Should submit a player search for DiRTiG, and display results', () => {
+    cy.get('@playerHandleInput').type('DiRTiG')
+
+    cy.get('@psnBtn').click()
+
+    cy.get('@submitBtn').click()
+
+    cy.get('@submitBtn').contains('Loading...')
+
+    cy.wait('@searchDiRTiG')
+
+    cy.get('ul[data-testid="search-results"]')
+
+    cy.get('li[data-testid="psn-DiRTiG"]')
+      .find('span[data-testid="user-handle"]').contains('DiRTiG')
+
+    cy.get('li[data-testid="psn-DiRTiG"]')
+      .find('span[data-testid="user-platform"]').contains('psn')
+  })
+
+  it('Should allow use to click search result and redirect to /stats route', () => {
+    cy.get('@playerHandleInput').type('DiRTiG')
+
+    cy.get('@psnBtn').click()
+
+    cy.get('@submitBtn').click()
+
+    cy.get('@submitBtn').contains('Loading...')
+
+    cy.wait('@searchDiRTiG')
+
+    cy.get('ul[data-testid="search-results"]')
+
+    cy.get('li[data-testid="psn-DiRTiG"]').click()
+
+    cy.wait('@DiRTiGStatsPage')
   })
 })
