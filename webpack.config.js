@@ -1,5 +1,8 @@
 const path = require("path");
 const webpack = require("webpack");
+const dotenv = require('dotenv')
+
+dotenv.config()
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
@@ -69,7 +72,7 @@ module.exports = (env = {}) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        TRN_TOKEN: "'b8b9affa-afeb-41dd-ade1-025f9d1f1f77'"
+        TRN_TOKEN: process.env.TRN_TOKEN
       }),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
