@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import localforage from "localforage";
+import { useActivePlayer } from "../../../context/ActivePlayer";
 import { withRouter } from "react-router-dom";
 
 import {
@@ -10,6 +10,9 @@ import {
 } from "../styles";
 
 const PlayerSearchResults = ({ goBack, history, results = [] }) => {
+  // eslint-disable-next-line no-unused-vars
+  const [_, { setActivePlayer }] = useActivePlayer();
+
   if (!results.length) {
     return (
       <section className="pane">
@@ -27,10 +30,9 @@ const PlayerSearchResults = ({ goBack, history, results = [] }) => {
 
   const onClickGoBack = () => goBack(false);
 
-  const onSelectLegend = async legendIdx => {
-    await localforage.setItem("activePlayer", results[legendIdx]);
+  const onSelectLegend = legendIdx => {
+    setActivePlayer(results[legendIdx]);
 
-    // tmp solution to change route - change to custom event or something
     history.push("/stats");
   };
 

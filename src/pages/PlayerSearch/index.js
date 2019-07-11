@@ -8,7 +8,7 @@ import { useActivePlayer } from "../../context/ActivePlayer";
 import * as Components from "./components";
 
 const PlayerSearch = () => {
-  const activePlayer = useActivePlayer();
+  const [activePlayer] = useActivePlayer();
   const [showResults, toggleShowReults] = React.useState(false);
   const [networkState, doFetch] = useTrackerNetworkAPI();
 

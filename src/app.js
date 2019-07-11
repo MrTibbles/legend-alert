@@ -1,18 +1,14 @@
 import React from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import localforage from "localforage";
+import localstoreConfig from "./services/localstore";
 import "./styles/base.css";
 import "whatwg-fetch";
 
 import { ActivePlayerProvider } from "./context/ActivePlayer";
 import * as Pages from "./pages";
 
-localforage.config({
-  description: "Apex Legends player stats tracker",
-  name: "legend-alert",
-  storeName: "players"
-});
+localstoreConfig();
 
 const App = () => (
   <ActivePlayerProvider>
