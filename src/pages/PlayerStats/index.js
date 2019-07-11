@@ -1,6 +1,5 @@
 import React from "react";
 import { useActivePlayer } from "../../context/ActivePlayer";
-
 import useTrackerNetworkAPI from "../../hooks/useTrackerNetworkAPI";
 import * as utils from "./utils";
 import * as Components from "./components";
