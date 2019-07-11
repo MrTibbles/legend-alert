@@ -30,13 +30,13 @@ const ActivePlayerProvider = props => {
    * @param  {Object}  player Tracker Network player search response object
    * @return {Promise}        Resolves with item being stored, rejects on error encountered
    */
-  const onSetActivePlayer = React.useRef(async player => {
+  const onSetActivePlayer = React.useRef(player => {
     const _activePlayer = Object.assign({}, player, { isActive: true });
 
     setActivePlayer(_activePlayer);
 
     try {
-      await localstore.setItem(player.platformUserId, _activePlayer);
+      localstore.setItem(player.platformUserId, _activePlayer);
     } catch (err) {
       console.warn("Something went wrong writing to local", err);
     }
