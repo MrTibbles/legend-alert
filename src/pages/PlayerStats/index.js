@@ -6,7 +6,7 @@ import * as utils from "./utils";
 import * as Components from "./components";
 
 const PlayerStats = () => {
-  const activePlayer = useActivePlayer();
+  const [activePlayer] = useActivePlayer();
   const [activeLegend, setActiveLegend] = React.useState(null);
   const [networkState, doFetch] = useTrackerNetworkAPI();
 
