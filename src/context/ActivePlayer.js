@@ -33,7 +33,7 @@ const ActivePlayerProvider = props => {
    * @return {Promise}        Resolves with item being stored, rejects on error encountered
    */
   const onSetActivePlayer = React.useRef(async player => {
-    const currentActivePlayer = await getActivePlayerFromLocalstore.current()
+    const currentActivePlayer = await getActivePlayerFromLocalstore.current();
 
     // If current active player in offline storage is the same, only update state
     if (
@@ -43,10 +43,15 @@ const ActivePlayerProvider = props => {
       return setActivePlayer(_activePlayer);
     } else if (currentActivePlayer) {
       // Set active player in offline storage to inactive
-      const inactivePlayer = Object.assign({}, currentActivePlayer, { isActive: false });
+      const inactivePlayer = Object.assign({}, currentActivePlayer, {
+        isActive: false
+      });
 
       try {
-        await localstore.setItem(currentActivePlayer.platformUserId, inactivePlayer);
+        await localstore.setItem(
+          currentActivePlayer.platformUserId,
+          inactivePlayer
+        );
       } catch (err) {
         console.warn("Something went wrong writing to local", err);
       }

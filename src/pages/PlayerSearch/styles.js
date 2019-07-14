@@ -2,11 +2,14 @@ import { css } from "linaria";
 import leftArrow from "../../images/left-arrow.20x36.svg";
 
 const container = css`
+  background-color: var(--color-offwhite);
+`;
+
+const contentArea = css`
   min-height: 100vh;
   padding: 6.25rem 1rem 3.125rem;
   overflow: hidden;
   position: relative;
-  background-color: var(--color-offwhite);
 
   @media (min-width: 600px) {
     width: 500px;
@@ -115,6 +118,7 @@ export {
   backButton,
   confirmBtn,
   container,
+  contentArea,
   formGroup,
   logo,
   platformChoices,

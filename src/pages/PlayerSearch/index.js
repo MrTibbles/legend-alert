@@ -23,30 +23,32 @@ const PlayerSearch = () => {
   }, [networkState]);
 
   return (
-    <section className={styles.container}>
-      {activePlayer ? (
-        <Components.ViewActivePlayer player={activePlayer} />
-      ) : null}
-      <div className={styles.logo}>
-        <img
-          alt="Legend Alert Logo | Siren by Mohamad Arif Prasetyo from the Noun Project"
-          src={logo}
-        />
-      </div>
-      <h1>Legend Alert</h1>
-      <Components.DetailsSlider showResults={showResults}>
-        <div className="slider">
-          <Components.PlayerDetailsForm
-            searching={networkState.loading}
-            submitPlayerSearch={submitPlayerSearch.current}
-          />
-          <Components.PlayerSearchResults
-            goBack={toggleShowReults}
-            results={networkState.data}
+    <div className={styles.container}>
+      <section className={styles.contentArea}>
+        {activePlayer ? (
+          <Components.ViewActivePlayer player={activePlayer} />
+        ) : null}
+        <div className={styles.logo}>
+          <img
+            alt="Legend Alert Logo | Siren by Mohamad Arif Prasetyo from the Noun Project"
+            src={logo}
           />
         </div>
-      </Components.DetailsSlider>
-    </section>
+        <h1>Legend Alert</h1>
+        <Components.DetailsSlider showResults={showResults}>
+          <div className="slider">
+            <Components.PlayerDetailsForm
+              searching={networkState.loading}
+              submitPlayerSearch={submitPlayerSearch.current}
+            />
+            <Components.PlayerSearchResults
+              goBack={toggleShowReults}
+              results={networkState.data}
+            />
+          </div>
+        </Components.DetailsSlider>
+      </section>
+    </div>
   );
 };
 
