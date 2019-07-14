@@ -11,16 +11,18 @@ const ActivePlayerProvider = props => {
    *
    * @return {Object|undefined} Tracker Network player search result or undefined
    */
-  const getActivePlayerFromStorage = React.useRef(async () => {
+  const getActivePlayerFromLocalstore = React.useRef(async () => {
     const players = await localstore.getAllEntries();
 
-    // The below two blocks could be considered confusing
+    // players is an array of objects keyed by platformUserId, each item
+    // has a Tracker Network search result object as their value
     const player = players.length
       ? players.find(player => {
           return Object.values(player).find(({ isActive }) => isActive);
         })
       : undefined;
 
+    // Return the Tracker Network search result object
     return player ? Object.values(player)[0] : undefined;
   });
 
@@ -30,7 +32,26 @@ const ActivePlayerProvider = props => {
    * @param  {Object}  player Tracker Network player search response object
    * @return {Promise}        Resolves with item being stored, rejects on error encountered
    */
-  const onSetActivePlayer = React.useRef(player => {
+  const onSetActivePlayer = React.useRef(async player => {
+    const currentActivePlayer = await getActivePlayerFromLocalstore.current()
+
+    // If current active player in offline storage is the same, only update state
+    if (
+      currentActivePlayer &&
+      currentActivePlayer.platformUserId === player.platformUserId
+    ) {
+      return setActivePlayer(_activePlayer);
+    } else if (currentActivePlayer) {
+      // Set active player in offline storage to inactive
+      const inactivePlayer = Object.assign({}, currentActivePlayer, { isActive: false });
+
+      try {
+        await localstore.setItem(currentActivePlayer.platformUserId, inactivePlayer);
+      } catch (err) {
+        console.warn("Something went wrong writing to local", err);
+      }
+    }
+
     const _activePlayer = Object.assign({}, player, { isActive: true });
 
     setActivePlayer(_activePlayer);
@@ -44,7 +65,7 @@ const ActivePlayerProvider = props => {
 
   // Runs once on app mount
   React.useEffect(() => {
-    getActivePlayerFromStorage
+    getActivePlayerFromLocalstore
       .current()
       .then(player => player && onSetActivePlayer.current(player))
       .catch(err =>
