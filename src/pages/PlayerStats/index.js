@@ -51,7 +51,7 @@ const PlayerStats = () => {
     <React.Fragment>
       <Components.HeroSection
         image={activeLegendIconImage}
-        playerHandle={activePlayer.platformUserId}
+        platformUserId={activePlayer.platformUserId}
         playerPlatform={activePlayer.platformSlug}
       />
       <Components.StatsGrid stats={activeLegend.stats} />

@@ -15,14 +15,14 @@ const ActivePlayerProvider = props => {
     const players = await localstore.getAllEntries();
 
     // players is an array of objects keyed by platformUserId, each item
-    // has a Tracker Network search result object as their value
+    // has a select fields from a Tracker Network search result object as their value
     const player = players.length
       ? players.find(player => {
           return Object.values(player).find(({ isActive }) => isActive);
         })
       : undefined;
 
-    // Return the Tracker Network search result object
+    // Return the Tracker Network search response data
     return player ? Object.values(player)[0] : undefined;
   });
 
@@ -67,11 +67,9 @@ const ActivePlayerProvider = props => {
 
     setActivePlayer(activePlayer);
 
-    try {
-      localstore.setItem(player.platformUserId, activePlayer);
-    } catch (err) {
-      console.warn("Something went wrong writing to local", err);
-    }
+    localstore
+      .setItem(player.platformUserId, activePlayer)
+      .catch(err => console.warn("Something went wrong writing to local", err));
   });
 
   // Runs once on app mount
@@ -97,11 +95,11 @@ const ActivePlayerProvider = props => {
 };
 
 const useActivePlayer = () => {
-  const { activePlayer, getActivePlayer, setActivePlayer } = React.useContext(
+  const { activePlayer, setActivePlayer } = React.useContext(
     ActivePlayerContext
   );
 
-  return [activePlayer, { getActivePlayer, setActivePlayer }];
+  return [activePlayer, setActivePlayer];
 };
 
 export { ActivePlayerProvider, useActivePlayer };

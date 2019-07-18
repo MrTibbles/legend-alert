@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { css } from "linaria";
 
 const styles = {
@@ -89,5 +90,9 @@ const StatsGrid = ({ stats }) => (
     </div>
   </section>
 );
+
+StatsGrid.propTypes = {
+  stats: PropTypes.array.isRequired
+};
 
 export default StatsGrid;

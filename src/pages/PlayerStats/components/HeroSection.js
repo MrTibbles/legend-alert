@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { css } from "linaria";
 
 const styles = {
@@ -41,11 +42,11 @@ const styles = {
   `
 };
 
-const HeroSection = ({ image, playerHandle, playerPlatform }) => (
+const HeroSection = ({ image, platformUserId, playerPlatform }) => (
   <section className={styles.container}>
     <div className={styles.playerInfo}>
       <h3 className={styles.playerName}>
-        {playerHandle} | <span className="uppercase">{playerPlatform}</span>
+        {platformUserId} | <span className="uppercase">{playerPlatform}</span>
       </h3>
     </div>
     <div className={styles.legendImage}>
@@ -53,5 +54,11 @@ const HeroSection = ({ image, playerHandle, playerPlatform }) => (
     </div>
   </section>
 );
+
+HeroSection.propTypes = {
+  image: PropTypes.string,
+  platformUserId: PropTypes.string.isRequired,
+  playerPlatform: PropTypes.string.isRequired
+};
 
 export default HeroSection;
