@@ -11,7 +11,7 @@ import {
 
 const PlayerSearchResults = ({ goBack, history, results = [] }) => {
   // eslint-disable-next-line no-unused-vars
-  const [_, { setActivePlayer }] = useActivePlayer();
+  const [_, setActivePlayer] = useActivePlayer();
 
   if (!results.length) {
     return (
