@@ -9,18 +9,18 @@ const PlayerStats = () => {
   const [activeLegend, setActiveLegend] = React.useState(null);
   const [networkState, doFetch] = useTrackerNetworkAPI();
 
-  const fetchPlayerStats = React.useRef((platformSlug, platformUserHandle) => {
+  const fetchPlayerStats = React.useRef((platformSlug, platformUserId) => {
     doFetch(
-      `/apex-api/v1/apex/standard/profile/${platformSlug}/${platformUserHandle}`
+      `/apex-api/v1/apex/standard/profile/${platformSlug}/${platformUserId}`
     );
   });
 
   React.useEffect(() => {
     if (!activePlayer) return;
 
-    const { platformSlug, platformUserHandle } = activePlayer;
+    const { platformSlug, platformUserId } = activePlayer;
 
-    fetchPlayerStats.current(platformSlug, platformUserHandle);
+    fetchPlayerStats.current(platformSlug, platformUserId);
   }, [activePlayer, fetchPlayerStats]);
 
   React.useEffect(() => {
@@ -51,7 +51,7 @@ const PlayerStats = () => {
     <React.Fragment>
       <Components.HeroSection
         image={activeLegendIconImage}
-        playerHandle={activePlayer.platformUserHandle}
+        playerHandle={activePlayer.platformUserId}
         playerPlatform={activePlayer.platformSlug}
       />
       <Components.StatsGrid stats={activeLegend.stats} />
