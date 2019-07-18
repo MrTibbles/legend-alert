@@ -3,10 +3,10 @@ import { Link } from "../../../components";
 
 import { viewActivePlayerContainer } from "../styles";
 
-const ViewActivePlayer = ({ player }) => (
+const ViewActivePlayer = ({ playerUserId }) => (
   <div className={viewActivePlayerContainer}>
     <Link to="/stats">
-      <h3>View stats for {player.platformUserHandle}?</h3>
+      <h3>View stats for {playerUserId}?</h3>
     </Link>
   </div>
 );
