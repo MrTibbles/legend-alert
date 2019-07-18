@@ -24,10 +24,12 @@ const PlayerSearch = () => {
 
   return (
     <div className={styles.container}>
+      {activePlayer ? (
+        <Components.ViewActivePlayer
+          playerUserId={activePlayer.platformUserId}
+        />
+      ) : null}
       <section className={styles.contentArea}>
-        {activePlayer ? (
-          <Components.ViewActivePlayer player={activePlayer} />
-        ) : null}
         <div className={styles.logo}>
           <img
             alt="Legend Alert Logo | Siren by Mohamad Arif Prasetyo from the Noun Project"
