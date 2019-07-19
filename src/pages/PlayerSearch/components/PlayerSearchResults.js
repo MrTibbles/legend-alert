@@ -73,6 +73,7 @@ const PlayerSearchResults = ({ goBack, history, results = [] }) => {
 
 PlayerSearchResults.propTypes = {
   goBack: PropTypes.func.isRequired,
+  history: PropTypes.object,
   results: PropTypes.array
 };
 
