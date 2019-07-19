@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { localstore } from "../services";
 
 const ActivePlayerContext = React.createContext();
@@ -92,6 +93,10 @@ const ActivePlayerProvider = props => {
       {props.children}
     </ActivePlayerContext.Provider>
   );
+};
+
+ActivePlayerProvider.propTypes = {
+  children: PropTypes.node.isRequired
 };
 
 const useActivePlayer = () => {
