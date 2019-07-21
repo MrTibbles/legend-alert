@@ -22,3 +22,9 @@ const App = () => (
 );
 
 ReactDom.render(<App />, document.getElementById("app-root"));
+
+if (PRODUCTION_ENV && "serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker.register("/service-worker.js");
+  });
+}

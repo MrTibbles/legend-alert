@@ -78,7 +78,8 @@ module.exports = (env = {}) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        TRN_TOKEN: process.env.TRN_TOKEN
+        TRN_TOKEN: process.env.TRN_TOKEN,
+        PRODUCTION_ENV: !isInDev
       }),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
@@ -92,9 +93,7 @@ module.exports = (env = {}) => {
       new MiniCssExtractPlugin({
         filename: "linaria-styles.css"
       }),
-      new GenerateSW({
-        swDest: 'sw.js'
-      })
+      new GenerateSW()
     ]
   };
 };
