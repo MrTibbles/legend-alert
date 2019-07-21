@@ -7,18 +7,24 @@ dotenv.config()
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { GenerateSW } = require('workbox-webpack-plugin');
+
+const PATHS = {
+  src: path.resolve(__dirname, "src/"),
+  dist: path.resolve(__dirname, "dist")
+}
 
 module.exports = (env = {}) => {
   const isInDev = env.production !== true;
 
   return {
-    entry: path.resolve(__dirname, "src/app.js"),
+    entry: path.resolve(PATHS.src, "app.js"),
     mode: isInDev ? "development" : "production",
     devtool: isInDev ? "eval" : "source-map",
     devServer: {
       hot: true,
       historyApiFallback: true,
-      contentBase: path.join(__dirname, "dist"),
+      contentBase: PATHS.dist,
       port: 3000,
       stats: "errors-warnings",
       proxy: {
@@ -30,7 +36,7 @@ module.exports = (env = {}) => {
       }
     },
     output: {
-      path: path.resolve(__dirname, "dist"),
+      path: PATHS.dist,
       publicPath: "/",
       filename: "legend-alert.[name].[hash].js"
     },
@@ -77,14 +83,17 @@ module.exports = (env = {}) => {
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         title: "🚨",
-        template: path.resolve(__dirname, "src/static/index.html"),
+        template: path.resolve(PATHS.src, "static/index.html"),
         meta: {
           viewport: "width=device-width, initial-scale=1, shrink-to-fit=no"
         },
-        favicon: path.resolve(__dirname, "src/favicon.ico")
+        favicon: path.resolve(PATHS.src, "favicon.ico")
       }),
       new MiniCssExtractPlugin({
         filename: "linaria-styles.css"
+      }),
+      new GenerateSW({
+        swDest: 'sw.js'
       })
     ]
   };
