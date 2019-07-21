@@ -35,7 +35,8 @@
     "prop-types": "^15.7.2",
     "webpack": "^4.33.0",
     "webpack-cli": "^3.3.3",
-    "webpack-dev-server": "^3.7.1"
+    "webpack-dev-server": "^3.7.1",
+    "workbox-webpack-plugin": "^4.3.1"
   },
   "husky": {
     "hooks": {
@@ -45,7 +46,8 @@
   "scripts": {
     "lint:js": "prettier --write \"src/**/*.js\" && eslint --fix \"src/**/*.js\"",
     "start:dev": "webpack-dev-server",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "build": "webpack --env.production"
   },
   "dependencies": {
     "linaria": "^1.4.0-alpha.1",
