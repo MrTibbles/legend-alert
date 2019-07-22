@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { platformChoices as container } from "../styles";
 import palette from "../../../styles/theme";
-import { PSIcon, XboxIcon, KeyboardIcon } from "../../../components";
+import { PSIcon, XboxIcon, KeyboardIcon } from "../../../ui-icons";
 
 const PlatformChoices = ({ onPlatformOptionSelected, platformChoice }) => (
   <div className={container}>
