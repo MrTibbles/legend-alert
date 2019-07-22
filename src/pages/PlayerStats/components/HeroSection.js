@@ -43,19 +43,20 @@ const styles = {
     margin: 0;
   `,
   searchButton: css`
-    position: absolute;
+    position: fixed;
     left: var(--spacing-base);
+    top: var(--spacing-base);
     width: 1.25rem;
-    z-index: var(--depth-layer1);
+    z-index: var(--depth-layer2);
   `
 };
 
 const HeroSection = ({ image, platformUserId, playerPlatform }) => (
   <section className={styles.container}>
+    <Link className={styles.searchButton} to="/">
+      <SearchIcon color="white" />
+    </Link>
     <div className={styles.playerInfo}>
-      <Link className={styles.searchButton} to="/">
-        <SearchIcon color="white" />
-      </Link>
       <h3 className={styles.playerName}>
         {platformUserId} | <span className="uppercase">{playerPlatform}</span>
       </h3>
