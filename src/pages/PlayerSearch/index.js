@@ -1,5 +1,4 @@
 import React from "react";
-
 import useTrackerNetworkAPI from "../../hooks/useTrackerNetworkAPI";
 import * as styles from "./styles";
 import logo from "../../images/legend-alert-logo.svg";

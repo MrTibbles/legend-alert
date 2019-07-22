@@ -69,7 +69,7 @@ const ActivePlayerProvider = props => {
     setActivePlayer(activePlayer);
 
     localstore
-      .setItem(player.platformUserId, activePlayer)
+      .setItem(activePlayer.platformUserId, activePlayer)
       .catch(err => console.warn("Something went wrong writing to local", err));
   });
 
