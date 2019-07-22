@@ -14,13 +14,14 @@
 body,
 html {
   --color-primary: #92232C;
-  --color-offwhite: #f7f7f7;
+  --color-offwhite: #D7D4C7;
   --color-dark: #1D1D1D;
   --color-white: #ffffff;
   --color-disabled: dimgrey;
   --color-error: #E98F96;
 
   --spacing-base: 1rem;
+  --spacing-double: 2rem;
 
   --depth-base: 0;
   --depth-layer1: 25;
@@ -34,6 +35,10 @@ html {
 
 body.dark {
   background-color: var(--color-dark);
+}
+
+#app-root {
+  overflow: hidden;
 }
 
 button {

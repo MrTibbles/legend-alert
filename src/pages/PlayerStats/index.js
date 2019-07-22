@@ -8,9 +8,8 @@ import * as Components from "./components";
 const Container = styled.div`
   width: 100vw;
   min-height: 100vh;
-  transition: transform 2000ms ease-out;
-  transform: ${({ showLegends }) => `translateX(${showLegends ? "200px" : 0})`};
-  overflow: hidden;
+  transition: transform 250ms ease-out;
+  transform: ${({ showLegends }) => `translateX(${showLegends ? "25vw" : 0})`};
 
   @media (min-width: 1024px) {
     display: flex;
@@ -26,15 +25,20 @@ const ContentArea = styled.main`
 
 const PlayerStats = () => {
   const [activePlayer] = useActivePlayer();
+  const [networkState, doFetch] = useTrackerNetworkAPI();
   const [activeLegend, setActiveLegend] = React.useState(null);
   const [legendList, setLegendList] = React.useState([]);
-  const [networkState, doFetch] = useTrackerNetworkAPI();
+  const [mobileLegendListIsVis, setMobileLegendListVis] = React.useState(false);
 
   const fetchPlayerStats = React.useRef((platformSlug, platformUserId) => {
     doFetch(
       `/apex-api/v1/apex/standard/profile/${platformSlug}/${platformUserId}`
     );
   });
+
+  const onShowMobileLegendList = React.useCallback(() => {
+    setMobileLegendListVis(!mobileLegendListIsVis);
+  }, [mobileLegendListIsVis]);
 
   React.useEffect(() => {
     if (!activePlayer) return;
@@ -70,15 +74,21 @@ const PlayerStats = () => {
     );
   }
 
-  const activeLegendIconImage = activeLegend.tallImageUrl;
-
   return (
-    <Container showLegends={false}>
-      <Components.LegendSelector />
+    <Container showLegends={mobileLegendListIsVis}>
+      {legendList.length > 0 ? (
+        <Components.LegendSelector
+          legends={legendList}
+          onLegendSelected={setActiveLegend}
+        />
+      ) : null}
       <ContentArea>
-        <Components.NavigationBar hasMoreLegends={legendList.length > 0} />
+        <Components.NavigationBar
+          hasMoreLegends={legendList.length > 0}
+          onShowMobileLegendList={onShowMobileLegendList}
+        />
         <Components.HeroSection
-          image={activeLegendIconImage}
+          image={activeLegend.tallImageUrl}
           platformUserId={activePlayer.platformUserId}
           playerPlatform={activePlayer.platformSlug}
         />

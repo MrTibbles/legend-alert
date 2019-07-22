@@ -2,8 +2,6 @@ import { styled } from "linaria/react";
 
 const Button = styled.button`
   outline: none;
-  border: none;
-  background: none;
   cursor: pointer;
 
   &:disabled {
