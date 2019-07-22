@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Button from "../../../primitives/Button";
 import * as styles from "../styles";
 import PlatformChoices from "./PlatformChoices";
 
@@ -45,15 +46,14 @@ const PlayerDetailsForm = ({ searching, submitPlayerSearch }) => {
             <p className="error-msg">{formValidation.msg}</p>
           ) : null}
         </div>
-        <button
+        <Button
           className={styles.confirmBtn}
           data-testid="submit-btn"
           disabled={searching}
           onClick={onConfirmPlayerSearch}
-          type="button"
         >
           {searching ? "Loading..." : "Confirm"}
-        </button>
+        </Button>
       </form>
     </section>
   );

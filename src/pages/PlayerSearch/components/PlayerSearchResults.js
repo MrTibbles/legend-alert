@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Button from "../../../primitives/Button";
 import { useActivePlayer } from "../../../context/ActivePlayer";
 import { withRouter } from "react-router-dom";
 
@@ -39,9 +40,9 @@ const PlayerSearchResults = ({ goBack, history, results = [] }) => {
   return (
     <section className="pane" data-testid="search-results">
       <div className={searchResultsContainer}>
-        <button className={backButton} onClick={onClickGoBack} type="button">
+        <Button className={backButton} onClick={onClickGoBack}>
           <p>Search again</p>
-        </button>
+        </Button>
         <h3>The following players matched your search</h3>
         <p>Select one to see how much of a legend they are:</p>
         <ul className={searchResultsList} data-testid="search-results">
