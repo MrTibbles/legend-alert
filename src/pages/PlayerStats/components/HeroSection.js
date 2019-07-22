@@ -18,13 +18,13 @@ const styles = {
 
     img {
       display: block
-      width: 100%;
+      width: 90%;
       max-width: 650px;
       margin: 0 auto;
       transform: translateY(0);
 
       @media (min-width: 450px) {
-        transform: translateY(-45px);
+        transform: translateY(20px);
       }
     }
   `,

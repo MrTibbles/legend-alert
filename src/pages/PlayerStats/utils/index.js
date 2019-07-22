@@ -16,6 +16,6 @@ const getActiveLegend = legends =>
  * @param  {Object} activeLegend Active in-app Legend
  * @return {String}              URL for legend icon image
  */
-const getLegendIconImage = ({ metadata }) => metadata.icon;
+const getLegendImage = ({ metadata }) => metadata.tallImageUrl;
 
-export { getActiveLegend, getLegendIconImage };
+export { getActiveLegend, getLegendImage };

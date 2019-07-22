@@ -45,7 +45,7 @@ const PlayerStats = () => {
     );
   }
 
-  const activeLegendIconImage = utils.getLegendIconImage(activeLegend);
+  const activeLegendIconImage = utils.getLegendImage(activeLegend);
 
   return (
     <React.Fragment>
