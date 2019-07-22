@@ -7,6 +7,7 @@ import * as Components from "./components";
 const PlayerStats = () => {
   const [activePlayer] = useActivePlayer();
   const [activeLegend, setActiveLegend] = React.useState(null);
+  const [legendList, setLegendList] = React.useState([]);
   const [networkState, doFetch] = useTrackerNetworkAPI();
 
   const fetchPlayerStats = React.useRef((platformSlug, platformUserId) => {
@@ -25,17 +26,13 @@ const PlayerStats = () => {
 
   React.useEffect(() => {
     if (networkState.data) {
-      setActiveLegend(utils.getActiveLegend(networkState.data.children));
+      const legendList = utils.getLegendList(networkState.data);
+      setLegendList(legendList);
+
+      const activeInGameLegend = utils.getActiveLegend(legendList);
+      setActiveLegend(activeInGameLegend);
     }
   }, [networkState]);
-
-  if (networkState.loading || !activeLegend) {
-    return (
-      <div>
-        <h1>Loading...</h1>
-      </div>
-    );
-  }
 
   if (networkState.error) {
     return (
@@ -45,10 +42,19 @@ const PlayerStats = () => {
     );
   }
 
-  const activeLegendIconImage = utils.getLegendImage(activeLegend);
+  if (networkState.loading || !activeLegend) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
+
+  const activeLegendIconImage = activeLegend.tallImageUrl;
 
   return (
     <React.Fragment>
+      <Components.NavigationBar hasMoreLegends={legendList.length > 0} />
       <Components.HeroSection
         image={activeLegendIconImage}
         platformUserId={activePlayer.platformUserId}
