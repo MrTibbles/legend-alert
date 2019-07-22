@@ -35,13 +35,11 @@ const styles = {
   `,
   grid: css`
     display: grid;
-    grid-template-columns: repeat(1, 100vw);
-    /* display: flex;
-    flex-direction: column; */
+    grid-template-columns: repeat(1, 100%);
     background-color: var(--color-primary);
 
     @media (min-width: 1100px) {
-      grid-template-columns: repeat(3, 33.333vw);
+      grid-template-columns: repeat(3, 33.333%);
     }
   `,
   statsItem: css`

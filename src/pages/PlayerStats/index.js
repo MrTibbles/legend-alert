@@ -1,8 +1,28 @@
 import React from "react";
+import { styled } from "linaria/react";
 import { useActivePlayer } from "../../context/ActivePlayer";
 import useTrackerNetworkAPI from "../../hooks/useTrackerNetworkAPI";
 import * as utils from "./utils";
 import * as Components from "./components";
+
+const Container = styled.div`
+  width: 100vw;
+  min-height: 100vh;
+  transition: transform 2000ms ease-out;
+  transform: ${({ showLegends }) => `translateX(${showLegends ? "200px" : 0})`};
+  overflow: hidden;
+
+  @media (min-width: 1024px) {
+    display: flex;
+    transform: translateX(0);
+  }
+`;
+
+const ContentArea = styled.main`
+  @media (min-width: 1024px) {
+    width: 75vw;
+  }
+`;
 
 const PlayerStats = () => {
   const [activePlayer] = useActivePlayer();
@@ -53,15 +73,18 @@ const PlayerStats = () => {
   const activeLegendIconImage = activeLegend.tallImageUrl;
 
   return (
-    <React.Fragment>
-      <Components.NavigationBar hasMoreLegends={legendList.length > 0} />
-      <Components.HeroSection
-        image={activeLegendIconImage}
-        platformUserId={activePlayer.platformUserId}
-        playerPlatform={activePlayer.platformSlug}
-      />
-      <Components.StatsGrid stats={activeLegend.stats} />
-    </React.Fragment>
+    <Container showLegends={false}>
+      <Components.LegendSelector />
+      <ContentArea>
+        <Components.NavigationBar hasMoreLegends={legendList.length > 0} />
+        <Components.HeroSection
+          image={activeLegendIconImage}
+          platformUserId={activePlayer.platformUserId}
+          playerPlatform={activePlayer.platformSlug}
+        />
+        <Components.StatsGrid stats={activeLegend.stats} />
+      </ContentArea>
+    </Container>
   );
 };
 
