@@ -5,17 +5,25 @@
  * @return {Object}        Apex Legend that is currently being used in-game
  */
 const getActiveLegend = legends =>
-  legends.find(({ metadata }) => metadata.isActive);
+  legends.find(({ isActiveInGame }) => isActiveInGame);
 
 /**
- * Return the icon image from the active legend object
+ * Parse the TRN response object to ease access to fields
  *
- * Shared util approach taken to handle changes in TRN remote schema
- * being easy to handle with a centralised util method
- *
- * @param  {Object} activeLegend Active in-app Legend
- * @return {String}              URL for legend icon image
+ * @param  {Array} children Array of TRN legend objects
+ * @return {Array}          Simplified representation of a player's legend choices
  */
-const getLegendImage = ({ metadata }) => metadata.tallImageUrl;
+const getLegendList = ({ children }) =>
+  children.reduce((list, { metadata, stats }) => {
+    list.push({
+      icon: metadata.icon,
+      isActiveInGame: metadata.isActive,
+      legendName: metadata.legendName,
+      stats,
+      tallImageUrl: metadata.tallImageUrl
+    });
 
-export { getActiveLegend, getLegendImage };
+    return list;
+  }, []);
+
+export { getActiveLegend, getLegendList };
