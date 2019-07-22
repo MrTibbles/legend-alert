@@ -2,42 +2,40 @@ import React from "react";
 import PropTypes from "prop-types";
 import { platformChoices as container } from "../styles";
 import palette from "../../../styles/theme";
+import Button from "../../../primitives/Button";
 import { PSIcon, XboxIcon, KeyboardIcon } from "../../../ui-icons";
 
 const PlatformChoices = ({ onPlatformOptionSelected, platformChoice }) => (
   <div className={container}>
     <div className="platform-opt">
-      <button
+      <Button
         data-testid="platform-psn"
         onClick={() => onPlatformOptionSelected("psn")}
-        type="button"
       >
         <PSIcon
           color={platformChoice === "psn" ? palette.primary : palette.dark}
         />
-      </button>
+      </Button>
     </div>
     <div className="platform-opt">
-      <button
+      <Button
         data-testid="platform-xbl"
         onClick={() => onPlatformOptionSelected("xbl")}
-        type="button"
       >
         <XboxIcon
           color={platformChoice === "xbl" ? palette.primary : palette.dark}
         />
-      </button>
+      </Button>
     </div>
     <div className="platform-opt">
-      <button
+      <Button
         data-testid="platform-origin"
         onClick={() => onPlatformOptionSelected("origin")}
-        type="button"
       >
         <KeyboardIcon
           color={platformChoice === "origin" ? palette.primary : palette.dark}
         />
-      </button>
+      </Button>
     </div>
   </div>
 );
