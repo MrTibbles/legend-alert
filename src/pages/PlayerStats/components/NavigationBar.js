@@ -18,12 +18,16 @@ const Nav = styled.nav`
   ${Link}, ${Button} {
     width: 1.25rem;
   }
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
 `;
 
-const NavigationBar = ({ hasMoreLegends = false }) => (
+const NavigationBar = ({ hasMoreLegends = false, onShowMobileLegendList }) => (
   <Nav hasMoreLegends={hasMoreLegends}>
     {hasMoreLegends ? (
-      <Button>
+      <Button onClick={onShowMobileLegendList}>
         <ListIcon color="white" />
       </Button>
     ) : null}
@@ -34,7 +38,8 @@ const NavigationBar = ({ hasMoreLegends = false }) => (
 );
 
 NavigationBar.propTypes = {
-  hasMoreLegends: PropTypes.bool.isRequired
+  hasMoreLegends: PropTypes.bool.isRequired,
+  onShowMobileLegendList: PropTypes.func.isRequired
 };
 
 export default NavigationBar;
