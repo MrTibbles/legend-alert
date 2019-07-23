@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const ListIcon = ({ color = '#1D1D1D' }) => (
+const ListIcon = ({ color = "#1D1D1D" }) => (
   <svg viewBox="0 0 46 46">
     <g fill="none" fillRule="evenodd" stroke="none" strokeWidth="1">
       <g fill={color} fillRule="nonzero">

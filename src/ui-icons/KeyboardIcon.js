@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const KeyboardIcon = ({ color = '#1D1D1D' }) => (
+const KeyboardIcon = ({ color = "#1D1D1D" }) => (
   <svg viewBox="0 0 30 28">
     <g fill={color} fillRule="nonzero">
       <path d="M1 27.88h28c.21 0 .38-.17.38-.38v-14a.38.38 0 0 0-.38-.38H15.38V2.5a1.63 1.63 0 0 1 3.26 0v5c0 1.31 1.07 2.38 2.38 2.38 1.31 0 2.38-1.07 2.38-2.38v-7a.38.38 0 1 0-.76 0v7a1.63 1.63 0 0 1-3.26 0v-5c0-1.31-1.07-2.38-2.38-2.38-1.31 0-2.38 1.07-2.38 2.38v10.63H1a.38.38 0 0 0-.38.38v14c.01.2.17.37.38.37zm.38-14h27.25v13.25H1.38V13.88z" />
