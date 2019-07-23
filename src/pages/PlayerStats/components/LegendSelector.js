@@ -48,14 +48,28 @@ const LegendList = styled.ul`
   }
 `;
 
-const LegendSelector = ({ legends, onLegendSelected }) => (
+const LegendItem = styled.li`
+  color: ${({ isActiveLegend }) =>
+    isActiveLegend ? "var(--color-primary)" : "var(--color-dark)"};
+
+  path {
+    fill: ${({ isActiveLegend }) =>
+      isActiveLegend ? "var(--color-primary)" : "var(--color-dark)"};
+  }
+`;
+
+const LegendSelector = ({ activeLegendName, legends, onLegendSelected }) => (
   <Container>
     <LegendList>
       {legends.map(legend => (
-        <li key={legend.legendName} onClick={() => onLegendSelected(legend)}>
+        <LegendItem
+          isActiveLegend={legend.legendName === activeLegendName}
+          key={legend.legendName}
+          onClick={() => onLegendSelected(legend)}
+        >
           {legend.legendName}
           <ArrowIcon direction="right" height="100%" width="0.55rem" />
-        </li>
+        </LegendItem>
       ))}
     </LegendList>
   </Container>

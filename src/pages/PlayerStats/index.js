@@ -36,9 +36,14 @@ const PlayerStats = () => {
     );
   });
 
-  const onShowMobileLegendList = React.useCallback(() => {
+  const onShowMobileLegendList = () => {
     setMobileLegendListVis(!mobileLegendListIsVis);
-  }, [mobileLegendListIsVis]);
+  };
+
+  const onLegendSelected = legend => {
+    setActiveLegend(legend);
+    setMobileLegendListVis(false);
+  };
 
   React.useEffect(() => {
     if (!activePlayer) return;
@@ -78,8 +83,9 @@ const PlayerStats = () => {
     <Container showLegends={mobileLegendListIsVis}>
       {legendList.length > 0 ? (
         <Components.LegendSelector
+          activeLegendName={activeLegend.legendName}
           legends={legendList}
-          onLegendSelected={setActiveLegend}
+          onLegendSelected={onLegendSelected}
         />
       ) : null}
       <ContentArea>
