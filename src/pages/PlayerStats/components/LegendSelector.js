@@ -1,4 +1,5 @@
 import React from "react";
+import ArrowIcon from "../../../ui-icons/ArrowIcon";
 import { styled } from "linaria/react";
 
 const Container = styled.aside`
@@ -37,7 +38,11 @@ const LegendList = styled.ul`
   list-style: none;
 
   li {
-    padding: var(--spacing-base) 0;
+    display: flex;
+    flex: none;
+    width: 100%;
+    justify-content: space-between;
+    padding: var(--spacing-base) 1rem;
     margin-bottom: var(--spacing-double);
     cursor: pointer;
   }
@@ -49,6 +54,7 @@ const LegendSelector = ({ legends, onLegendSelected }) => (
       {legends.map(legend => (
         <li key={legend.legendName} onClick={() => onLegendSelected(legend)}>
           {legend.legendName}
+          <ArrowIcon direction="right" height="100%" width="0.55rem" />
         </li>
       ))}
     </LegendList>
