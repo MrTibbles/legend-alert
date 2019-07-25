@@ -36,19 +36,16 @@ const LegendList = styled.ul`
   align-items: center;
   justify-content: center;
   list-style: none;
-
-  li {
-    display: flex;
-    flex: none;
-    width: 100%;
-    justify-content: space-between;
-    padding: var(--spacing-base) 1rem;
-    margin-bottom: var(--spacing-double);
-    cursor: pointer;
-  }
 `;
 
 const LegendItem = styled.li`
+  display: flex;
+  flex: none;
+  width: 100%;
+  justify-content: space-between;
+  padding: var(--spacing-base) 1rem;
+  margin-bottom: var(--spacing-double);
+  cursor: pointer;
   color: ${({ isActiveLegend }) =>
     isActiveLegend ? "var(--color-primary)" : "var(--color-dark)"};
 
