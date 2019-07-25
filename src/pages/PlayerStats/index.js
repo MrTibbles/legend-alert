@@ -1,4 +1,5 @@
 import React from "react";
+import { css } from "linaria";
 import { styled } from "linaria/react";
 import { useActivePlayer } from "../../context/ActivePlayer";
 import useTrackerNetworkAPI from "../../hooks/useTrackerNetworkAPI";
@@ -17,7 +18,7 @@ const Container = styled.div`
   }
 `;
 
-const ContentArea = styled.main`
+const contentArea = css`
   @media (min-width: 1024px) {
     width: 75vw;
   }
@@ -88,7 +89,7 @@ const PlayerStats = () => {
           onLegendSelected={onLegendSelected}
         />
       ) : null}
-      <ContentArea>
+      <main className={contentArea}>
         <Components.NavigationBar
           hasMoreLegends={legendList.length > 0}
           onShowMobileLegendList={onShowMobileLegendList}
@@ -99,7 +100,7 @@ const PlayerStats = () => {
           playerPlatform={activePlayer.platformSlug}
         />
         <Components.StatsGrid stats={activeLegend.stats} />
-      </ContentArea>
+      </main>
     </Container>
   );
 };

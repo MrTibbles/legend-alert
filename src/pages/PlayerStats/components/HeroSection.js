@@ -35,6 +35,10 @@ const styles = {
     left: 0;
     right: 0;
     height: 75px;
+
+    @media (min-width: 1024px) {
+      left: 25vw;
+    }
   `,
   playerName: css`
     color: var(--color-white);
