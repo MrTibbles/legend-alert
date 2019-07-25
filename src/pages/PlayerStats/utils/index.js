@@ -16,7 +16,7 @@ const getActiveLegend = legends =>
 const getLegendList = ({ children }) =>
   children.reduce((list, { metadata, stats }) => {
     list.push({
-      icon: metadata.icon,
+      iconUrl: metadata.icon,
       isActiveInGame: metadata.isActive,
       legendName: metadata.legendName,
       stats,
