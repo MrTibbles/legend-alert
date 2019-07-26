@@ -68,9 +68,13 @@ const styles = {
  */
 const StatsGrid = ({ stats }) => (
   <section className={styles.container}>
-    <div className={styles.grid}>
+    <div className={styles.grid} data-testid="stats-grid">
       {stats.map(({ displayValue, metadata }) => (
-        <div className={styles.statsItem} key={metadata.key}>
+        <div
+          className={styles.statsItem}
+          data-testid="stats-item"
+          key={metadata.key}
+        >
           <div>
             <h2 className="stat-value">{displayValue}</h2>
           </div>

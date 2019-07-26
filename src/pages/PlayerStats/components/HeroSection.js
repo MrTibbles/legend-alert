@@ -54,7 +54,11 @@ const HeroSection = ({ image, platformUserId, playerPlatform }) => (
       </h3>
     </div>
     <div className={styles.legendImage}>
-      <img alt="Active Legend | Legend Alert" src={image} />
+      <img
+        alt="Active Legend | Legend Alert"
+        data-testid="legend-image"
+        src={image}
+      />
     </div>
   </section>
 );

@@ -80,7 +80,7 @@ const LegendItem = styled.li`
 const LegendSelector = ({ activeLegendName, legends, onLegendSelected }) => (
   <aside className={styles.container}>
     <div className={styles.searchLinkContainer}>
-      <Link to="/">
+      <Link data-testid="player-search-link" to="/">
         <SearchIcon color="white" width="1.25rem" />
       </Link>
     </div>

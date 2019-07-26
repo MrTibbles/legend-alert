@@ -27,11 +27,14 @@ const Nav = styled.nav`
 const NavigationBar = ({ hasMoreLegends = false, onShowMobileLegendList }) => (
   <Nav hasMoreLegends={hasMoreLegends}>
     {hasMoreLegends ? (
-      <Button onClick={onShowMobileLegendList}>
+      <Button
+        data-testid="show-legend-selector"
+        onClick={onShowMobileLegendList}
+      >
         <ListIcon color="white" />
       </Button>
     ) : null}
-    <Link to="/">
+    <Link data-testid="player-search-link_mobile" to="/">
       <SearchIcon color="white" />
     </Link>
   </Nav>

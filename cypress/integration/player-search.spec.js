@@ -10,7 +10,7 @@ describe('Integration :: Player Search', () => {
 
     cy.get('button[data-testid="submit-btn"]').as('submitBtn')
 
-    cy.server({ delay: 500 })
+    cy.server({ delay: 100 })
     cy.route({
       url: 'http://localhost:3000/apex-api/v2/apex/standard/search?platform=psn&query=leroyjenkins',
       response: { data: [] }
