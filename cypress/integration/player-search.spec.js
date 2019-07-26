@@ -16,16 +16,16 @@ describe('Integration :: Player Search', () => {
       response: { data: [] }
     }).as('searchLeroyJenkins')
 
-    cy.fixture('player-search-DIRTiG').then(response => {
+    cy.fixture('player-search-DiRTiG').then(response => {
       cy.route({
         url: 'http://localhost:3000/apex-api/v2/apex/standard/search?platform=psn&query=DiRTiG',
         response
       }).as('searchDiRTiG')
     })
 
-    cy.fixture('player-stats-DIRTiG').then(response => {
+    cy.fixture('player-stats-DiRTiG').then(response => {
       cy.route({
-        url: 'http://localhost:3000/apex-api/v1/apex/standard/profile/psn/DiRTiG',
+        url: 'http://localhost:3000/apex-api/v1/apex/standard/profile/psn/dirtig',
         response
       }).as('DiRTiGStatsPage')
     })
