@@ -10,7 +10,7 @@ describe('Integration :: Player Stats', () => {
 
     cy.get('img[data-testid="legend-image"]').as('legendImage')
 
-    cy.get('div[data-testid="stats-grid"] > div[data-testid="stats-item"]').as('statsItems')
+    cy.get('div[data-testid="stats-item"]').as('statsItems')
 
     cy.get('li[data-testid="legend-option"]').as('legendOptions')
   })
@@ -46,5 +46,5 @@ describe('Integration :: Player Stats', () => {
 
     cy.get('@statsItems').should('have.length', 5)
   })
-  
+
 })

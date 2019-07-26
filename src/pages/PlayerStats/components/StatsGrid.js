@@ -68,7 +68,7 @@ const styles = {
  */
 const StatsGrid = ({ stats }) => (
   <section className={styles.container}>
-    <div className={styles.grid} data-testid="stats-grid">
+    <div className={styles.grid}>
       {stats.map(({ displayValue, metadata }) => (
         <div
           className={styles.statsItem}
