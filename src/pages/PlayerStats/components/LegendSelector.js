@@ -80,13 +80,14 @@ const LegendItem = styled.li`
 const LegendSelector = ({ activeLegendName, legends, onLegendSelected }) => (
   <aside className={styles.container}>
     <div className={styles.searchLinkContainer}>
-      <Link to="/">
+      <Link data-testid="player-search-link_lgScreen" to="/">
         <SearchIcon color="white" width="1.25rem" />
       </Link>
     </div>
     <ul className={styles.legendList}>
       {legends.map(legend => (
         <LegendItem
+          data-testid="legend-option"
           isActiveLegend={legend.legendName === activeLegendName}
           key={legend.legendName}
           onClick={() => onLegendSelected(legend)}

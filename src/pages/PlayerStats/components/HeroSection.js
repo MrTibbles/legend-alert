@@ -49,12 +49,16 @@ const styles = {
 const HeroSection = ({ image, platformUserId, playerPlatform }) => (
   <section className={styles.container}>
     <div className={styles.playerInfo}>
-      <h3 className={styles.playerName}>
+      <h3 className={styles.playerName} data-testid="player-info">
         {platformUserId} | <span className="uppercase">{playerPlatform}</span>
       </h3>
     </div>
     <div className={styles.legendImage}>
-      <img alt="Active Legend | Legend Alert" src={image} />
+      <img
+        alt="Active Legend | Legend Alert"
+        data-testid="legend-image"
+        src={image}
+      />
     </div>
   </section>
 );
