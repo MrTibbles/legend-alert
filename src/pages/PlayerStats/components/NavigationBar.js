@@ -34,7 +34,7 @@ const NavigationBar = ({ hasMoreLegends = false, onShowMobileLegendList }) => (
         <ListIcon color="white" />
       </Button>
     ) : null}
-    <Link data-testid="player-search-link_mobile" to="/">
+    <Link data-testid="player-search-link_smlScreen" to="/">
       <SearchIcon color="white" />
     </Link>
   </Nav>
