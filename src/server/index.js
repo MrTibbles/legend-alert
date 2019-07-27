@@ -12,29 +12,24 @@ const typeDefs = gql`
     additionalParameters: String
   }
 
-  input GetPlayerInput {
+  input SearchPlayersInput {
     playerUserId: String!
     platformSlug: String!
   }
 
   type Query {
-    getPlayer(filter: GetPlayerInput!): TRNPlayer
+    searchPlayers(filter: SearchPlayersInput!): [TRNPlayer]
   }
 `;
 
 const resolvers = {
   Query: {
-    getPlayer: async (_source, args, { dataSources }) => {
+    searchPlayers: async (_source, args, { dataSources }) => {
       const {
         filter: { platformSlug, playerUserId }
       } = args;
 
-      console.info({
-        platformSlug,
-        playerUserId
-      });
-
-      return dataSources.trackerNetworkAPI.getPlayer({
+      return dataSources.trackerNetworkAPI.searchPlayers({
         platformSlug,
         playerUserId
       });
@@ -42,9 +37,6 @@ const resolvers = {
   }
 };
 
-// In the most basic sense, the ApolloServer can be started
-// by passing type definitions (typeDefs) and the resolvers
-// responsible for fetching the data for those types.
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -61,8 +53,6 @@ const server = new ApolloServer({
   }
 });
 
-// This `listen` method launches a web-server.  Existing apps
-// can utilize middleware options, which we'll discuss later.
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });
