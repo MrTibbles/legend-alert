@@ -10,7 +10,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { GenerateSW } = require('workbox-webpack-plugin');
 
 const PATHS = {
-  src: path.resolve(__dirname, "src/"),
+  src: path.resolve(__dirname, "src/client"),
   dist: path.resolve(__dirname, "dist")
 }
 

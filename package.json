@@ -46,11 +46,15 @@
   "scripts": {
     "lint:js": "prettier --write \"src/**/*.js\" && eslint --fix \"src/**/*.js\"",
     "start:dev": "webpack-dev-server",
+    "start:server": "node src/server/index.js",
     "cypress:open": "cypress open",
     "build": "webpack --env.production",
     "test": "cypress run --record --key f8b075fe-ce9f-4712-ad42-96c913b58cf6"
   },
   "dependencies": {
+    "apollo-datasource-rest": "^0.6.1",
+    "apollo-server": "^2.7.1",
+    "graphql": "^14.4.2",
     "linaria": "^1.4.0-alpha.1",
     "localforage": "^1.7.3",
     "react": "^16.8.6",
