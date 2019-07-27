@@ -3,6 +3,7 @@ const { RESTDataSource } = require("apollo-datasource-rest");
 class TrackerNetworkAPI extends RESTDataSource {
   constructor() {
     super();
+
     this.baseURL = "https://public-api.tracker.gg";
   }
 
@@ -10,10 +11,17 @@ class TrackerNetworkAPI extends RESTDataSource {
     request.headers.set("TRN-Api-Key", this.context.token);
   }
 
-  async getPlayer({ playerUserId, platformSlug }) {
-    this.get(
-      `/apex-api/v2/apex/standard/search?platform=${platformSlug}&query=${playerUserId}`
-    );
+  async searchPlayers({ platformSlug, playerUserId }) {
+    try {
+      const { data } = await this.get(
+        `/v2/apex/standard/search?platform=${platformSlug}&query=${playerUserId}`
+      );
+
+      // Handle error responses from TRN API
+      return data;
+    } catch (error) {
+      this.handleErrorResponse(error);
+    }
   }
 
   handleErrorResponse(errors) {
