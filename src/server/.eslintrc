@@ -1,0 +1,6 @@
+{
+  extends: "@raddad/eslint-config/node-rules",
+  globals: {
+    TRN_TOKEN: false
+  }
+}
