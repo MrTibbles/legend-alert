@@ -1,29 +1,10 @@
-const { ApolloServer, gql } = require("apollo-server");
-const TrackerNetworkAPI = require("./TrackerNetworkAPI");
+const { ApolloServer } = require("apollo-server");
 const dotenv = require("dotenv");
 
+const TrackerNetworkAPI = require("./TrackerNetworkAPI");
+const schema = require("./schema");
+
 dotenv.config();
-
-const typeDefs = gql`
-  type TRNPlayer {
-    platformId: Int
-    platformSlug: String
-    platformUserIdentifier: String
-    platformUserId: String
-    platformUserHandle: String
-    avatarUrl: String
-    additionalParameters: String
-  }
-
-  input SearchPlayersInput {
-    playerUserId: String!
-    platformSlug: String!
-  }
-
-  type Query {
-    searchPlayers(filter: SearchPlayersInput!): [TRNPlayer]
-  }
-`;
 
 const resolvers = {
   Query: {
@@ -33,6 +14,16 @@ const resolvers = {
       } = args;
 
       return dataSources.trackerNetworkAPI.searchPlayers({
+        platformSlug,
+        playerUserId
+      });
+    },
+    playerStats: async (_source, args, { dataSources }) => {
+      const {
+        filter: { platformSlug, playerUserId }
+      } = args;
+
+      return dataSources.trackerNetworkAPI.playerStats({
         platformSlug,
         playerUserId
       });
@@ -52,7 +43,7 @@ const server = new ApolloServer({
     };
   },
   resolvers,
-  typeDefs
+  typeDefs: schema
 });
 
 server.listen().then(({ url }) => {
