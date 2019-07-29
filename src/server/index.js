@@ -1,5 +1,8 @@
 const { ApolloServer, gql } = require("apollo-server");
 const TrackerNetworkAPI = require("./TrackerNetworkAPI");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const typeDefs = gql`
   type TRNPlayer {
@@ -38,19 +41,18 @@ const resolvers = {
 };
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+  context: () => {
+    return {
+      token: process.env.TRN_TOKEN
+    };
+  },
   dataSources: () => {
     return {
       trackerNetworkAPI: new TrackerNetworkAPI()
     };
   },
-  context: () => {
-    return {
-      // REPLACE WITH DOT ENV IMPORT
-      token: "b8b9affa-afeb-41dd-ade1-025f9d1f1f77"
-    };
-  }
+  resolvers,
+  typeDefs
 });
 
 server.listen().then(({ url }) => {
