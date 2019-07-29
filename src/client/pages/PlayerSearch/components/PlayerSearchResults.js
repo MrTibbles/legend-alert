@@ -14,6 +14,14 @@ const PlayerSearchResults = ({ goBack, history, results = [] }) => {
   // eslint-disable-next-line no-unused-vars
   const [_, setActivePlayer] = useActivePlayer();
 
+  const onClickGoBack = () => goBack(false);
+
+  const onSelectLegend = legendIdx => {
+    setActivePlayer(results[legendIdx]);
+
+    history.push("/stats");
+  };
+
   if (!results.length) {
     return (
       <section className="pane">
@@ -29,14 +37,6 @@ const PlayerSearchResults = ({ goBack, history, results = [] }) => {
     );
   }
 
-  const onClickGoBack = () => goBack(false);
-
-  const onSelectLegend = legendIdx => {
-    setActivePlayer(results[legendIdx]);
-
-    history.push("/stats");
-  };
-
   return (
     <section className="pane" data-testid="search-results">
       <div className={searchResultsContainer}>
@@ -46,15 +46,15 @@ const PlayerSearchResults = ({ goBack, history, results = [] }) => {
         <h3>The following players matched your search</h3>
         <p>Select one to see how much of a legend they are:</p>
         <ul className={searchResultsList} data-testid="search-results">
-          {results.map(({ platformSlug, platformUserHandle }, idx) => (
+          {results.map(({ platformSlug, platformUserId }, idx) => (
             <li
-              data-testid={`${platformSlug}-${platformUserHandle}`}
+              data-testid={`${platformSlug}-${platformUserId}`}
               key={platformSlug}
               onClick={() => onSelectLegend(idx)}
             >
               <h3>
                 <span className="highlight" data-testid="user-handle">
-                  {platformUserHandle}
+                  {platformUserId}
                 </span>
                 &nbsp;on&nbsp;
                 <span

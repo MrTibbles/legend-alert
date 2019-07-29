@@ -8,17 +8,22 @@ import * as Components from "./components";
 
 const PlayerSearch = () => {
   const [activePlayer] = useActivePlayer();
-  const [showResults, toggleShowReults] = React.useState(false);
-  const [networkState, doFetch] = useTrackerNetworkAPI();
+  const [showResults, toggleShowResults] = React.useState(false);
+  const [networkState, submitQuery] = useTrackerNetworkAPI();
 
   const submitPlayerSearch = React.useRef((platformChoice, playerHandle) => {
-    doFetch(
-      `/apex-api/v2/apex/standard/search?platform=${platformChoice}&query=${playerHandle}`
-    );
+    submitQuery(`
+      query {
+        searchPlayers(filter: { playerUserId: "${playerHandle}", platformSlug: "${platformChoice}"}) {
+          platformSlug
+          platformUserId
+      	}
+      }
+    `);
   });
 
   React.useEffect(() => {
-    if (networkState.data) toggleShowReults(true);
+    if (networkState.data) toggleShowResults(true);
   }, [networkState]);
 
   return (
@@ -42,10 +47,12 @@ const PlayerSearch = () => {
               searching={networkState.loading}
               submitPlayerSearch={submitPlayerSearch.current}
             />
-            <Components.PlayerSearchResults
-              goBack={toggleShowReults}
-              results={networkState.data}
-            />
+            {networkState.data ? (
+              <Components.PlayerSearchResults
+                goBack={toggleShowResults}
+                results={networkState.data.searchPlayers}
+              />
+            ) : null}
           </div>
         </Components.DetailsSlider>
       </section>
