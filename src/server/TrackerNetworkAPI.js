@@ -11,31 +11,43 @@ class TrackerNetworkAPI extends RESTDataSource {
     request.headers.set("TRN-Api-Key", this.context.token);
   }
 
+  /**
+   * Search for an Apex Legends player
+   *
+   * @param  {String}  platformSlug Platform identifier for player; 'psn', 'xbl', 'origin'
+   * @param  {String}  playerUserId Player's handle
+   * @return {Promise}              Returns standard Graphql response
+   */
   async searchPlayers({ platformSlug, playerUserId }) {
     try {
       const { data } = await this.get(
         `/v2/apex/standard/search?platform=${platformSlug}&query=${playerUserId}`
       );
 
-      // Handle error responses from TRN API
+      if (!data) this.logErrorResponse("Tracker Network null response");
+
       return data;
     } catch (error) {
-      this.handleErrorResponse(error);
+      this.logErrorResponse(error);
+
+      return error;
     }
   }
 
-  handleErrorResponse(errors) {
-    console.log(`TrackerNetworkAPI :: handleErrorResponse ::`);
+  /**
+   * Basic error logging
+   *
+   * @param  {Array} errors [description]
+   * @return {[type]}        [description]
+   */
+  logErrorResponse(errors) {
+    const timestamp = new Date();
+
+    console.log(
+      `TrackerNetworkAPI :: ErrorResponse :: ${timestamp.toISOString()}`
+    );
     console.log(errors);
   }
-  //
-  // async getMostViewedMovies(limit = 10) {
-  //   const data = await this.get('movies', {
-  //     per_page: limit,
-  //     order_by: 'most_viewed',
-  //   });
-  //   return data.results;
-  // }
 }
 
 module.exports = TrackerNetworkAPI;
