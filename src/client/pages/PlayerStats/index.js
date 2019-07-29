@@ -26,7 +26,7 @@ const contentArea = css`
 
 const PlayerStats = () => {
   const [activePlayer] = useActivePlayer();
-  const [networkState, doFetch] = useTrackerNetworkAPI();
+  const [networkState, { doFetch }] = useTrackerNetworkAPI();
   const [activeLegend, setActiveLegend] = React.useState(null);
   const [legendList, setLegendList] = React.useState([]);
   const [mobileLegendListIsVis, setMobileLegendListVis] = React.useState(false);

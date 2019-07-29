@@ -13,32 +13,39 @@ const useTrackerNetworkAPI = () => {
     loading: false
   });
 
-  const doFetch = async url => {
+  const handleErrorResponse = error => {
+    let _error = error;
+
+    // Handle GraphQL errors
+    if (Array.isArray(error)) {
+      _error = error.map(({ message }) => message).join(", ");
+    }
+
+    return setNeworkState({
+      ...networkState,
+      error: _error,
+      loading: false
+    });
+  };
+
+  const submitQuery = async query => {
     setNeworkState({ ...networkState, error: undefined, loading: true });
 
-    const { data } = await fetch(url, {
-      credentials: "omit",
-      headers: { "TRN-Api-Key": TRN_TOKEN },
-      mode: "cors"
+    const { data, errors } = await fetch("http://localhost:4000/", {
+      body: JSON.stringify({ query }),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST"
     })
-      .catch(err => {
-        setNeworkState({
-          ...networkState,
-          error: err.message,
-          loading: false
-        });
-      })
+      .catch(err => handleErrorResponse(err.message))
       .then(res => {
-        if (!res.ok) {
-          setNeworkState({
-            ...networkState,
-            error: "Something went wrong",
-            loading: false
-          });
-        }
+        if (!res.ok) return handleErrorResponse("Something went wrong");
 
         return res.json();
       });
+
+    if (errors) return handleErrorResponse(errors);
 
     return setNeworkState({
       ...networkState,
@@ -47,7 +54,7 @@ const useTrackerNetworkAPI = () => {
     });
   };
 
-  return [networkState, doFetch];
+  return [networkState, submitQuery];
 };
 
 export default useTrackerNetworkAPI;
