@@ -77,10 +77,10 @@ module.exports = (env = {}) => {
       ]
     },
     plugins: [
-      new webpack.DefinePlugin(JSON.stringify({
-        TRN_TOKEN: process.env.TRN_TOKEN,
+      new webpack.DefinePlugin({
+        TRN_TOKEN: JSON.stringify(process.env.TRN_TOKEN),
         PRODUCTION_ENV: !isInDev
-      })),
+      }),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         title: "🚨",

@@ -35,6 +35,29 @@ class TrackerNetworkAPI extends RESTDataSource {
   }
 
   /**
+   * Get an Apex Legends player's profile stats
+   *
+   * @param  {String}  platformSlug Platform identifier for player; 'psn', 'xbl', 'origin'
+   * @param  {String}  playerUserId Player's handle
+   * @return {Promise}              Returns standard Graphql response
+   */
+  async playerStats({ platformSlug, playerUserId }) {
+    try {
+      const { data } = await this.get(
+        `/v2/apex/standard/profile/${platformSlug}/${playerUserId}`
+      );
+
+      if (!data) this.logErrorResponse("Tracker Network null response");
+
+      return data;
+    } catch (error) {
+      this.logErrorResponse(error);
+
+      return error;
+    }
+  }
+
+  /**
    * Basic error logging
    *
    * @param  {Array} errors [description]
