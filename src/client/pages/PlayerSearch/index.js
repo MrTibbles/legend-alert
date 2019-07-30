@@ -5,21 +5,17 @@ import logo from "../../images/legend-alert-logo.svg";
 import { useActivePlayer } from "../../context/ActivePlayer";
 
 import * as Components from "./components";
+import searchPlayersQuery from "./queries/searchPlayersQuery";
 
 const PlayerSearch = () => {
   const [activePlayer] = useActivePlayer();
   const [showResults, toggleShowResults] = React.useState(false);
   const [networkState, submitQuery] = useGraphQLAPI();
 
-  const submitPlayerSearch = React.useRef((platformChoice, playerHandle) => {
-    submitQuery(`
-      query {
-        searchPlayers(filter: { playerUserId: "${playerHandle}", platformSlug: "${platformChoice}"}) {
-          platformSlug
-          platformUserId
-      	}
-      }
-    `);
+  const submitPlayerSearch = React.useRef((platformChoice, playerUserId) => {
+    const query = searchPlayersQuery({ platformChoice, playerUserId });
+
+    submitQuery(query);
   });
 
   React.useEffect(() => {
