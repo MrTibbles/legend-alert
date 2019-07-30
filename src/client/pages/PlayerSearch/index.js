@@ -1,5 +1,5 @@
 import React from "react";
-import useAPI from "../../hooks/useAPI";
+import useGraphQLAPI from "../../hooks/useGraphQLAPI";
 import * as styles from "./styles";
 import logo from "../../images/legend-alert-logo.svg";
 import { useActivePlayer } from "../../context/ActivePlayer";
@@ -9,7 +9,7 @@ import * as Components from "./components";
 const PlayerSearch = () => {
   const [activePlayer] = useActivePlayer();
   const [showResults, toggleShowResults] = React.useState(false);
-  const [networkState, submitQuery] = useAPI();
+  const [networkState, submitQuery] = useGraphQLAPI();
 
   const submitPlayerSearch = React.useRef((platformChoice, playerHandle) => {
     submitQuery(`

@@ -2,7 +2,7 @@ import React from "react";
 import { css } from "linaria";
 import { styled } from "linaria/react";
 import { useActivePlayer } from "../../context/ActivePlayer";
-import useAPI from "../../hooks/useAPI";
+import useGraphQLAPI from "../../hooks/useGraphQLAPI";
 import * as utils from "./utils";
 import * as Components from "./components";
 import playerStatsQuery from "./queries/playerStatsQuery";
@@ -27,7 +27,7 @@ const contentArea = css`
 
 const PlayerStats = () => {
   const [activePlayer] = useActivePlayer();
-  const [networkState, submitQuery] = useAPI();
+  const [networkState, submitQuery] = useGraphQLAPI();
   const [activeLegend, setActiveLegend] = React.useState(null);
   const [legendList, setLegendList] = React.useState([]);
   const [mobileLegendListIsVis, setMobileLegendListVis] = React.useState(false);

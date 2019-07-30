@@ -11,24 +11,6 @@ describe('Integration :: Player Search', () => {
     cy.get('button[data-testid="submit-btn"]').as('submitBtn')
 
     cy.server({ delay: 100 })
-    cy.route({
-      url: 'http://localhost:3000/apex-api/v2/apex/standard/search?platform=psn&query=leroyjenkins',
-      response: { data: [] }
-    }).as('searchLeroyJenkins')
-
-    cy.fixture('player-search-DiRTiG').then(response => {
-      cy.route({
-        url: 'http://localhost:3000/apex-api/v2/apex/standard/search?platform=psn&query=DiRTiG',
-        response
-      }).as('searchDiRTiG')
-    })
-
-    cy.fixture('player-stats-DiRTiG').then(response => {
-      cy.route({
-        url: 'http://localhost:3000/apex-api/v1/apex/standard/profile/psn/dirtig',
-        response
-      }).as('DiRTiGStatsPage')
-    })
   })
 
   it('Should not submit a player search with empty fields', () => {
@@ -54,6 +36,12 @@ describe('Integration :: Player Search', () => {
   })
 
   it('Should submit a player search for Leroy Jenkins, and display no players found msg', () => {
+    cy.route({
+      url: 'http://localhost:4000',
+      method: 'POST',
+      response: { data: { searchPlayers: [] } }
+    }).as('searchLeroyJenkins')
+
     cy.get('@playerHandleInput').type('leroyjenkins')
 
     cy.get('@psnBtn').click()
@@ -68,6 +56,14 @@ describe('Integration :: Player Search', () => {
   })
 
   it('Should submit a player search for DiRTiG, and display results', () => {
+    cy.fixture('player-search-DiRTiG').then(response => {
+      cy.route({
+        method: 'POST',
+        response,
+        url: 'http://localhost:4000',
+      }).as('searchDiRTiG')
+    })
+
     cy.get('@playerHandleInput').type('DiRTiG')
 
     cy.get('@psnBtn').click()
@@ -80,14 +76,22 @@ describe('Integration :: Player Search', () => {
 
     cy.get('ul[data-testid="search-results"]')
 
-    cy.get('li[data-testid="psn-DiRTiG"]')
-      .find('span[data-testid="user-handle"]').contains('DiRTiG')
+    cy.get('li[data-testid="psn-dirtig"]')
+      .find('span[data-testid="user-handle"]').contains('dirtig')
 
-    cy.get('li[data-testid="psn-DiRTiG"]')
+    cy.get('li[data-testid="psn-dirtig"]')
       .find('span[data-testid="user-platform"]').contains('psn')
   })
 
-  it('Should allow use to click search result and redirect to /stats route', () => {
+  it('Should allow user to click search result and redirect to /stats route', () => {
+    cy.fixture('player-search-DiRTiG').then(response => {
+      cy.route({
+        method: 'POST',
+        response,
+        url: 'http://localhost:4000',
+      }).as('searchDiRTiG')
+    })
+
     cy.get('@playerHandleInput').type('DiRTiG')
 
     cy.get('@psnBtn').click()
@@ -100,7 +104,18 @@ describe('Integration :: Player Search', () => {
 
     cy.get('ul[data-testid="search-results"]')
 
-    cy.get('li[data-testid="psn-DiRTiG"]').click()
+    // THE STACKING OF NETWORK STUBS IS UNPLEASANT, NICER SOLUTION REQUIRED
+    // Moving to Apollo Client to use ApolloMockedProvider is the obvious solution
+    cy.fixture('player-stats-DiRTiG').then(response => {
+      cy.route({
+        method: 'POST',
+        response,
+        url: 'http://localhost:4000',
+      }).as('DiRTiGStatsPage')
+    })
+
+    cy.get('li[data-testid="psn-dirtig"]').click()
+
 
     cy.wait('@DiRTiGStatsPage')
   })

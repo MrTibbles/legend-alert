@@ -6,7 +6,7 @@ import { useState } from "react";
  * @return {Array} [0]      Network state representation
  *                 [1]      Method for submitting network request
  */
-const useAPI = () => {
+const useGraphQLAPI = () => {
   const [networkState, setNeworkState] = useState({
     data: undefined,
     error: undefined,
@@ -57,4 +57,4 @@ const useAPI = () => {
   return [networkState, submitQuery];
 };
 
-export default useAPI;
+export default useGraphQLAPI;

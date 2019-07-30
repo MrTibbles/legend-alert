@@ -5,16 +5,10 @@ Cypress.Commands.add("setDefaultPlayer", () => {
 
   cy.fixture('player-search-DiRTiG').then(response => {
     cy.route({
-      url: 'http://localhost:3000/apex-api/v2/apex/standard/search?platform=psn&query=DiRTiG',
-      response
+      method: 'POST',
+      response,
+      url: 'http://localhost:4000',
     }).as('searchDiRTiG')
-  })
-
-  cy.fixture('player-stats-DiRTiG').then(response => {
-    cy.route({
-      url: 'http://localhost:3000/apex-api/v1/apex/standard/profile/psn/dirtig',
-      response
-    }).as('DiRTiGStatsPage')
   })
 
   cy.visit('http://localhost:3000')
@@ -27,9 +21,17 @@ Cypress.Commands.add("setDefaultPlayer", () => {
 
   cy.wait('@searchDiRTiG')
 
+  cy.fixture('player-stats-DiRTiG').then(response => {
+    cy.route({
+      method: 'POST',
+      response,
+      url: 'http://localhost:4000',
+    }).as('DiRTiGStatsPage')
+  })
+
   cy.get('ul[data-testid="search-results"]')
 
-  cy.get('li[data-testid="psn-DiRTiG"]').click()
+  cy.get('li[data-testid="psn-dirtig"]').click()
 
   cy.wait('@DiRTiGStatsPage')
 })
