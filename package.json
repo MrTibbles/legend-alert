@@ -7,6 +7,9 @@
     "ApexLegends",
     "lit-html"
   ],
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "repository": "https://github.com/MrTibbles/legend-alert",
   "author": "@mrtibbles",
   "license": "ISC",
