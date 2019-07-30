@@ -56,7 +56,7 @@ const schema = gql`
   input PlayerStatsInput {
     playerUserId: String!
     platformSlug: String!
-    segmentsFilter: String = "legend"
+    segmentsFilter: String
   }
 
   type Query {
