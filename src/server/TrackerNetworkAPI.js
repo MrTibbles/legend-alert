@@ -37,10 +37,10 @@ class TrackerNetworkAPI extends RESTDataSource {
   /**
    * Get an Apex Legends player's profile stats
    *
-   * @param  {String}  platformSlug   Platform identifier for player; 'psn', 'xbl', 'origin'
-   * @param  {String}  playerUserId   Player's handle
-   * @param  {String}  segmentsFilter Type of segments to filter by
-   * @return {Promise}                Returns standard Graphql response
+   * @param  {String}  platformSlug     Platform identifier for player; 'psn', 'xbl', 'origin'
+   * @param  {String}  playerUserId     Player's handle
+   * @param  {String}  [segmentsFilter] Type of segments to filter by
+   * @return {Promise}                  Returns standard Graphql response
    */
   async playerStats({ platformSlug, playerUserId, segmentsFilter }) {
     try {
@@ -73,8 +73,8 @@ class TrackerNetworkAPI extends RESTDataSource {
   /**
    * Basic error logging
    *
-   * @param  {Array} errors [description]
-   * @return {[type]}        [description]
+   * @param  {Object}   errors Error object
+   * @return {Function}        Logs the returned error to stdout
    */
   logErrorResponse(errors) {
     const timestamp = new Date();
