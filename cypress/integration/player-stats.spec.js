@@ -20,31 +20,31 @@ describe('Integration :: Player Stats', () => {
 
     cy.get('@legendImage')
       .invoke('attr', 'src')
-      .should('include', 'wattson-tall.png')
+      .should('include', 'caustic-tall.png')
 
     cy.get('@legendSelector')
     cy.get('@playerSearchLink_smlScreen')
 
-    cy.get('@statsItems').should('have.length', 3)
+    cy.get('@statsItems').should('have.length', 5)
   })
 
   it('Should allow the user to view a different legend', () => {
 
     cy.get('@legendImage')
       .invoke('attr', 'src')
-      .should('include', 'wattson-tall.png')
+      .should('include', 'caustic-tall.png')
 
     cy.get('@legendSelector').click()
 
     cy.get('@legendOptions').each($option => {
-      if ($option.text() === 'Caustic') return cy.wrap($option).click()
+      if ($option.text() === 'Wattson') return cy.wrap($option).click()
     })
 
     cy.get('@legendImage')
       .invoke('attr', 'src')
-      .should('include', 'caustic-tall.png')
+      .should('include', 'wattson-tall.png')
 
-    cy.get('@statsItems').should('have.length', 5)
+    cy.get('@statsItems').should('have.length', 3)
   })
 
 })
