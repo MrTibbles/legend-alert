@@ -1,5 +1,5 @@
 import React from "react";
-import useTrackerNetworkAPI from "../../hooks/useTrackerNetworkAPI";
+import useAPI from "../../hooks/useAPI";
 import * as styles from "./styles";
 import logo from "../../images/legend-alert-logo.svg";
 import { useActivePlayer } from "../../context/ActivePlayer";
@@ -9,7 +9,7 @@ import * as Components from "./components";
 const PlayerSearch = () => {
   const [activePlayer] = useActivePlayer();
   const [showResults, toggleShowResults] = React.useState(false);
-  const [networkState, submitQuery] = useTrackerNetworkAPI();
+  const [networkState, submitQuery] = useAPI();
 
   const submitPlayerSearch = React.useRef((platformChoice, playerHandle) => {
     submitQuery(`

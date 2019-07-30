@@ -63,28 +63,24 @@ const styles = {
 /**
  * Main stats grid for a single Apex Legend
  *
- * @param  {Array} stats Available stats from TRN response
- * @return {Object}      lit-html renderResult
+ * @param  {Array}  stats      Available stats from TRN response
+ * @return {Object}            React node tree
  */
 const StatsGrid = ({ stats }) => (
   <section className={styles.container}>
     <div className={styles.grid}>
-      {stats.map(({ displayValue, metadata }) => (
-        <div
-          className={styles.statsItem}
-          data-testid="stats-item"
-          key={metadata.key}
-        >
+      {stats.map(({ categoryName, displayValue, name }) => (
+        <div className={styles.statsItem} data-testid="stats-item" key={name}>
           <div>
             <h2 className="stat-value">{displayValue}</h2>
           </div>
           <div>
-            <h3 className="stat-name">{metadata.name}</h3>
+            <h3 className="stat-name">{name}</h3>
           </div>
           <div>
             <p>
               Category:
-              <span className="stat-category">{metadata.categoryName}</span>
+              <span className="stat-category">{categoryName}</span>
             </p>
           </div>
         </div>

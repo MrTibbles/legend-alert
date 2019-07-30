@@ -35,6 +35,7 @@
     "html-webpack-plugin": "^3.2.0",
     "husky": "^2.4.0",
     "mini-css-extract-plugin": "^0.7.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^1.18.1",
     "prop-types": "^15.7.2",
     "webpack": "^4.33.0",
@@ -49,8 +50,9 @@
   },
   "scripts": {
     "lint:js": "prettier --write \"src/**/*.js\" && eslint --fix \"src/**/*.js\"",
-    "start:dev": "webpack-dev-server",
+    "start:client": "webpack-dev-server",
     "start:server": "node src/server/index.js",
+    "dev": "npm-run-all --parallel start:*",
     "cypress:open": "cypress open",
     "build": "webpack --env.production",
     "test": "cypress run --record --key f8b075fe-ce9f-4712-ad42-96c913b58cf6"
