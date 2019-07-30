@@ -10,7 +10,7 @@ describe('Integration :: Player Search', () => {
 
     cy.get('button[data-testid="submit-btn"]').as('submitBtn')
 
-    cy.server({ delay: 100 })
+    cy.server({ delay: 50 })
   })
 
   it('Should not submit a player search with empty fields', () => {
@@ -105,7 +105,6 @@ describe('Integration :: Player Search', () => {
     cy.get('ul[data-testid="search-results"]')
 
     // THE STACKING OF NETWORK STUBS IS UNPLEASANT, NICER SOLUTION REQUIRED
-    // Moving to Apollo Client to use ApolloMockedProvider is the obvious solution
     cy.fixture('player-stats-DiRTiG').then(response => {
       cy.route({
         method: 'POST',

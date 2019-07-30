@@ -1,7 +1,7 @@
 // Set a player session for viewing their stats, due to restrictions on
 Cypress.Commands.add("setDefaultPlayer", () => {
   // Setup the network spies
-  cy.server({ delay: 100 })
+  cy.server({ delay: 50 })
 
   cy.fixture('player-search-DiRTiG').then(response => {
     cy.route({
