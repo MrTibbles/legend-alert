@@ -37,19 +37,30 @@ class TrackerNetworkAPI extends RESTDataSource {
   /**
    * Get an Apex Legends player's profile stats
    *
-   * @param  {String}  platformSlug Platform identifier for player; 'psn', 'xbl', 'origin'
-   * @param  {String}  playerUserId Player's handle
-   * @return {Promise}              Returns standard Graphql response
+   * @param  {String}  segmentsFilter Type of segments to filter by
+   * @param  {String}  platformSlug   Platform identifier for player; 'psn', 'xbl', 'origin'
+   * @param  {String}  playerUserId   Player's handle
+   * @return {Promise}                Returns standard Graphql response
    */
-  async playerStats({ platformSlug, playerUserId }) {
+  async playerStats({ segmentsFilter, platformSlug, playerUserId }) {
     try {
       const { data } = await this.get(
         `/v2/apex/standard/profile/${platformSlug}/${playerUserId}`
       );
 
-      if (!data) this.logErrorResponse("Tracker Network null response");
+      if (!data) {
+        this.logErrorResponse("Tracker Network null response");
 
-      return data;
+        return null;
+      }
+
+      const filteredSegements = data.segments.reduce((filtered, segment) => {
+        if (segment.type === segmentsFilter) filtered.push(segment);
+
+        return filtered;
+      }, []);
+
+      return Object.assign({}, { ...data }, { segments: filteredSegements });
     } catch (error) {
       this.logErrorResponse(error);
 

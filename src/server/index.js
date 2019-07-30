@@ -2,31 +2,17 @@ const { ApolloServer } = require("apollo-server");
 const dotenv = require("dotenv");
 
 const TrackerNetworkAPI = require("./TrackerNetworkAPI");
-const schema = require("./schema");
+const typeDefs = require("./schema");
 
 dotenv.config();
 
 const resolvers = {
   Query: {
-    searchPlayers: async (_source, args, { dataSources }) => {
-      const {
-        filter: { platformSlug, playerUserId }
-      } = args;
-
-      return dataSources.trackerNetworkAPI.searchPlayers({
-        platformSlug,
-        playerUserId
-      });
+    playerStats: async (_source, { filter }, { dataSources }) => {
+      return dataSources.trackerNetworkAPI.playerStats(filter);
     },
-    playerStats: async (_source, args, { dataSources }) => {
-      const {
-        filter: { platformSlug, playerUserId }
-      } = args;
-
-      return dataSources.trackerNetworkAPI.playerStats({
-        platformSlug,
-        playerUserId
-      });
+    searchPlayers: async (_source, { filter }, { dataSources }) => {
+      return dataSources.trackerNetworkAPI.searchPlayers(filter);
     }
   }
 };
@@ -43,7 +29,7 @@ const server = new ApolloServer({
     };
   },
   resolvers,
-  typeDefs: schema
+  typeDefs
 });
 
 server.listen().then(({ url }) => {
