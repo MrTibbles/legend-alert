@@ -2,9 +2,10 @@ import React from "react";
 import { css } from "linaria";
 import { styled } from "linaria/react";
 import { useActivePlayer } from "../../context/ActivePlayer";
-import useTrackerNetworkAPI from "../../hooks/useTrackerNetworkAPI";
+import useAPI from "../../hooks/useAPI";
 import * as utils from "./utils";
 import * as Components from "./components";
+import playerStatsQuery from "./queries/playerStatsQuery";
 
 const Container = styled.div`
   width: 100vw;
@@ -26,15 +27,15 @@ const contentArea = css`
 
 const PlayerStats = () => {
   const [activePlayer] = useActivePlayer();
-  const [networkState, { doFetch }] = useTrackerNetworkAPI();
+  const [networkState, submitQuery] = useAPI();
   const [activeLegend, setActiveLegend] = React.useState(null);
   const [legendList, setLegendList] = React.useState([]);
   const [mobileLegendListIsVis, setMobileLegendListVis] = React.useState(false);
 
   const fetchPlayerStats = React.useRef((platformSlug, platformUserId) => {
-    doFetch(
-      `/apex-api/v1/apex/standard/profile/${platformSlug}/${platformUserId}`
-    );
+    const query = playerStatsQuery({ platformSlug, platformUserId });
+
+    submitQuery(query);
   });
 
   const onShowMobileLegendList = () => {
@@ -56,7 +57,7 @@ const PlayerStats = () => {
 
   React.useEffect(() => {
     if (networkState.data) {
-      const legendList = utils.getLegendList(networkState.data);
+      const legendList = utils.getLegendList(networkState.data.playerStats);
       setLegendList(legendList);
 
       const activeInGameLegend = utils.getActiveLegend(legendList);

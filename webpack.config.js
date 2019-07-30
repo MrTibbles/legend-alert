@@ -27,13 +27,6 @@ module.exports = (env = {}) => {
       contentBase: PATHS.dist,
       port: 3000,
       stats: "errors-warnings",
-      proxy: {
-        "/apex-api/**": {
-          target: "https://public-api.tracker.gg",
-          pathRewrite: { "/apex-api/": "" },
-          changeOrigin: true
-        }
-      }
     },
     output: {
       path: PATHS.dist,
