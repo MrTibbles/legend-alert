@@ -16,22 +16,6 @@
         "linaria/babel"
       ]
     },
-    "test": {
-      "presets": [
-        [
-          "@babel/preset-env",
-          {
-            "useBuiltIns": "entry",
-            "corejs": "3",
-            "targets": {
-              "esmodules": true
-            }
-          }
-        ],
-        "@babel/preset-react",
-        "linaria/babel"
-      ]
-    },
     "production": {
       "plugins": [
         ["react-remove-properties", { "properties": ["data-testid"] }]
