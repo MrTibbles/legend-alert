@@ -1,8 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 
-const ListIcon = ({ color = "#1D1D1D" }) => (
-  <svg viewBox="0 0 46 46">
+interface IconProps {
+  color?: string;
+}
+
+const ListIcon = ({ color = "#1D1D1D", ...props } : IconProps) => (
+  <svg viewBox="0 0 46 46" {...props}>
     <g fill="none" fillRule="evenodd" stroke="none" strokeWidth="1">
       <g fill={color} fillRule="nonzero">
         <rect height="6" rx="2" width="6" x="0" y="0"></rect>
@@ -15,9 +18,5 @@ const ListIcon = ({ color = "#1D1D1D" }) => (
     </g>
   </svg>
 );
-
-ListIcon.propTypes = {
-  color: PropTypes.string
-};
 
 export default ListIcon;
