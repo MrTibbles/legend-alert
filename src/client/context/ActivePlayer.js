@@ -2,6 +2,23 @@ import React from "react";
 import PropTypes from "prop-types";
 import { localstore } from "../services";
 
+const creaateActivePlayerObj = player => {
+  return Object.assign(
+    {},
+    {
+      platformSlug: player.platformSlug,
+      platformUserId: player.platformUserId.toLowerCase()
+    },
+    { isActive: true }
+  );
+};
+
+const createInActivePlayerObj = player => {
+  return Object.assign({}, player, {
+    isActive: false
+  });
+};
+
 const ActivePlayerContext = React.createContext();
 
 const ActivePlayerProvider = props => {
@@ -13,18 +30,9 @@ const ActivePlayerProvider = props => {
    * @return {Object|undefined} Tracker Network player search result or undefined
    */
   const getActivePlayerFromLocalstore = React.useRef(async () => {
-    const players = await localstore.getAllEntries();
+    const player = await localstore.getOfflineActivePlayer();
 
-    // players is an array of objects keyed by platformUserId, each item
-    // has a select fields from a Tracker Network search result object as their value
-    const player = players.length
-      ? players.find(player => {
-          return Object.values(player).find(({ isActive }) => isActive);
-        })
-      : undefined;
-
-    // Return the Tracker Network search response data
-    return player ? Object.values(player)[0] : undefined;
+    return player;
   });
 
   /**
@@ -35,14 +43,7 @@ const ActivePlayerProvider = props => {
    */
   const onSetActivePlayer = React.useRef(async player => {
     const localActivePlayer = await getActivePlayerFromLocalstore.current();
-    const activePlayer = Object.assign(
-      {},
-      {
-        platformSlug: player.platformSlug,
-        platformUserId: player.platformUserId.toLowerCase()
-      },
-      { isActive: true }
-    );
+    const activePlayer = creaateActivePlayerObj(player);
 
     // If current active player in offline storage is the same, only update state
     if (
@@ -50,27 +51,22 @@ const ActivePlayerProvider = props => {
       localActivePlayer.platformUserId === activePlayer.platformUserId
     ) {
       return setActivePlayer(activePlayer);
-    } else if (localActivePlayer) {
-      // Set active player in offline storage to inactive
-      const inactivePlayer = Object.assign({}, localActivePlayer, {
-        isActive: false
-      });
+    }
 
-      try {
-        await localstore.setItem(
-          localActivePlayer.platformUserId,
-          inactivePlayer
-        );
-      } catch (err) {
-        console.warn("Something went wrong writing to local", err);
-      }
+    if (localActivePlayer) {
+      // Set active player in offline storage to inactive
+      const inactivePlayer = createInActivePlayerObj(localActivePlayer);
+
+      await localstore
+        .setItem(localActivePlayer.platformUserId, inactivePlayer)
+        .catch(console.warn);
     }
 
     setActivePlayer(activePlayer);
 
     localstore
       .setItem(activePlayer.platformUserId, activePlayer)
-      .catch(err => console.warn("Something went wrong writing to local", err));
+      .catch(console.warn);
   });
 
   // Runs once on app mount
@@ -78,9 +74,7 @@ const ActivePlayerProvider = props => {
     getActivePlayerFromLocalstore
       .current()
       .then(player => player && onSetActivePlayer.current(player))
-      .catch(err =>
-        console.warn("Something went wrong getting the last legend", err)
-      );
+      .catch(console.warn);
   }, []);
 
   return (
