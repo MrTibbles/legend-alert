@@ -18,7 +18,7 @@ module.exports = (env = {}) => {
   const isInDev = env.production !== true;
 
   return {
-    entry: path.resolve(PATHS.src, "App.js"),
+    entry: path.resolve(PATHS.src, "App.tsx"),
     mode: isInDev ? "development" : "production",
     devtool: isInDev ? "eval" : "source-map",
     devServer: {

@@ -1,8 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import Button from "../../../primitives/Button";
 import { useActivePlayer } from "../../../context/ActivePlayer";
-import { withRouter } from "react-router-dom";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 
 import {
   backButton,
@@ -10,13 +9,25 @@ import {
   searchResultsList
 } from "../styles";
 
-const PlayerSearchResults = ({ goBack, history, results = [] }) => {
+interface PlayerSearchResult {
+  platformSlug: string;
+  platformUserId: string;
+}
+
+interface PlayerSearchResultsProps {
+  goBack: React.Dispatch<React.SetStateAction<boolean>>;
+  results: PlayerSearchResult[];
+}
+
+const PlayerSearchResults: React.FunctionComponent<
+  PlayerSearchResultsProps & RouteComponentProps
+> = ({ goBack, history, results = [] }): JSX.Element => {
   // eslint-disable-next-line no-unused-vars
   const [_, setActivePlayer] = useActivePlayer();
 
   const onClickGoBack = () => goBack(false);
 
-  const onSelectLegend = legendIdx => {
+  const onSelectLegend = (legendIdx: number): void => {
     setActivePlayer(results[legendIdx]);
 
     history.push("/stats");
@@ -70,12 +81,6 @@ const PlayerSearchResults = ({ goBack, history, results = [] }) => {
       </div>
     </section>
   );
-};
-
-PlayerSearchResults.propTypes = {
-  goBack: PropTypes.func.isRequired,
-  history: PropTypes.object,
-  results: PropTypes.array
 };
 
 export default withRouter(PlayerSearchResults);

@@ -1,10 +1,21 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import Button from "../../../primitives/Button";
 import * as styles from "../styles";
 import PlatformChoices from "./PlatformChoices";
 
-const PlayerDetailsForm = ({ searching, submitPlayerSearch }) => {
+interface ISubmitPlayerSearch {
+  (platformChoice: string, playerHandle: string): void
+}
+
+interface PlayerDetailsFormProps {
+  searching: boolean;
+  submitPlayerSearch: ISubmitPlayerSearch
+}
+
+const PlayerDetailsForm: React.FunctionComponent<PlayerDetailsFormProps> = ({
+  searching,
+  submitPlayerSearch
+}) => {
   const [formValidation, setFormValidation] = React.useState({
     isValid: true,
     msg: ""
@@ -12,7 +23,7 @@ const PlayerDetailsForm = ({ searching, submitPlayerSearch }) => {
   const [platformChoice, setPlatformChoice] = React.useState("");
   const [playerHandle, setPlayerHandle] = React.useState("");
 
-  const onConfirmPlayerSearch = () => {
+  const onConfirmPlayerSearch = (): void | Promise<void> => {
     if (!platformChoice || !playerHandle) {
       return setFormValidation({
         isValid: false,
@@ -57,11 +68,6 @@ const PlayerDetailsForm = ({ searching, submitPlayerSearch }) => {
       </form>
     </section>
   );
-};
-
-PlayerDetailsForm.propTypes = {
-  searching: PropTypes.bool.isRequired,
-  submitPlayerSearch: PropTypes.func.isRequired
 };
 
 export default PlayerDetailsForm;

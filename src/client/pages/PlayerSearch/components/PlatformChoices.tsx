@@ -1,11 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import { platformChoices as container } from "../styles";
 import palette from "../../../styles/theme";
 import Button from "../../../primitives/Button";
 import { PSIcon, XboxIcon, KeyboardIcon } from "../../../ui-icons";
 
-const PlatformChoices = ({ onPlatformOptionSelected, platformChoice }) => (
+interface PlatformChoicesProps {
+  onPlatformOptionSelected: React.Dispatch<React.SetStateAction<string>>;
+  platformChoice: string;
+}
+
+const PlatformChoices: React.FunctionComponent<PlatformChoicesProps> = ({
+  onPlatformOptionSelected,
+  platformChoice
+}): JSX.Element => (
   <div className={container}>
     <div className="platform-opt">
       <Button
@@ -39,10 +46,5 @@ const PlatformChoices = ({ onPlatformOptionSelected, platformChoice }) => (
     </div>
   </div>
 );
-
-PlatformChoices.propTypes = {
-  onPlatformOptionSelected: PropTypes.func.isRequired,
-  platformChoice: PropTypes.string.isRequired
-};
 
 export default React.memo(PlatformChoices);

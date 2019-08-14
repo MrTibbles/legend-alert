@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import useGraphQLAPI from "../../hooks/useGraphQLAPI";
 import * as styles from "./styles";
 import logo from "../../images/legend-alert-logo.svg";
@@ -7,16 +7,18 @@ import { useActivePlayer } from "../../context/ActivePlayer";
 import * as Components from "./components";
 import searchPlayersQuery from "./queries/searchPlayersQuery";
 
-const PlayerSearch = () => {
+const PlayerSearch: React.FunctionComponent = (): JSX.Element => {
   const [activePlayer] = useActivePlayer();
   const [showResults, toggleShowResults] = React.useState(false);
   const [networkState, submitQuery] = useGraphQLAPI();
 
-  const submitPlayerSearch = React.useRef((platformChoice, playerUserId) => {
-    const query = searchPlayersQuery({ platformChoice, playerUserId });
+  const submitPlayerSearch = React.useRef(
+    (platformChoice: string, playerUserId: string) => {
+      const query = searchPlayersQuery({ platformChoice, playerUserId });
 
-    submitQuery(query);
-  });
+      submitQuery(query);
+    }
+  );
 
   React.useEffect(() => {
     if (networkState.data) toggleShowResults(true);
