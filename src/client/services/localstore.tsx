@@ -1,4 +1,10 @@
-import localforage from "localforage";
+import * as localforage from "localforage";
+
+interface IActivePlayer {
+  platformSlug: string;
+  platformUserId: string;
+  isActive?: boolean;
+}
 
 /**
  * Application configuration for offline storage
@@ -16,28 +22,30 @@ const config = () => {
 
 /**
  * Store an item
- *
- * @param  {String}  key   Entry key for item to be stored
- * @param  {Any}     value Entry value to be stored
- * @return {Promise}       Resolves with item being stored, rejects on error encountered
  */
-const setItem = (key, value) => {
+const setOfflineActivePlayer = (key: string, value: IActivePlayer): Promise<
+  IActivePlayer | void
+> => {
   return localforage.setItem(key, value).catch(console.warn);
 };
 
 /**
  * Get the active player from offline storage
  */
-const getOfflineActivePlayer = async () => {
+const getOfflineActivePlayer = async (): Promise<
+  IActivePlayer | undefined
+> => {
   try {
     const offlineItems = await localforage.length();
 
     if (offlineItems) {
-      const activePlayer = await localforage.iterate(({ isActive }, key) => {
-        if (isActive) return localforage.getItem(key);
-      });
+      const activePlayer = await localforage.iterate(
+        ({ isActive }, key) => {
+          if (isActive) return localforage.getItem(key);
+        }
+      );
 
-      return activePlayer;
+      return activePlayer as IActivePlayer;
     }
 
     return undefined;
@@ -46,5 +54,5 @@ const getOfflineActivePlayer = async () => {
   }
 };
 
-export { config, setItem, getOfflineActivePlayer };
+export { config, setOfflineActivePlayer, getOfflineActivePlayer };
 export default config;
