@@ -33,6 +33,9 @@ module.exports = (env = {}) => {
       publicPath: "/",
       filename: "legend-alert.[name].[hash].js"
     },
+    resolve: {
+      extensions: [".ts", ".tsx", ".js", ".jsx"]
+    },
     module: {
       rules: [
         {
@@ -72,7 +75,6 @@ module.exports = (env = {}) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        TRN_TOKEN: JSON.stringify(process.env.TRN_TOKEN),
         PRODUCTION_ENV: !isInDev
       }),
       new CleanWebpackPlugin(),
