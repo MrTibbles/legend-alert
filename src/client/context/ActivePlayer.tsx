@@ -80,14 +80,17 @@ const ActivePlayerProvider = (props: {
       const inactivePlayer = createInActivePlayerObj(localActivePlayer);
 
       await localstore
-        .setItem(localActivePlayer.platformUserId, inactivePlayer)
+        .setOfflineActivePlayer(
+          localActivePlayer.platformUserId,
+          inactivePlayer
+        )
         .catch(console.warn);
     }
 
     setActivePlayer(activePlayer);
 
     localstore
-      .setItem(activePlayer.platformUserId, activePlayer)
+      .setOfflineActivePlayer(activePlayer.platformUserId, activePlayer)
       .catch(console.warn);
   });
 
