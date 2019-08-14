@@ -1,24 +1,24 @@
 const path = require("path");
 const webpack = require("webpack");
-const dotenv = require('dotenv')
+const dotenv = require("dotenv");
 
-dotenv.config()
+dotenv.config();
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { GenerateSW } = require('workbox-webpack-plugin');
+const { GenerateSW } = require("workbox-webpack-plugin");
 
 const PATHS = {
   src: path.resolve(__dirname, "src/client"),
   dist: path.resolve(__dirname, "dist")
-}
+};
 
 module.exports = (env = {}) => {
   const isInDev = env.production !== true;
 
   return {
-    entry: path.resolve(PATHS.src, "app.js"),
+    entry: path.resolve(PATHS.src, "App.js"),
     mode: isInDev ? "development" : "production",
     devtool: isInDev ? "eval" : "source-map",
     devServer: {
@@ -26,7 +26,7 @@ module.exports = (env = {}) => {
       historyApiFallback: true,
       contentBase: PATHS.dist,
       port: 3000,
-      stats: "errors-warnings",
+      stats: "errors-warnings"
     },
     output: {
       path: PATHS.dist,
