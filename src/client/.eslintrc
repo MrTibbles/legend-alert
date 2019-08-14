@@ -1,8 +1,10 @@
 {
-  extends: "@raddad/eslint-config/react-rules",
-  globals: {
-    TRN_TOKEN: false,
-    PRODUCTION_ENV: false,
-  },
-  parser: "babel-eslint"
+  "extends": [
+    "@raddad/eslint-config/react-rules",
+    "@raddad/eslint-config/ts-rules"
+  ],
+  "globals": {
+    "TRN_TOKEN": false,
+    "PRODUCTION_ENV": false,
+  }
 }
