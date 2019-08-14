@@ -22,13 +22,14 @@ interface PlayerSearchResultsProps {
 const PlayerSearchResults: React.FunctionComponent<
   PlayerSearchResultsProps & RouteComponentProps
 > = ({ goBack, history, results = [] }): JSX.Element => {
-  // eslint-disable-next-line no-unused-vars
-  const [_, setActivePlayer] = useActivePlayer();
+  const { setActivePlayer } = useActivePlayer();
 
   const onClickGoBack = () => goBack(false);
 
   const onSelectLegend = (legendIdx: number): void => {
-    setActivePlayer(results[legendIdx]);
+    const targetActivePlayer: PlayerSearchResult = results[legendIdx];
+
+    setActivePlayer(targetActivePlayer);
 
     history.push("/stats");
   };
