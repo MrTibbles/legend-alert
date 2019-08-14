@@ -21,30 +21,30 @@ const config = () => {
  * @param  {Any}     value Entry value to be stored
  * @return {Promise}       Resolves with item being stored, rejects on error encountered
  */
-const setItem = async (key, value) => {
-  try {
-    await localforage.setItem(key, value);
-  } catch (err) {
-    throw new Error(`Failed to store ${key}, ${err}`);
-  }
+const setItem = (key, value) => {
+  return localforage.setItem(key, value).catch(console.warn);
 };
 
 /**
- * Retrieve all items stored in offline storage for the app
- *
- * @return {Array} Player objects, keyed by platformUserId
+ * Get the active player from offline storage
  */
-const getAllEntries = async () => {
+const getOfflineActivePlayer = async () => {
   try {
-    const players = [];
+    const offlineItems = await localforage.length();
 
-    await localforage.iterate((value, key) => players.push({ [key]: value }));
+    if (offlineItems) {
+      const activePlayer = await localforage.iterate(({ isActive }, key) => {
+        if (isActive) return localforage.getItem(key);
+      });
 
-    return players;
-  } catch (err) {
-    throw new Error(`Failed to get the active player: ${err}`);
+      return activePlayer;
+    }
+
+    return undefined;
+  } catch (error) {
+    throw new Error(error);
   }
 };
 
-export { config, getAllEntries, setItem };
+export { config, setItem, getOfflineActivePlayer };
 export default config;
