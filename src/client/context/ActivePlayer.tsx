@@ -1,8 +1,31 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import { localstore } from "../services";
 
-const creaateActivePlayerObj = player => {
+const { createContext, useContext, useEffect, useState, useRef } = React;
+
+interface IActivePlayerInput {
+  platformSlug: string;
+  platformUserId: string;
+  isActive?: boolean;
+}
+
+interface IActivePlayer {
+  platformSlug: string;
+  platformUserId: string;
+  isActive: boolean;
+}
+
+interface ISetActivePlayer {
+  (player: IActivePlayerInput): void;
+}
+
+interface IActivePlayerContext {
+  activePlayer?: IActivePlayer;
+  setActivePlayer: ISetActivePlayer;
+  [key: string]: IActivePlayer | ISetActivePlayer | undefined;
+}
+
+const creaateActivePlayerObj = (player: IActivePlayerInput): IActivePlayer => {
   return Object.assign(
     {},
     {
@@ -13,23 +36,25 @@ const creaateActivePlayerObj = player => {
   );
 };
 
-const createInActivePlayerObj = player => {
+const createInActivePlayerObj = (player: IActivePlayerInput): IActivePlayer => {
   return Object.assign({}, player, {
     isActive: false
   });
 };
 
-const ActivePlayerContext = React.createContext();
+const ActivePlayerContext = createContext<IActivePlayerContext>({
+  setActivePlayer: () => null
+});
 
-const ActivePlayerProvider = props => {
-  const [activePlayer, setActivePlayer] = React.useState(null);
+const ActivePlayerProvider = (props: {
+  children: JSX.Element;
+}): JSX.Element => {
+  const [activePlayer, setActivePlayer] = useState();
 
   /**
    * Retrieve the last active player stored in offline storage
-   *
-   * @return {Object|undefined} Tracker Network player search result or undefined
    */
-  const getActivePlayerFromLocalstore = React.useRef(async () => {
+  const getActivePlayerFromLocalstore = useRef(async () => {
     const player = await localstore.getOfflineActivePlayer();
 
     return player;
@@ -37,11 +62,8 @@ const ActivePlayerProvider = props => {
 
   /**
    * Set the active player
-   *
-   * @param  {Object}  player Tracker Network player search response object
-   * @return {Promise}        Resolves with item being stored, rejects on error encountered
    */
-  const onSetActivePlayer = React.useRef(async player => {
+  const onSetActivePlayer = useRef(async (player: IActivePlayerInput) => {
     const localActivePlayer = await getActivePlayerFromLocalstore.current();
     const activePlayer = creaateActivePlayerObj(player);
 
@@ -70,7 +92,7 @@ const ActivePlayerProvider = props => {
   });
 
   // Runs once on app mount
-  React.useEffect(() => {
+  useEffect(() => {
     getActivePlayerFromLocalstore
       .current()
       .then(player => player && onSetActivePlayer.current(player))
@@ -89,16 +111,8 @@ const ActivePlayerProvider = props => {
   );
 };
 
-ActivePlayerProvider.propTypes = {
-  children: PropTypes.node.isRequired
-};
-
 const useActivePlayer = () => {
-  const { activePlayer, setActivePlayer } = React.useContext(
-    ActivePlayerContext
-  );
-
-  return [activePlayer, setActivePlayer];
+  return useContext<IActivePlayerContext>(ActivePlayerContext);
 };
 
 export { ActivePlayerProvider, useActivePlayer };

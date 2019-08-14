@@ -8,7 +8,7 @@ import * as Components from "./components";
 import searchPlayersQuery from "./queries/searchPlayersQuery";
 
 const PlayerSearch: React.FunctionComponent = (): JSX.Element => {
-  const [activePlayer] = useActivePlayer();
+  const { activePlayer } = useActivePlayer();
   const [showResults, toggleShowResults] = React.useState(false);
   const [networkState, submitQuery] = useGraphQLAPI();
 

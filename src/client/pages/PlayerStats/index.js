@@ -26,7 +26,7 @@ const contentArea = css`
 `;
 
 const PlayerStats = () => {
-  const [activePlayer] = useActivePlayer();
+  const { activePlayer } = useActivePlayer();
   const [networkState, submitQuery] = useGraphQLAPI();
   const [activeLegend, setActiveLegend] = React.useState(null);
   const [legendList, setLegendList] = React.useState([]);
