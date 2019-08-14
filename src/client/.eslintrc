@@ -4,7 +4,6 @@
     "@raddad/eslint-config/ts-rules"
   ],
   "globals": {
-    "TRN_TOKEN": false,
     "PRODUCTION_ENV": false,
   }
 }

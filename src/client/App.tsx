@@ -1,5 +1,5 @@
-import React from "react";
-import ReactDom from "react-dom";
+import * as React from "react";
+import * as ReactDom from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import localstoreConfig from "./services/localstore";
 import "./styles/base.css";
@@ -10,7 +10,7 @@ import * as Pages from "./pages";
 
 localstoreConfig();
 
-const App = () => (
+const App: React.FunctionComponent = (): JSX.Element => (
   <ActivePlayerProvider>
     <Router>
       <Switch>
