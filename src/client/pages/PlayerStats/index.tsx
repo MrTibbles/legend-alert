@@ -1,30 +1,10 @@
 import * as React from "react";
-import { css } from "linaria";
-import { styled } from "linaria/react";
 import { useActivePlayer } from "../../context/ActivePlayer";
 import useGraphQLAPI from "../../hooks/useGraphQLAPI";
 import { getInGameActiveLegend, getLegendList } from "./utils";
 import * as Components from "./components";
 import playerStatsQuery from "./queries/playerStatsQuery";
 import { Legend, PlayerStatsQuery } from "./types";
-
-const Container = styled.div`
-  width: 100vw;
-  min-height: 100vh;
-  transition: transform 250ms ease-out;
-  transform: ${({ showLegends }) => `translateX(${showLegends ? "25vw" : 0})`};
-
-  @media (min-width: 1024px) {
-    display: flex;
-    transform: translateX(0);
-  }
-`;
-
-const contentArea = css`
-  @media (min-width: 1024px) {
-    width: 75vw;
-  }
-`;
 
 const PlayerStats: React.FunctionComponent = (): JSX.Element => {
   const { activePlayer } = useActivePlayer();
@@ -87,7 +67,7 @@ const PlayerStats: React.FunctionComponent = (): JSX.Element => {
   }
 
   return (
-    <Container showLegends={mobileLegendListIsVis}>
+    <Components.Container showLegends={mobileLegendListIsVis}>
       {legendList.length > 0 ? (
         <Components.LegendSelector
           activeLegendName={activeLegend.legendName}
@@ -95,7 +75,7 @@ const PlayerStats: React.FunctionComponent = (): JSX.Element => {
           onLegendSelected={onLegendSelected}
         />
       ) : null}
-      <main className={contentArea}>
+      <Components.ContentArea>
         <Components.NavigationBar
           hasMoreLegends={legendList.length > 0}
           onShowMobileLegendList={onShowMobileLegendList}
@@ -108,8 +88,8 @@ const PlayerStats: React.FunctionComponent = (): JSX.Element => {
           />
         ) : null}
         <Components.StatsGrid stats={activeLegend.stats} />
-      </main>
-    </Container>
+      </Components.ContentArea>
+    </Components.Container>
   );
 };
 
