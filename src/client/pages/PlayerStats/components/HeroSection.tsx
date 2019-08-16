@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import { css } from "linaria";
 
 const styles = {
@@ -46,7 +45,17 @@ const styles = {
   `
 };
 
-const HeroSection = ({ image, platformUserId, playerPlatform }) => (
+interface HeroSectionProps {
+  image: string;
+  platformUserId: string;
+  playerPlatform: string;
+}
+
+const HeroSection: React.FunctionComponent<HeroSectionProps> = ({
+  image,
+  platformUserId,
+  playerPlatform
+}): JSX.Element => (
   <section className={styles.container}>
     <div className={styles.playerInfo}>
       <h3 className={styles.playerName} data-testid="player-info">
@@ -62,11 +71,5 @@ const HeroSection = ({ image, platformUserId, playerPlatform }) => (
     </div>
   </section>
 );
-
-HeroSection.propTypes = {
-  image: PropTypes.string,
-  platformUserId: PropTypes.string.isRequired,
-  playerPlatform: PropTypes.string.isRequired
-};
 
 export default HeroSection;

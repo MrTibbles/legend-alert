@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import { styled } from "linaria/react";
 import { Button, Link } from "../../../primitives";
 import { ListIcon, SearchIcon } from "../../../ui-icons";
@@ -24,7 +23,15 @@ const Nav = styled.nav`
   }
 `;
 
-const NavigationBar = ({ hasMoreLegends = false, onShowMobileLegendList }) => (
+interface NavigationBarProps {
+  hasMoreLegends: boolean;
+  onShowMobileLegendList: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const NavigationBar: React.FunctionComponent<NavigationBarProps> = ({
+  hasMoreLegends = false,
+  onShowMobileLegendList
+}): JSX.Element => (
   <Nav hasMoreLegends={hasMoreLegends}>
     {hasMoreLegends ? (
       <Button
@@ -39,10 +46,5 @@ const NavigationBar = ({ hasMoreLegends = false, onShowMobileLegendList }) => (
     </Link>
   </Nav>
 );
-
-NavigationBar.propTypes = {
-  hasMoreLegends: PropTypes.bool.isRequired,
-  onShowMobileLegendList: PropTypes.func.isRequired
-};
 
 export default NavigationBar;

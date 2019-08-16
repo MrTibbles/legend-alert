@@ -2,9 +2,10 @@ import * as React from "react";
 
 interface IconProps {
   color?: string;
+  [key: string]: string | Function | undefined;
 }
 
-const ListIcon = ({ color = "#1D1D1D", ...props } : IconProps) => (
+const ListIcon = ({ color = "#1D1D1D", ...props }: IconProps): JSX.Element => (
   <svg viewBox="0 0 46 46" {...props}>
     <g fill="none" fillRule="evenodd" stroke="none" strokeWidth="1">
       <g fill={color} fillRule="nonzero">

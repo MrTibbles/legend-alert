@@ -8,5 +8,5 @@ export interface Legend {
   isActiveInGame: boolean;
   legendName: string;
   stats: Stat[];
-  tallImageUrl?: string;
+  tallImageUrl: string;
 }

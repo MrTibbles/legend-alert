@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import { css } from "linaria";
+import { Stat } from '../types'
 
 const styles = {
   container: css`
@@ -60,13 +60,16 @@ const styles = {
   `
 };
 
+interface StatsGridProps {
+  stats: Stat[]
+}
+
 /**
  * Main stats grid for a single Apex Legend
- *
- * @param  {Array}  stats      Available stats from TRN response
- * @return {Object}            React node tree
  */
-const StatsGrid = ({ stats }) => (
+const StatsGrid: React.FunctionComponent<StatsGridProps> = ({
+  stats
+}): JSX.Element => (
   <section className={styles.container}>
     <div className={styles.grid}>
       {stats.map(({ categoryName, displayValue, name }) => (
@@ -88,9 +91,5 @@ const StatsGrid = ({ stats }) => (
     </div>
   </section>
 );
-
-StatsGrid.propTypes = {
-  stats: PropTypes.array.isRequired
-};
 
 export default StatsGrid;
