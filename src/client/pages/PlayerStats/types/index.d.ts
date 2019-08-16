@@ -14,8 +14,8 @@ export interface Legend {
 interface PlayerStatsMetadata {
   name: string;
   imageUrl: string;
-  tallImagUrl: string;
-  isActive: string;
+  tallImageUrl: string;
+  isActive: boolean;
 }
 
 interface PlayerStatsByType {
