@@ -1,14 +1,32 @@
 import * as React from "react";
-import Button from "../../../primitives/Button";
-import { useActivePlayer } from "../../../context/ActivePlayer";
 import { RouteComponentProps, withRouter } from "react-router-dom";
+import { styled } from "linaria/react";
+import Button from "../../../primitives/Button";
+import leftArrow from "../../../images/left-arrow.20x36.svg";
+import { useActivePlayer } from "../../../context/ActivePlayer";
 import { PlayerSearchResult } from "../types";
 
-import {
-  backButton,
-  searchResultsContainer,
-  searchResultsList
-} from "../styles";
+const BackButton = styled(Button)`
+  display: block;
+  background: url(${leftArrow}) left center no-repeat;
+  background-size: auto 100%;
+  padding-left: 3rem;
+  margin-bottom: 1.5rem;
+`;
+
+const SearchResultsContainer = styled.div`
+  padding-top: 1rem;
+`;
+
+const SearchResultsList = styled.ul`
+  list-style: none;
+  margin: 1rem 0;
+
+  li {
+    display: flex;
+    cursor: pointer;
+  }
+`;
 
 interface PlayerSearchResultsProps {
   goBack: React.Dispatch<React.SetStateAction<boolean>>;
@@ -33,27 +51,27 @@ const PlayerSearchResults: React.FunctionComponent<
   if (!results.length) {
     return (
       <section className="pane">
-        <div className={searchResultsContainer}>
-          <button className={backButton} onClick={onClickGoBack} type="button">
+        <SearchResultsContainer>
+          <BackButton onClick={onClickGoBack}>
             <p>Search again</p>
-          </button>
+          </BackButton>
           <h3 className="error-msg text-center">
             No players were found with those details
           </h3>
-        </div>
+        </SearchResultsContainer>
       </section>
     );
   }
 
   return (
-    <section className="pane" data-testid="search-results">
-      <div className={searchResultsContainer}>
-        <Button className={backButton} onClick={onClickGoBack}>
+    <section data-testid="search-results">
+      <SearchResultsContainer>
+        <BackButton onClick={onClickGoBack}>
           <p>Search again</p>
-        </Button>
+        </BackButton>
         <h3>The following players matched your search</h3>
         <p>Select one to see how much of a legend they are:</p>
-        <ul className={searchResultsList} data-testid="search-results">
+        <SearchResultsList data-testid="search-results">
           {results.map(({ platformSlug, platformUserId }, idx) => (
             <li
               data-testid={`${platformSlug}-${platformUserId}`}
@@ -74,8 +92,8 @@ const PlayerSearchResults: React.FunctionComponent<
               </h3>
             </li>
           ))}
-        </ul>
-      </div>
+        </SearchResultsList>
+      </SearchResultsContainer>
     </section>
   );
 };
