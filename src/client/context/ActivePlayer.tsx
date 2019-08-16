@@ -49,16 +49,18 @@ const ActivePlayerContext = createContext<IActivePlayerContext>({
 const ActivePlayerProvider = (props: {
   children: JSX.Element;
 }): JSX.Element => {
-  const [activePlayer, setActivePlayer] = useState();
+  const [activePlayer, setActivePlayer] = useState<IActivePlayer>();
 
   /**
    * Retrieve the last active player stored in offline storage
    */
-  const getActivePlayerFromLocalstore = useRef(async () => {
-    const player = await localstore.getOfflineActivePlayer();
+  const getActivePlayerFromLocalstore = useRef(
+    async (): Promise<IActivePlayer | undefined> => {
+      const player = await localstore.getOfflineActivePlayer<IActivePlayer>();
 
-    return player;
-  });
+      return player;
+    }
+  );
 
   /**
    * Set the active player
@@ -80,7 +82,7 @@ const ActivePlayerProvider = (props: {
       const inactivePlayer = createInActivePlayerObj(localActivePlayer);
 
       await localstore
-        .setOfflineActivePlayer(
+        .setOfflineActivePlayer<IActivePlayer>(
           localActivePlayer.platformUserId,
           inactivePlayer
         )
@@ -90,7 +92,10 @@ const ActivePlayerProvider = (props: {
     setActivePlayer(activePlayer);
 
     localstore
-      .setOfflineActivePlayer(activePlayer.platformUserId, activePlayer)
+      .setOfflineActivePlayer<IActivePlayer>(
+        activePlayer.platformUserId,
+        activePlayer
+      )
       .catch(console.warn);
   });
 
@@ -114,9 +119,7 @@ const ActivePlayerProvider = (props: {
   );
 };
 
-const useActivePlayer = () => {
-  return useContext<IActivePlayerContext>(ActivePlayerContext);
-};
+const useActivePlayer = () => useContext(ActivePlayerContext);
 
 export { ActivePlayerProvider, useActivePlayer };
 export default ActivePlayerContext;
