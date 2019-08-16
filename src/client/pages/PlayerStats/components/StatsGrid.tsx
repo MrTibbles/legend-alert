@@ -1,67 +1,71 @@
 import * as React from "react";
-import { css } from "linaria";
-import { Stat } from '../types'
+import { styled } from "linaria/react";
+import { Stat } from "../types";
 
-const styles = {
-  container: css`
-    position: relative;
-    z-index: var(--depth-layer2);
-    background: transparent;
-    margin-top: -120px;
+const Container = styled.section`
+  position: relative;
+  z-index: var(--depth-layer2);
+  background: transparent;
+  margin-top: -120px;
 
-    &:before {
-      content: "";
-      position: absolute;
-      top: -75px;
-      display: block;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 0 0 77px 100vw;
-      border-color: transparent transparent var(--color-primary) transparent;
-    }
+  &:before {
+    content: "";
+    position: absolute;
+    top: -75px;
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 77px 100vw;
+    border-color: transparent transparent var(--color-primary) transparent;
+  }
 
-    &:after {
-      content: "";
-      position: absolute;
-      bottom: -75px;
-      display: block;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 77px 100vw 0 0;
-      border-color: var(--color-primary) transparent transparent transparent;
-    }
-  `,
-  grid: css`
-    display: grid;
-    grid-template-columns: repeat(1, 100%);
-    background-color: var(--color-primary);
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -75px;
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 77px 100vw 0 0;
+    border-color: var(--color-primary) transparent transparent transparent;
+  }
+`;
 
-    @media (min-width: 1100px) {
-      grid-template-columns: repeat(3, 33.333%);
-    }
-  `,
-  statsItem: css`
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem 0;
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(1, 100%);
+  background-color: var(--color-primary);
 
-    .stat-value {
-      color: var(--color-white);
-      font-size: 3.5rem;
-      margin: 0 0 1rem;
-    }
+  @media (min-width: 1100px) {
+    grid-template-columns: repeat(3, 33.333%);
+  }
+`;
 
-    .stat-name {
-      margin: 0;
-    }
-  `
-};
+const StatItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 1rem 0;
+`;
+
+const StatValue = styled.h2`
+  color: var(--color-white);
+  font-size: 3.5rem;
+  margin: 0 0 1rem;
+`;
+
+const StatName = styled.h3`
+  margin: 0;
+`;
+
+const StatCategory = styled.span`
+  font-weight: bold;
+`;
 
 interface StatsGridProps {
-  stats: Stat[]
+  stats: Stat[];
 }
 
 /**
@@ -70,26 +74,26 @@ interface StatsGridProps {
 const StatsGrid: React.FunctionComponent<StatsGridProps> = ({
   stats
 }): JSX.Element => (
-  <section className={styles.container}>
-    <div className={styles.grid}>
+  <Container>
+    <Grid>
       {stats.map(({ categoryName, displayValue, name }) => (
-        <div className={styles.statsItem} data-testid="stats-item" key={name}>
+        <StatItem data-testid="stats-item" key={name}>
           <div>
-            <h2 className="stat-value">{displayValue}</h2>
+            <StatValue>{displayValue}</StatValue>
           </div>
           <div>
-            <h3 className="stat-name">{name}</h3>
+            <StatName>{name}</StatName>
           </div>
           <div>
             <p>
-              Category:
-              <span className="stat-category">{categoryName}</span>
+              Category:&nbsp;
+              <StatCategory>{categoryName}</StatCategory>
             </p>
           </div>
-        </div>
+        </StatItem>
       ))}
-    </div>
-  </section>
+    </Grid>
+  </Container>
 );
 
 export default StatsGrid;
