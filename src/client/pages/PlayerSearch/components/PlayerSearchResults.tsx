@@ -2,7 +2,7 @@ import * as React from "react";
 import Button from "../../../primitives/Button";
 import { useActivePlayer } from "../../../context/ActivePlayer";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import { PlayerSearchResponse } from "../types";
+import { PlayerSearchResult } from "../types";
 
 import {
   backButton,
@@ -12,7 +12,7 @@ import {
 
 interface PlayerSearchResultsProps {
   goBack: React.Dispatch<React.SetStateAction<boolean>>;
-  results: PlayerSearchResponse[];
+  results: PlayerSearchResult[];
 }
 
 const PlayerSearchResults: React.FunctionComponent<
@@ -23,7 +23,7 @@ const PlayerSearchResults: React.FunctionComponent<
   const onClickGoBack = () => goBack(false);
 
   const onSelectLegend = (legendIdx: number): void => {
-    const targetActivePlayer: PlayerSearchResponse = results[legendIdx];
+    const targetActivePlayer: PlayerSearchResult = results[legendIdx];
 
     setActivePlayer(targetActivePlayer);
 
