@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from "react";
 import { css } from "linaria";
 import { styled } from "linaria/react";
 import { useActivePlayer } from "../../context/ActivePlayer";
@@ -6,7 +6,7 @@ import useGraphQLAPI from "../../hooks/useGraphQLAPI";
 import { getInGameActiveLegend, getLegendList } from "./utils";
 import * as Components from "./components";
 import playerStatsQuery from "./queries/playerStatsQuery";
-import { Legend, Stat } from './types'
+import { Legend } from "./types";
 
 const Container = styled.div`
   width: 100vw;
@@ -31,14 +31,12 @@ const PlayerStats: React.FunctionComponent = (): JSX.Element => {
   const [networkState, submitQuery] = useGraphQLAPI();
   const [activeLegend, setActiveLegend] = React.useState<Legend | null>(null);
   const [legendList, setLegendList] = React.useState<Legend[]>([]);
-  const [
-    mobileLegendListIsVis, setMobileLegendListVis
-  ] = React.useState(false);
+  const [mobileLegendListIsVis, setMobileLegendListVis] = React.useState(false);
 
   const fetchPlayerStats = React.useRef(
     (platformSlug: string, platformUserId: string): void => {
       const query = playerStatsQuery({ platformSlug, platformUserId });
-  
+
       submitQuery(query);
     }
   );
@@ -63,9 +61,7 @@ const PlayerStats: React.FunctionComponent = (): JSX.Element => {
 
   React.useEffect(() => {
     if (networkState.data) {
-      const legendList: Legend[] = getLegendList(
-        networkState.data.playerStats
-      );
+      const legendList: Legend[] = getLegendList(networkState.data.playerStats);
       setLegendList(legendList);
 
       const activeInGameLegend: Legend = getInGameActiveLegend(legendList);
@@ -103,15 +99,13 @@ const PlayerStats: React.FunctionComponent = (): JSX.Element => {
           hasMoreLegends={legendList.length > 0}
           onShowMobileLegendList={onShowMobileLegendList}
         />
-        {activePlayer
-          ? (
-            <Components.HeroSection
-              image={activeLegend.tallImageUrl}
-              platformUserId={activePlayer.platformUserId}
-              playerPlatform={activePlayer.platformSlug}
-            />
-          ) : null
-        }
+        {activePlayer ? (
+          <Components.HeroSection
+            image={activeLegend.tallImageUrl}
+            platformUserId={activePlayer.platformUserId}
+            playerPlatform={activePlayer.platformSlug}
+          />
+        ) : null}
         <Components.StatsGrid stats={activeLegend.stats} />
       </main>
     </Container>

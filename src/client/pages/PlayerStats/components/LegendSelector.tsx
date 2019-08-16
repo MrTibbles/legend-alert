@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import { ArrowIcon, SearchIcon } from "../../../ui-icons";
 import Link from "../../../primitives/Link";
 import { css } from "linaria";
 import { styled } from "linaria/react";
+import { Legend } from '../types'
 
 const styles = {
   container: css`
@@ -77,6 +77,12 @@ const LegendItem = styled.li`
   }
 `;
 
+interface LegendSelectorProps {
+  activeLegendName: string;
+  legends: Legend[];
+  onLegendSelected: React.Dispatch<React.SetStateAction<Legend>>;
+}
+
 const LegendSelector = ({ activeLegendName, legends, onLegendSelected }) => (
   <aside className={styles.container}>
     <div className={styles.searchLinkContainer}>
@@ -99,11 +105,5 @@ const LegendSelector = ({ activeLegendName, legends, onLegendSelected }) => (
     </ul>
   </aside>
 );
-
-LegendSelector.propTypes = {
-  activeLegendName: PropTypes.string.isRequired,
-  legends: PropTypes.array.isRequired,
-  onLegendSelected: PropTypes.func.isRequired
-};
 
 export default LegendSelector;
