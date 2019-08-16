@@ -1,11 +1,12 @@
-import React from "react";
+import * as React from 'react'
 import { css } from "linaria";
 import { styled } from "linaria/react";
 import { useActivePlayer } from "../../context/ActivePlayer";
 import useGraphQLAPI from "../../hooks/useGraphQLAPI";
-import * as utils from "./utils";
+import { getInGameActiveLegend, getLegendList } from "./utils";
 import * as Components from "./components";
 import playerStatsQuery from "./queries/playerStatsQuery";
+import { Legend, Stat } from './types'
 
 const Container = styled.div`
   width: 100vw;
@@ -25,24 +26,29 @@ const contentArea = css`
   }
 `;
 
-const PlayerStats = () => {
+const PlayerStats: React.FunctionComponent = (): JSX.Element => {
   const { activePlayer } = useActivePlayer();
   const [networkState, submitQuery] = useGraphQLAPI();
-  const [activeLegend, setActiveLegend] = React.useState(null);
-  const [legendList, setLegendList] = React.useState([]);
-  const [mobileLegendListIsVis, setMobileLegendListVis] = React.useState(false);
+  const [activeLegend, setActiveLegend] = React.useState<Legend | null>(null);
+  const [legendList, setLegendList] = React.useState<Legend[]>([]);
+  const [
+    mobileLegendListIsVis, setMobileLegendListVis
+  ] = React.useState(false);
 
-  const fetchPlayerStats = React.useRef((platformSlug, platformUserId) => {
-    const query = playerStatsQuery({ platformSlug, platformUserId });
+  const fetchPlayerStats = React.useRef(
+    (platformSlug: string, platformUserId: string): void => {
+      const query = playerStatsQuery({ platformSlug, platformUserId });
+  
+      submitQuery(query);
+    }
+  );
 
-    submitQuery(query);
-  });
-
-  const onShowMobileLegendList = () => {
+  const onShowMobileLegendList = (): void => {
     setMobileLegendListVis(!mobileLegendListIsVis);
   };
 
-  const onLegendSelected = legend => {
+  /* Add Legend interface */
+  const onLegendSelected = (legend: Legend): void => {
     setActiveLegend(legend);
     setMobileLegendListVis(false);
   };
@@ -57,10 +63,12 @@ const PlayerStats = () => {
 
   React.useEffect(() => {
     if (networkState.data) {
-      const legendList = utils.getLegendList(networkState.data.playerStats);
+      const legendList: Legend[] = getLegendList(
+        networkState.data.playerStats
+      );
       setLegendList(legendList);
 
-      const activeInGameLegend = utils.getActiveLegend(legendList);
+      const activeInGameLegend: Legend = getInGameActiveLegend(legendList);
       setActiveLegend(activeInGameLegend);
     }
   }, [networkState]);
@@ -95,11 +103,15 @@ const PlayerStats = () => {
           hasMoreLegends={legendList.length > 0}
           onShowMobileLegendList={onShowMobileLegendList}
         />
-        <Components.HeroSection
-          image={activeLegend.tallImageUrl}
-          platformUserId={activePlayer.platformUserId}
-          playerPlatform={activePlayer.platformSlug}
-        />
+        {activePlayer
+          ? (
+            <Components.HeroSection
+              image={activeLegend.tallImageUrl}
+              platformUserId={activePlayer.platformUserId}
+              playerPlatform={activePlayer.platformSlug}
+            />
+          ) : null
+        }
         <Components.StatsGrid stats={activeLegend.stats} />
       </main>
     </Container>
