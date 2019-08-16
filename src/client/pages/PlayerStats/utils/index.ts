@@ -1,4 +1,4 @@
-import { Legend, Stat } from "../types";
+import { Legend, PlayerStatsSegment, Stat } from "../types";
 
 const getInGameActiveLegend = (legends: Legend[]): Legend => {
   const inGameActiveLegend = legends.find(
@@ -8,7 +8,11 @@ const getInGameActiveLegend = (legends: Legend[]): Legend => {
   return inGameActiveLegend ? inGameActiveLegend : legends[0];
 };
 
-const getLegendList = ({ segments }): Legend[] => {
+const getLegendList = ({
+  segments
+}: {
+  segments: PlayerStatsSegment[];
+}): Legend[] => {
   return segments.map(segment => {
     const stats = Object.values(segment.stats).reduce(
       (_stats: Stat[], value: { [key: string]: any }) => {
@@ -27,12 +31,14 @@ const getLegendList = ({ segments }): Legend[] => {
       []
     );
 
-    return {
+    const legend: Legend = {
       isActiveInGame: segment.metadata.isActive,
       legendName: segment.metadata.name,
       stats,
       tallImageUrl: segment.metadata.tallImageUrl
     };
+
+    return legend;
   });
 };
 
