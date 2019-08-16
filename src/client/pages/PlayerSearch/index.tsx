@@ -1,7 +1,5 @@
 import * as React from "react";
 import useGraphQLAPI from "../../hooks/useGraphQLAPI";
-import * as styles from "./styles";
-import logo from "../../images/legend-alert-logo.svg";
 import { useActivePlayer } from "../../context/ActivePlayer";
 
 import * as Components from "./components";
@@ -26,22 +24,17 @@ const PlayerSearch: React.FunctionComponent = (): JSX.Element => {
   }, [networkState]);
 
   return (
-    <div className={styles.container}>
+    <Components.Container>
       {activePlayer ? (
         <Components.ViewActivePlayer
           playerUserId={activePlayer.platformUserId}
         />
       ) : null}
-      <section className={styles.contentArea}>
-        <div className={styles.logo}>
-          <img
-            alt="Legend Alert Logo | Siren by Mohamad Arif Prasetyo from the Noun Project"
-            src={logo}
-          />
-        </div>
+      <Components.ContentArea>
+        <Components.Logo />
         <h1>Legend Alert</h1>
         <Components.DetailsSlider showResults={showResults}>
-          <div className="slider">
+          <React.Fragment>
             <Components.PlayerDetailsForm
               searching={networkState.loading}
               submitPlayerSearch={submitPlayerSearch.current}
@@ -52,10 +45,10 @@ const PlayerSearch: React.FunctionComponent = (): JSX.Element => {
                 results={networkState.data.searchPlayers}
               />
             ) : null}
-          </div>
+          </React.Fragment>
         </Components.DetailsSlider>
-      </section>
-    </div>
+      </Components.ContentArea>
+    </Components.Container>
   );
 };
 

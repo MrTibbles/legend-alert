@@ -1,8 +1,37 @@
 import * as React from "react";
-import { platformChoices as container } from "../styles";
+import { styled } from "linaria/react";
 import palette from "../../../styles/theme";
 import Button from "../../../primitives/Button";
 import { PSIcon, XboxIcon, KeyboardIcon } from "../../../ui-icons";
+
+const PlatformChoicesContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    display: block;
+    width: 100%;
+    height: 4rem;
+  }
+
+  svg {
+    display: block;
+    height: 100%;
+    margin: 0 auto;
+
+    &,
+    & * {
+      pointer-events: none;
+    }
+  }
+`;
+
+const PlatformOption = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+`;
 
 interface PlatformChoicesProps {
   onPlatformOptionSelected: React.Dispatch<React.SetStateAction<string>>;
@@ -13,8 +42,8 @@ const PlatformChoices: React.FunctionComponent<PlatformChoicesProps> = ({
   onPlatformOptionSelected,
   platformChoice
 }): JSX.Element => (
-  <div className={container}>
-    <div className="platform-opt">
+  <PlatformChoicesContainer>
+    <PlatformOption>
       <Button
         data-testid="platform-psn"
         onClick={() => onPlatformOptionSelected("psn")}
@@ -23,8 +52,8 @@ const PlatformChoices: React.FunctionComponent<PlatformChoicesProps> = ({
           color={platformChoice === "psn" ? palette.primary : palette.dark}
         />
       </Button>
-    </div>
-    <div className="platform-opt">
+    </PlatformOption>
+    <PlatformOption>
       <Button
         data-testid="platform-xbl"
         onClick={() => onPlatformOptionSelected("xbl")}
@@ -33,8 +62,8 @@ const PlatformChoices: React.FunctionComponent<PlatformChoicesProps> = ({
           color={platformChoice === "xbl" ? palette.primary : palette.dark}
         />
       </Button>
-    </div>
-    <div className="platform-opt">
+    </PlatformOption>
+    <PlatformOption>
       <Button
         data-testid="platform-origin"
         onClick={() => onPlatformOptionSelected("origin")}
@@ -43,8 +72,8 @@ const PlatformChoices: React.FunctionComponent<PlatformChoicesProps> = ({
           color={platformChoice === "origin" ? palette.primary : palette.dark}
         />
       </Button>
-    </div>
-  </div>
+    </PlatformOption>
+  </PlatformChoicesContainer>
 );
 
 export default React.memo(PlatformChoices);
