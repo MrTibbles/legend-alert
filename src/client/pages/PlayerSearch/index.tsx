@@ -6,11 +6,12 @@ import { useActivePlayer } from "../../context/ActivePlayer";
 
 import * as Components from "./components";
 import searchPlayersQuery from "./queries/searchPlayersQuery";
+import { PlayerSearchQuery } from "./types";
 
 const PlayerSearch: React.FunctionComponent = (): JSX.Element => {
   const { activePlayer } = useActivePlayer();
   const [showResults, toggleShowResults] = React.useState(false);
-  const [networkState, submitQuery] = useGraphQLAPI();
+  const [networkState, submitQuery] = useGraphQLAPI<PlayerSearchQuery>();
 
   const submitPlayerSearch = React.useRef(
     (platformChoice: string, playerUserId: string) => {
