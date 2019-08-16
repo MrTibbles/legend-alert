@@ -19,22 +19,20 @@ function useGraphQLAPI<T>(): [NetworkState<T>, SubmitQueryFn] {
 
   function handleErrorResponse(error: string): any {
     setNeworkState({
-      ...networkState,
-      error,
-      loading: false
+      ...initialState,
+      error
     });
   }
 
   function handleSuccessResponse(data: T): void {
     setNeworkState({
-      ...networkState,
-      data,
-      loading: false
+      ...initialState,
+      data
     });
   }
 
   async function submitQuery(query: string): Promise<void> {
-    setNeworkState({ ...networkState, error: "", loading: true });
+    setNeworkState(state => ({ ...state, error: "", loading: true }));
 
     const { data, errors } = await fetch("http://localhost:4000/", {
       body: JSON.stringify({ query }),
