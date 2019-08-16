@@ -1,4 +1,9 @@
-const query = ({ platformSlug, platformUserId }) => `
+interface InputArgs {
+  platformSlug: string;
+  platformUserId: string;
+}
+
+const query = ({ platformSlug, platformUserId }: InputArgs): string => `
   fragment statDetailsFragment on StatDataItem {
     displayName
     displayCategory

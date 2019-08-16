@@ -6,7 +6,7 @@ import useGraphQLAPI from "../../hooks/useGraphQLAPI";
 import { getInGameActiveLegend, getLegendList } from "./utils";
 import * as Components from "./components";
 import playerStatsQuery from "./queries/playerStatsQuery";
-import { Legend } from "./types";
+import { Legend, PlayerStatsQuery } from "./types";
 
 const Container = styled.div`
   width: 100vw;
@@ -28,7 +28,7 @@ const contentArea = css`
 
 const PlayerStats: React.FunctionComponent = (): JSX.Element => {
   const { activePlayer } = useActivePlayer();
-  const [networkState, submitQuery] = useGraphQLAPI();
+  const [networkState, submitQuery] = useGraphQLAPI<PlayerStatsQuery>();
   const [activeLegend, setActiveLegend] = React.useState<Legend | null>(null);
   const [legendList, setLegendList] = React.useState<Legend[]>([]);
   const [mobileLegendListIsVis, setMobileLegendListVis] = React.useState(false);
@@ -45,7 +45,6 @@ const PlayerStats: React.FunctionComponent = (): JSX.Element => {
     setMobileLegendListVis(!mobileLegendListIsVis);
   };
 
-  /* Add Legend interface */
   const onLegendSelected = (legend: Legend): void => {
     setActiveLegend(legend);
     setMobileLegendListVis(false);
@@ -61,7 +60,9 @@ const PlayerStats: React.FunctionComponent = (): JSX.Element => {
 
   React.useEffect(() => {
     if (networkState.data) {
-      const legendList: Legend[] = getLegendList(networkState.data.playerStats);
+      const { playerStats } = networkState.data;
+
+      const legendList: Legend[] = getLegendList(playerStats);
       setLegendList(legendList);
 
       const activeInGameLegend: Legend = getInGameActiveLegend(legendList);

@@ -3,7 +3,7 @@ import { ArrowIcon, SearchIcon } from "../../../ui-icons";
 import Link from "../../../primitives/Link";
 import { css } from "linaria";
 import { styled } from "linaria/react";
-import { Legend } from '../types'
+import { Legend } from "../types";
 
 const styles = {
   container: css`
@@ -91,7 +91,7 @@ const LegendSelector = ({ activeLegendName, legends, onLegendSelected }) => (
       </Link>
     </div>
     <ul className={styles.legendList}>
-      {legends.map(legend => (
+      {legends.map((legend: Legend) => (
         <LegendItem
           data-testid="legend-option"
           isActiveLegend={legend.legendName === activeLegendName}
