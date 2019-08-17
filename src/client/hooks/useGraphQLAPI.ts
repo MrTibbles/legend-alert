@@ -34,7 +34,7 @@ function useGraphQLAPI<T>(): [NetworkState<T>, SubmitQueryFn] {
   async function submitQuery(query: string): Promise<void> {
     setNeworkState(state => ({ ...state, error: "", loading: true }));
 
-    const { data, errors } = await fetch("http://localhost:4000/graphql", {
+    const { data, errors } = await fetch(GRAPHQL_API, {
       body: JSON.stringify({ query }),
       headers: {
         "Content-Type": "application/json"
