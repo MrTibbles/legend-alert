@@ -30,8 +30,8 @@ module.exports = (env = {}) => {
       stats: "errors-warnings"
     },
     output: {
-      path: PATHS.dist,
-      publicPath: "/",
+      path: path.resolve(PATHS.dist, "public/"),
+      publicPath: "/public/",
       filename: "legend-alert.[name].[hash].js"
     },
     resolve: {
@@ -92,15 +92,23 @@ module.exports = (env = {}) => {
       }),
       new CopyPlugin([
         {
+          from: path.resolve(PATHS.src, "favicon.ico"),
+          to: path.resolve(PATHS.dist, "public/")
+        },
+        {
           from: path.resolve(PATHS.src, "images/"),
-          to: path.resolve(PATHS.dist, "images/")
+          to: path.resolve(PATHS.dist, "public/images/"),
+          ignore: [".*"]
         },
         {
           from: path.resolve(__dirname, "src/server"),
-          to: path.resolve(PATHS.dist, "server/")
+          to: PATHS.dist,
+          ignore: [".eslintrc"]
         }
-      ]),
-      new GenerateSW()
+      ])
+      // new GenerateSW({
+      //   exclude: [/index.js$/, /schema.js$/, /TrackerNetworkAPI.js$/]
+      // }),
     ]
   };
 };
