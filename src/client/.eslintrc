@@ -5,6 +5,7 @@
   ],
   "globals": {
     "PRODUCTION_ENV": false,
+    "GRAPHQL_API": false
   },
   "rules": {
     "@typescript-eslint/interface-name-prefix": "warn"

@@ -76,7 +76,10 @@ module.exports = (env = {}) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        PRODUCTION_ENV: !isInDev
+        PRODUCTION_ENV: !isInDev,
+        GRAPHQL_API: JSON.stringify(
+          isInDev ? "http://localhost:4000" : "/graphql"
+        )
       }),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
