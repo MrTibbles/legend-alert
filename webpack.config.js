@@ -8,6 +8,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { GenerateSW } = require("workbox-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 const PATHS = {
   src: path.resolve(__dirname, "src/client"),
@@ -89,6 +90,12 @@ module.exports = (env = {}) => {
       new MiniCssExtractPlugin({
         filename: "linaria-styles.css"
       }),
+      new CopyPlugin([
+        {
+          from: path.resolve(PATHS.src, "images/"),
+          to: path.resolve(PATHS.dist, "images/")
+        }
+      ]),
       new GenerateSW()
     ]
   };
