@@ -94,6 +94,10 @@ module.exports = (env = {}) => {
         {
           from: path.resolve(PATHS.src, "images/"),
           to: path.resolve(PATHS.dist, "images/")
+        },
+        {
+          from: path.resolve(__dirname, "src/server"),
+          to: path.resolve(PATHS.dist, "server/")
         }
       ]),
       new GenerateSW()
