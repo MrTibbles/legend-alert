@@ -73,11 +73,13 @@
     "start:dev": "npm-run-all --parallel dev:*",
     "cypress:open": "cypress open",
     "build": "webpack --env.production",
-    "test": "cypress run --record --key f8b075fe-ce9f-4712-ad42-96c913b58cf6"
+    "test": "cypress run --record --key f8b075fe-ce9f-4712-ad42-96c913b58cf6",
+    "start": "node src/server/index.js"
   },
   "dependencies": {
     "apollo-datasource-rest": "^0.6.1",
-    "apollo-server": "^2.7.1",
+    "apollo-server-express": "^2.8.1",
+    "express": "^4.17.1",
     "graphql": "^14.4.2",
     "linaria": "^1.4.0-alpha.1",
     "localforage": "^1.7.3",
