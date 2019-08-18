@@ -31,7 +31,7 @@ const server = new ApolloServer({
       trackerNetworkAPI: new TrackerNetworkAPI()
     };
   },
-  // playground: process.env.NODE_ENV !== 'production',
+  playground: process.env.NODE_ENV !== "production",
   resolvers,
   typeDefs
 });
@@ -53,8 +53,9 @@ app.listen({ port }, () =>
 );
 
 app.get("*", (req, res) => {
-  const filepath =
-    req.url === "/" ? "/public/index.html" : req.url.split("?")[0]; // removes ?__WB_REVISION__=* suffix
+  const filepath = !req.url.includes(".")
+    ? "/public/index.html"
+    : req.url.split("?")[0]; // removes ?__WB_REVISION__=* suffix
 
   res.sendFile(path.join(__dirname, filepath));
 });
