@@ -78,10 +78,8 @@
   },
   "dependencies": {
     "apollo-datasource-rest": "^0.6.1",
-    "apollo-server-express": "^2.8.1",
-    "express": "^4.17.1",
+    "apollo-server-micro": "^2.8.1",
     "graphql": "^14.4.2",
-    "helmet": "^3.20.0",
     "linaria": "^1.4.0-alpha.1",
     "localforage": "^1.7.3",
     "react": "^16.8.6",
