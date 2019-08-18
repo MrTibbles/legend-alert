@@ -6,5 +6,17 @@
   "builds": [
     { "src": "package.json", "use": "@now/static-build" },
     { "src": "src/server/index.js", "use": "@now/node" }
+  ],
+  "routes": [
+    {
+      "methods": ["GET"],
+      "src": "/(.*)",
+      "dest": "/public/$1"
+    },
+    {
+      "methods": ["POST"],
+      "src": "/graphql",
+      "dest": "/index.js"
+    }
   ]
 }
