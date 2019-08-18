@@ -23,8 +23,8 @@ const App: React.FunctionComponent = (): JSX.Element => (
 
 ReactDom.render(<App />, document.getElementById("app-root"));
 
-// if (PRODUCTION_ENV && "serviceWorker" in navigator) {
-//   window.addEventListener("load", function() {
-//     navigator.serviceWorker.register("/service-worker.js");
-//   });
-// }
+if (PRODUCTION_ENV && "serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker.register("/public/service-worker.js");
+  });
+}

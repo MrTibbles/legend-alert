@@ -42,16 +42,7 @@ app.use(helmet());
 server.applyMiddleware({ app });
 
 if (process.env.NODE_ENV === "production") {
-  const staticFileOptions = {
-    dotfiles: "ignore",
-    etag: false,
-    index: false,
-    maxAge: "1d",
-    redirect: false,
-    setHeaders: res => res.set("x-timestamp", Date.now())
-  };
-
-  app.use(express.static("public", staticFileOptions));
+  app.use(express.static("public"));
 }
 
 const port = process.env.PORT || 4000;
@@ -61,8 +52,9 @@ app.listen({ port }, () =>
   )
 );
 
-app.get("/*", (req, res) => {
-  const file = req.url === "/" ? "/public/index.html" : req.url;
+app.get("*", (req, res) => {
+  const filepath =
+    req.url === "/" ? "/public/index.html" : req.url.split("?")[0]; // removes ?__WB_REVISION__=* suffix
 
-  res.sendFile(path.join(__dirname, file));
+  res.sendFile(path.join(__dirname, filepath));
 });
