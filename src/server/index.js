@@ -1,4 +1,5 @@
-const { ApolloServer } = require("apollo-server-micro");
+const { ApolloServer: ApolloMicro } = require("apollo-server-micro");
+const { ApolloServer } = require("apollo-server");
 const dotenv = require("dotenv");
 
 const TrackerNetworkAPI = require("./TrackerNetworkAPI");
@@ -17,7 +18,11 @@ const resolvers = {
   }
 };
 
-const server = new ApolloServer({
+const production = process.env.NODE_ENV === "production";
+
+const _Server = production ? ApolloMicro : ApolloServer;
+
+const server = new _Server({
   context: () => {
     return {
       token: process.env.TRN_TOKEN
@@ -33,4 +38,8 @@ const server = new ApolloServer({
   typeDefs
 });
 
-module.exports = server.createHandler({ path: "/graphql" });
+const handler = production
+  ? server.createHandler({ path: "/graphql" })
+  : server.listen().then(({ url }) => console.log(`GraphQL server on ${url}`));
+
+module.exports = handler;

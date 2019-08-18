@@ -27,7 +27,7 @@ module.exports = (env = {}) => {
       hot: true,
       historyApiFallback: true,
       contentBase: PATHS.dist,
-      port: 4000,
+      port: 3000,
       stats: "errors-warnings"
     },
     output: {
@@ -79,7 +79,7 @@ module.exports = (env = {}) => {
       new webpack.DefinePlugin({
         PRODUCTION_ENV: !isInDev,
         GRAPHQL_API: JSON.stringify(
-          isInDev ? "http://localhost:4000/graphql" : "/graphql"
+          isInDev ? "http://localhost:4000" : "/graphql"
         )
       }),
       new CleanWebpackPlugin(),
