@@ -3,11 +3,8 @@
   "github": {
     "enabled": false
   },
-  "build": [
-    { "src": "./dist/public/**", "use": "@now/static" },
-    { "src": "./src/server/**", "use": "@now/node" }
-  ],
-  "routes": [
-    { "src": "/(.*)", "dest": "dist/$1" }
+  "builds": [
+    { "src": "package.json", "use": "@now/static-build" },
+    { "src": "src/server/index.js", "use": "@now/node" }
   ]
 }
