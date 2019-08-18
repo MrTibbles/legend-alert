@@ -108,10 +108,10 @@ module.exports = (env = {}) => {
           to: PATHS.dist,
           ignore: [".eslintrc"]
         }
-      ])
-      // new GenerateSW({
-      //   exclude: [/index.js$/, /schema.js$/, /TrackerNetworkAPI.js$/]
-      // }),
+      ]),
+      new GenerateSW({
+        exclude: [/index.js$/, /schema.js$/, /TrackerNetworkAPI.js$/]
+      })
     ]
   };
 };
