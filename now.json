@@ -16,6 +16,11 @@
       "dest": "/public/$1"
     },
     {
+      "methods": ["GET"],
+      "src": "/stats",
+      "dest": "/public/index.html"
+    },
+    {
       "methods": ["POST"],
       "src": "/graphql",
       "dest": "/dist/index.js"
