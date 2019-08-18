@@ -17,7 +17,6 @@ const PATHS = {
 
 module.exports = (env = {}) => {
   const isInDev = env.production !== true;
-  const outputPath = isInDev ? "/" : "/public/";
 
   return {
     entry: path.resolve(PATHS.src, "App.tsx"),
@@ -31,8 +30,8 @@ module.exports = (env = {}) => {
       stats: "errors-warnings"
     },
     output: {
-      path: path.join(PATHS.dist, outputPath),
-      publicPath: outputPath,
+      path: PATHS.dist,
+      publicPath: "/",
       filename: "legend-alert.[name].[hash].js"
     },
     resolve: {
@@ -97,22 +96,15 @@ module.exports = (env = {}) => {
       new CopyPlugin([
         {
           from: path.resolve(PATHS.src, "favicon.ico"),
-          to: path.resolve(PATHS.dist, "public/")
+          to: PATHS.dist
         },
         {
           from: path.resolve(PATHS.src, "images/"),
-          to: path.resolve(PATHS.dist, "public/images/"),
+          to: path.resolve(PATHS.dist, "/images/"),
           ignore: [".*", "*.svg"]
-        },
-        {
-          from: path.resolve(__dirname, "src/server"),
-          to: PATHS.dist,
-          ignore: [".eslintrc"]
         }
       ]),
-      new GenerateSW({
-        exclude: [/index.js$/, /schema.js$/, /TrackerNetworkAPI.js$/]
-      })
+      new GenerateSW()
     ]
   };
 };

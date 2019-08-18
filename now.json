@@ -12,6 +12,11 @@
       "methods": ["GET"],
       "src": "/(.*)",
       "dest": "/public/$1"
+    },
+    {
+      "methods": ["POST"],
+      "src": "/graphql",
+      "dest": "/index.js"
     }
   ]
 }
