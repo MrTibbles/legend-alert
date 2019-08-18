@@ -17,6 +17,7 @@ const PATHS = {
 
 module.exports = (env = {}) => {
   const isInDev = env.production !== true;
+  const outputPath = isInDev ? "/" : "/public/";
 
   return {
     entry: path.resolve(PATHS.src, "App.tsx"),
@@ -30,12 +31,12 @@ module.exports = (env = {}) => {
       stats: "errors-warnings"
     },
     output: {
-      path: path.resolve(PATHS.dist, "public/"),
-      publicPath: "/public/",
+      path: path.join(PATHS.dist, outputPath),
+      publicPath: outputPath,
       filename: "legend-alert.[name].[hash].js"
     },
     resolve: {
-      extensions: [".ts", ".tsx", ".js", ".jsx"]
+      extensions: [".ts", ".tsx", ".js"]
     },
     module: {
       rules: [
@@ -78,7 +79,7 @@ module.exports = (env = {}) => {
       new webpack.DefinePlugin({
         PRODUCTION_ENV: !isInDev,
         GRAPHQL_API: JSON.stringify(
-          isInDev ? "http://localhost:4000" : "/graphql"
+          isInDev ? "http://localhost:4000/graphql" : "/graphql"
         )
       }),
       new CleanWebpackPlugin(),
