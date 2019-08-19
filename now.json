@@ -5,7 +5,7 @@
   },
   "builds": [
     { "src": "package.json", "use": "@now/static-build" },
-    { "src": "package.json", "use": "@now/node" }
+    { "src": "src/server/**", "use": "@now/node", "config": { "distDir": "dist" } }
   ],
   "routes": [
     {
@@ -21,7 +21,7 @@
     {
       "methods": ["POST"],
       "src": "/graphql",
-      "dest": "/dist/index.js"
+      "dest": "/index.js"
     }
   ],
   "env": {
