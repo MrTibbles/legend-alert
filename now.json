@@ -3,12 +3,6 @@
   "github": {
     "enabled": false
   },
-  "builds": [
-    { "src": "package.json", "use": "@now/static-build" },
-    { "src": "dist/index.js", "use": "@now/node" },
-    { "src": "dist/TrackerNetworkAPI.js", "use": "@now/node" },
-    { "src": "dist/schema.js", "use": "@now/node" }
-  ],
   "routes": [
     {
       "methods": ["GET"],
