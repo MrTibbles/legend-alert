@@ -73,7 +73,7 @@
     "start:dev": "npm-run-all --parallel dev:*",
     "cypress:open": "cypress open",
     "build": "webpack --env.production",
-    "now-build": "node scripts/now-build-server.js && webpack --env.production",
+    "now-build": "node scripts/now-build-server.js",
     "test": "cypress run --record --key f8b075fe-ce9f-4712-ad42-96c913b58cf6"
   },
   "dependencies": {
