@@ -100,6 +100,10 @@ module.exports = (env = {}) => {
           to: path.resolve(PATHS.dist, "public/")
         },
         {
+          from: path.resolve(PATHS.src, "site.manifest"),
+          to: path.resolve(PATHS.dist, "public/")
+        },
+        {
           from: path.resolve(PATHS.src, "images/"),
           to: path.resolve(PATHS.dist, "public/images/"),
           ignore: [".*", "*.svg"]
