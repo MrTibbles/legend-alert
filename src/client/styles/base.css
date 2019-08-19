@@ -31,6 +31,10 @@ html {
   font-family: 'Nova Square', cursive;
   font-weight: normal;
   background-color: var(--color-dark);
+
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }
 
 body.dark {
