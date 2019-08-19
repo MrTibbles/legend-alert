@@ -76,13 +76,13 @@ module.exports = (env = {}) => {
       ]
     },
     plugins: [
+      new CleanWebpackPlugin(),
       new webpack.DefinePlugin({
         PRODUCTION_ENV: !isInDev,
         GRAPHQL_API: JSON.stringify(
           isInDev ? "http://localhost:4000" : "/graphql"
         )
       }),
-      new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         title: "🚨",
         template: path.resolve(PATHS.src, "static/index.html"),
@@ -103,16 +103,9 @@ module.exports = (env = {}) => {
           from: path.resolve(PATHS.src, "images/"),
           to: path.resolve(PATHS.dist, "public/images/"),
           ignore: [".*", "*.svg"]
-        },
-        {
-          from: path.resolve(__dirname, "src/server"),
-          to: PATHS.dist,
-          ignore: [".eslintrc"]
         }
       ]),
-      new GenerateSW({
-        exclude: [/index.js$/, /schema.js$/, /TrackerNetworkAPI.js$/]
-      })
+      new GenerateSW()
     ]
   };
 };
