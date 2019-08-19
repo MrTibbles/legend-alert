@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server-micro");
+const { gql } = require("apollo-server");
 
 const schema = gql`
   type TRNPlayer {
