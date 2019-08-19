@@ -100,7 +100,7 @@ module.exports = (env = {}) => {
           to: path.resolve(PATHS.dist, "public/")
         },
         {
-          from: path.resolve(PATHS.src, "site.manifest"),
+          from: path.resolve(PATHS.src, "site.webmanifest"),
           to: path.resolve(PATHS.dist, "public/")
         },
         {
