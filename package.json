@@ -45,6 +45,7 @@
     "husky": "^2.4.0",
     "lint-staged": "^9.2.1",
     "mini-css-extract-plugin": "^0.7.0",
+    "now": "^16.1.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.1",
     "prop-types": "^15.7.2",
@@ -71,9 +72,11 @@
     "dev:client": "webpack-dev-server",
     "dev:server": "node src/server/index.js",
     "start:dev": "npm-run-all --parallel dev:*",
-    "cypress:open": "cypress open",
+    "cy:open": "cypress open",
+    "cy:verify": "cypress verify",
     "build": "webpack --env.production",
-    "test": "cypress run --record --key f8b075fe-ce9f-4712-ad42-96c913b58cf6"
+    "test": "cypress run --record --key f8b075fe-ce9f-4712-ad42-96c913b58cf6",
+    "test:ci": "now dev"
   },
   "dependencies": {
     "apollo-datasource-rest": "^0.6.1",
