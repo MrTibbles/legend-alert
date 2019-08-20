@@ -5,7 +5,7 @@ const Container = styled.div`
   min-height: 100vh;
   transition: transform 250ms ease-out;
   transform: ${({ showLegends }): string =>
-    `translateX(${showLegends ? "25vw" : 0})`};
+    `translateX(${showLegends ? "40vw" : 0})`};
 
   @media (min-width: 1024px) {
     display: flex;

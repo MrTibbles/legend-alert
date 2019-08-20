@@ -10,9 +10,9 @@ const Container = styled.aside`
   top: 0;
   bottom: 0;
   background: var(--color-offwhite);
-  width: 25vw;
+  width: 40vw;
   height: 100vh;
-  transform: translateX(-25vw);
+  transform: translateX(-40vw);
 
   &:before {
     content: "";
@@ -27,6 +27,7 @@ const Container = styled.aside`
 
   @media (min-width: 1024px) {
     transform: translateX(0);
+    width: 20vw;
     position: unset;
   }
 `;
