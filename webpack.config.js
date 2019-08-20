@@ -10,14 +10,12 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { GenerateSW } = require("workbox-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
-const PATHS = {
-  src: path.resolve(__dirname, "src/client"),
-  dist: path.resolve(__dirname, "dist")
-};
-
 module.exports = (env = {}) => {
   const isInDev = env.production !== true;
-  const outputPath = isInDev ? "/" : "/public/";
+  const PATHS = {
+    src: path.resolve(__dirname, "src/client"),
+    dist: path.resolve(__dirname, "dist", isInDev ? "" : "public/")
+  };
 
   return {
     entry: path.resolve(PATHS.src, "App.tsx"),
@@ -31,8 +29,8 @@ module.exports = (env = {}) => {
       stats: "errors-warnings"
     },
     output: {
-      path: path.join(PATHS.dist, outputPath),
-      publicPath: outputPath,
+      path: PATHS.dist,
+      publicPath: isInDev ? "/" : "/public/",
       filename: "legend-alert.[name].[hash].js"
     },
     resolve: {
@@ -97,15 +95,15 @@ module.exports = (env = {}) => {
       new CopyPlugin([
         {
           from: path.resolve(PATHS.src, "favicon.ico"),
-          to: path.resolve(PATHS.dist, "public/")
+          to: PATHS.dist
         },
         {
-          from: path.resolve(PATHS.src, "site.webmanifest"),
-          to: path.resolve(PATHS.dist, "public/")
+          from: path.resolve(PATHS.src, "manifest.json"),
+          to: PATHS.dist
         },
         {
           from: path.resolve(PATHS.src, "images/"),
-          to: path.resolve(PATHS.dist, "public/images/"),
+          to: path.resolve(PATHS.dist, "images/"),
           ignore: [".*", "*.svg"]
         }
       ]),
