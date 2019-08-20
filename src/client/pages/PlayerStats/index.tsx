@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useActivePlayer } from "../../context/ActivePlayer";
 import useGraphQLAPI from "../../hooks/useGraphQLAPI";
+import { Loading } from "../../primitives";
 import { getInGameActiveLegend, getLegendList } from "./utils";
 import * as Components from "./components";
 import playerStatsQuery from "./queries/playerStatsQuery";
@@ -58,13 +59,7 @@ const PlayerStats: React.FunctionComponent = (): JSX.Element => {
     );
   }
 
-  if (networkState.loading || !activeLegend) {
-    return (
-      <div>
-        <h1>Loading...</h1>
-      </div>
-    );
-  }
+  if (networkState.loading || !activeLegend) return <Loading fullScreen />;
 
   return (
     <Components.Container showLegends={mobileLegendListIsVis}>
