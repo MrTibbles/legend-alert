@@ -83,7 +83,11 @@ interface LegendSelectorProps {
   onLegendSelected: React.Dispatch<React.SetStateAction<Legend>>;
 }
 
-const LegendSelector = ({ activeLegendName, legends, onLegendSelected }) => (
+const LegendSelector: React.FunctionComponent<LegendSelectorProps> = ({
+  activeLegendName,
+  legends,
+  onLegendSelected
+}): JSX.Element => (
   <Container>
     <SearchLinkContainer>
       <Link data-testid="player-search-link_lgScreen" to="/">
