@@ -12,6 +12,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = (env = {}) => {
   const isInDev = env.production !== true;
+
   const PATHS = {
     src: path.resolve(__dirname, "src/client"),
     dist: path.resolve(__dirname, "dist", isInDev ? "" : "public/")
@@ -90,7 +91,8 @@ module.exports = (env = {}) => {
         favicon: path.resolve(PATHS.src, "favicon.ico")
       }),
       new MiniCssExtractPlugin({
-        filename: "linaria-styles.css"
+        filename: isInDev ? "linaria-styles.css" : "linaria-styles.[hash].css",
+        chunkFilename: isInDev ? "[id].css" : "[id].[hash].css"
       }),
       new CopyPlugin([
         {

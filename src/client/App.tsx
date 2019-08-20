@@ -6,18 +6,23 @@ import "./styles/base.css";
 import "whatwg-fetch";
 
 import { ActivePlayerProvider } from "./context/ActivePlayer";
-import * as Pages from "./pages";
+import { Loading } from "./primitives";
+
+const PlayerSearch = React.lazy(() => import("./pages/PlayerSearch"));
+const PlayerStats = React.lazy(() => import("./pages/PlayerStats"));
 
 localstoreConfig();
 
 const App: React.FunctionComponent = (): JSX.Element => (
   <ActivePlayerProvider>
-    <Router>
-      <Switch>
-        <Route component={Pages.PlayerSearch} exact path="/" />
-        <Route component={Pages.PlayerStats} exact path="/stats" />
-      </Switch>
-    </Router>
+    <React.Suspense fallback={<Loading fullScreen />}>
+      <Router>
+        <Switch>
+          <Route component={PlayerSearch} exact path="/" />
+          <Route component={PlayerStats} exact path="/stats" />
+        </Switch>
+      </Router>
+    </React.Suspense>
   </ActivePlayerProvider>
 );
 
