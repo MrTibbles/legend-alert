@@ -22,13 +22,21 @@ jobs:
             - ~/.npm
             - ~/.cache
       # build client
-      - run: npm run build
-      
-      # start server before starting tests
-      # - run:
-      #     command: npm run start:ci
-      #     background: true
-      # - run: npm run e2e:record
+      - run:
+          name: Build client App
+          command: npm run build
+
+      # start the server, would prefer to use closer-to-production env but now dev isnt quite there
+      - run:
+          name: Start servers
+          command: npm run start:dev
+          background: true
+
+      - run: npm run ci:ping-server
+
+      - run:
+          name: Run integration tests
+          command: npm run test
 
 workflows:
   version: 2
