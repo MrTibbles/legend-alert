@@ -5,6 +5,7 @@ declare module "*.svg" {
 
 declare const PRODUCTION_ENV: boolean;
 declare const GRAPHQL_API: string;
+declare const PUBLIC_PATH: string;
 
 interface GraphQLResponse {
   [field: string]: any;
