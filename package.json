@@ -77,11 +77,12 @@
     "ci:ping-static": "wait-on http-get://localhost:3000 --delay 10000",
     "ci:ping-servers": "npm-run-all --sequential ci:ping-static ci:ping-api",
     "ci:lint": "scripts/static-analysis.sh",
-    "cy:open": "cypress open",
+    "cy:open": "cypress open --env API_URL=http://localhost:4000",
     "cy:verify": "cypress verify",
     "ci:serve": "CI_ENV=true now dev",
     "build": "webpack --env.production",
-    "test": "cypress run --record --key f8b075fe-ce9f-4712-ad42-96c913b58cf6"
+    "test": "cypress run --record --key f8b075fe-ce9f-4712-ad42-96c913b58cf6 --env API_URL=http://localhost:4000/",
+    "test:ci": "cypress run --record --key f8b075fe-ce9f-4712-ad42-96c913b58cf6 --env API_URL=http://localhost:3000/graphql"
   },
   "dependencies": {
     "apollo-datasource-rest": "^0.6.1",

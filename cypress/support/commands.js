@@ -1,37 +1,39 @@
 // Set a player session for viewing their stats, due to restrictions on
 Cypress.Commands.add("setDefaultPlayer", () => {
   // Setup the network spies
-  cy.server({ delay: 50 })
+  cy.server({ delay: 50 });
 
-  cy.fixture('player-search-DiRTiG').then(response => {
+  const url = Cypress.env("API_URL");
+
+  cy.fixture("player-search-DiRTiG").then(response => {
     cy.route({
-      method: 'POST',
+      method: "POST",
       response,
-      url: 'http://localhost:4000',
-    }).as('searchDiRTiG')
-  })
+      url
+    }).as("searchDiRTiG");
+  });
 
-  cy.visit('http://localhost:3000')
+  cy.visit("http://localhost:3000");
 
-  cy.get('input[name="player-tag"]').type('DiRTiG')
+  cy.get('input[name="player-tag"]').type("DiRTiG");
 
-  cy.get('button[data-testid="platform-psn"]').click()
+  cy.get('button[data-testid="platform-psn"]').click();
 
-  cy.get('button[data-testid="submit-btn"]').click()
+  cy.get('button[data-testid="submit-btn"]').click();
 
-  cy.wait('@searchDiRTiG')
+  cy.wait("@searchDiRTiG");
 
-  cy.fixture('player-stats-DiRTiG').then(response => {
+  cy.fixture("player-stats-DiRTiG").then(response => {
     cy.route({
-      method: 'POST',
+      method: "POST",
       response,
-      url: 'http://localhost:4000',
-    }).as('DiRTiGStatsPage')
-  })
+      url
+    }).as("DiRTiGStatsPage");
+  });
 
-  cy.get('ul[data-testid="search-results"]')
+  cy.get('ul[data-testid="search-results"]');
 
-  cy.get('li[data-testid="psn-dirtig"]').click()
+  cy.get('li[data-testid="psn-dirtig"]').click();
 
-  cy.wait('@DiRTiGStatsPage')
-})
+  cy.wait("@DiRTiGStatsPage");
+});
