@@ -33,12 +33,12 @@ jobs:
       # start the server, would prefer to use closer-to-production env but `now dev` isnt quite there
       - run:
           name: Start servers
-          command: npm run start:dev
+          command: npm run ci:serve
           background: true
 
       - run:
           name: Check server is ready
-          command: npm run ci:ping-server
+          command: npm run ci:ping-servers
 
       - run:
           name: Run integration tests
