@@ -30,6 +30,6 @@ ReactDom.render(<App />, document.getElementById("app-root"));
 
 if (PRODUCTION_ENV && "serviceWorker" in navigator) {
   window.addEventListener("load", function() {
-    navigator.serviceWorker.register("/public/service-worker.js");
+    navigator.serviceWorker.register(`${PUBLIC_PATH}service-worker.js`);
   });
 }

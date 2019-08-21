@@ -11,17 +11,20 @@ const { GenerateSW } = require("workbox-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = (env = {}) => {
-  const isInDev = env.production !== true;
+  const devEnv = env.production !== true;
+
+  const ciEnv = process.env.CI_ENV || false;
+  const publicPath = devEnv || ciEnv ? "/" : "/public/";
 
   const PATHS = {
     src: path.resolve(__dirname, "src/client"),
-    dist: path.resolve(__dirname, "dist", isInDev ? "" : "public/")
+    dist: path.resolve(__dirname, "dist", devEnv ? "" : "public/")
   };
 
   return {
     entry: path.resolve(PATHS.src, "App.tsx"),
-    mode: isInDev ? "development" : "production",
-    devtool: isInDev ? "eval" : "source-map",
+    mode: devEnv ? "development" : "production",
+    devtool: devEnv ? "eval" : "source-map",
     devServer: {
       hot: true,
       historyApiFallback: true,
@@ -31,7 +34,7 @@ module.exports = (env = {}) => {
     },
     output: {
       path: PATHS.dist,
-      publicPath: isInDev ? "/" : "/public/",
+      publicPath: publicPath,
       filename: "legend-alert.[name].[hash].js"
     },
     resolve: {
@@ -49,7 +52,7 @@ module.exports = (env = {}) => {
             {
               loader: "linaria/loader",
               options: {
-                sourceMap: isInDev
+                sourceMap: devEnv
               }
             }
           ]
@@ -61,8 +64,8 @@ module.exports = (env = {}) => {
             {
               loader: MiniCssExtractPlugin.loader,
               options: {
-                sourceMap: isInDev,
-                hmr: isInDev
+                sourceMap: devEnv,
+                hmr: devEnv
               }
             },
             "css-loader"
@@ -77,10 +80,11 @@ module.exports = (env = {}) => {
     plugins: [
       new CleanWebpackPlugin(),
       new webpack.DefinePlugin({
-        PRODUCTION_ENV: !isInDev,
+        PRODUCTION_ENV: ciEnv || !devEnv,
         GRAPHQL_API: JSON.stringify(
-          isInDev ? "http://localhost:4000" : "/graphql"
-        )
+          devEnv ? "http://localhost:4000" : "/graphql"
+        ),
+        PUBLIC_PATH: JSON.stringify(publicPath)
       }),
       new HtmlWebpackPlugin({
         title: "🚨",
@@ -91,8 +95,8 @@ module.exports = (env = {}) => {
         favicon: path.resolve(PATHS.src, "favicon.ico")
       }),
       new MiniCssExtractPlugin({
-        filename: isInDev ? "linaria-styles.css" : "linaria-styles.[hash].css",
-        chunkFilename: isInDev ? "[id].css" : "[id].[hash].css"
+        filename: devEnv ? "linaria-styles.css" : "linaria-styles.[hash].css",
+        chunkFilename: devEnv ? "[id].css" : "[id].[hash].css"
       }),
       new CopyPlugin([
         {
