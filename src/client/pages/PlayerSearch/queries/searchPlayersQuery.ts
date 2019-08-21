@@ -3,10 +3,7 @@ interface InputArgs {
   playerUserId: string;
 }
 
-const query = ({ 
-  platformChoice,
-  playerUserId
-} : InputArgs): string => `
+const query = ({ platformChoice, playerUserId }: InputArgs): string => `
   query {
     searchPlayers(filter: { playerUserId: "${playerUserId}", platformSlug: "${platformChoice}"}) {
       platformSlug
