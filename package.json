@@ -71,8 +71,10 @@
   "scripts": {
     "dev:client": "webpack-dev-server",
     "dev:server": "node src/server/index.js",
+    "lint": "prettier --write \"src/**/*.{js,ts,tsx}\" && eslint --fix \"src/**/*.{js,ts,tsx}\"",
     "start:dev": "npm-run-all --parallel dev:*",
     "ci:ping-server": "wait-on http-get://localhost:3000",
+    "ci:lint": "scripts/static-analysis.sh",
     "cy:open": "cypress open",
     "cy:verify": "cypress verify",
     "build": "webpack --env.production",
