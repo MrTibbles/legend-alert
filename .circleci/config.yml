@@ -42,7 +42,7 @@ jobs:
 
       - run:
           name: Run integration tests
-          command: npm run test
+          command: npm run test:ci
 
 workflows:
   version: 2
