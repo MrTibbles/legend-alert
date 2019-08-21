@@ -30,9 +30,8 @@ jobs:
           name: Build client
           command: npm run build
 
-      # start the server, would prefer to use closer-to-production env but `now dev` isnt quite there
       - run:
-          name: Start servers
+          name: Start server
           command: npm run ci:serve
           background: true
 
