@@ -36,6 +36,7 @@ const PlayerSearch: React.FunctionComponent = (): JSX.Element => {
         <Components.DetailsSlider showResults={showResults}>
           <React.Fragment>
             <Components.PlayerDetailsForm
+              networkError={networkState.error}
               searching={networkState.loading}
               submitPlayerSearch={submitPlayerSearch.current}
             />

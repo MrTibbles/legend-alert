@@ -31,11 +31,13 @@ interface ISubmitPlayerSearch {
 }
 
 interface PlayerDetailsFormProps {
+  networkError?: string;
   searching: boolean;
   submitPlayerSearch: ISubmitPlayerSearch;
 }
 
 const PlayerDetailsForm: React.FunctionComponent<PlayerDetailsFormProps> = ({
+  networkError,
   searching,
   submitPlayerSearch
 }) => {
@@ -72,7 +74,7 @@ const PlayerDetailsForm: React.FunctionComponent<PlayerDetailsFormProps> = ({
           <h3>Player tag</h3>
           <input
             name="player-tag"
-            onChange={({ target: { value } }) => setPlayerHandle(value)}
+            onChange={({ target: { value } }): void => setPlayerHandle(value)}
             placeholder="absolute-legend"
             value={playerHandle}
           />
@@ -87,6 +89,9 @@ const PlayerDetailsForm: React.FunctionComponent<PlayerDetailsFormProps> = ({
         >
           {searching ? "Loading..." : "Confirm"}
         </ConfirmBtn>
+        {networkError ? (
+          <p className="error-msg text-center">{networkError}</p>
+        ) : null}
       </form>
     </section>
   );
