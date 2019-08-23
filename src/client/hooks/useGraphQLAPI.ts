@@ -51,7 +51,7 @@ function useGraphQLAPI<T>(): [NetworkState<T>, SubmitQueryFn] {
     return handleSuccessResponse(data);
   }
 
-  async function submitQuery(query: string): Promise<void> {
+  function submitQuery(query: string): Promise<void> {
     setNeworkState(state => ({ ...state, error: "", loading: true }));
 
     return fetch(GRAPHQL_API, {
