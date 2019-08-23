@@ -17,7 +17,7 @@ function useGraphQLAPI<T>(): [NetworkState<T>, SubmitQueryFn] {
 
   const [networkState, setNeworkState] = useState(initialState);
 
-  function handleErrorResponse(error: string): any {
+  function handleErrorResponse(error: string): void {
     setNeworkState({
       ...initialState,
       error
@@ -31,21 +31,14 @@ function useGraphQLAPI<T>(): [NetworkState<T>, SubmitQueryFn] {
     });
   }
 
-  async function submitQuery(query: string): Promise<void> {
-    setNeworkState(state => ({ ...state, error: "", loading: true }));
+  async function handleResponse(res: Response): Promise<void> {
+    if (!res || !res.ok) {
+      const errorMsg: string = res ? res.statusText : "No network connection";
 
-    const { data, errors } = await fetch(GRAPHQL_API, {
-      body: JSON.stringify({ query }),
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST"
-    }).then(
-      (res): Promise<any> =>
-        res.ok
-          ? (res.json() as Promise<T>)
-          : handleErrorResponse("Something went wrong")
-    );
+      return handleErrorResponse(errorMsg);
+    }
+
+    const { data, errors } = await res.json();
 
     if (errors) {
       const _error: string = errors
@@ -56,6 +49,20 @@ function useGraphQLAPI<T>(): [NetworkState<T>, SubmitQueryFn] {
     }
 
     return handleSuccessResponse(data);
+  }
+
+  async function submitQuery(query: string): Promise<void> {
+    setNeworkState(state => ({ ...state, error: "", loading: true }));
+
+    return fetch(GRAPHQL_API, {
+      body: JSON.stringify({ query }),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST"
+    })
+      .catch(console.warn)
+      .then(handleResponse);
   }
 
   return [networkState, submitQuery];
