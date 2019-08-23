@@ -7,7 +7,7 @@ interface NetworkState<T> {
 }
 
 interface SubmitQueryFn {
-  (query: string): Promise<any>;
+  (query: string): Promise<void>;
 }
 
 function useGraphQLAPI<T>(): [NetworkState<T>, SubmitQueryFn] {
@@ -31,7 +31,7 @@ function useGraphQLAPI<T>(): [NetworkState<T>, SubmitQueryFn] {
     });
   }
 
-  async function handleResponse(res: Response): Promise<void> {
+  async function handleResponse(res?: Response): Promise<void> {
     if (!res || !res.ok) {
       const errorMsg: string = res ? res.statusText : "No network connection";
 

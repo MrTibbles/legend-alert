@@ -52,11 +52,7 @@ const PlayerStats: React.FunctionComponent = (): JSX.Element => {
   }, [networkState]);
 
   if (networkState.error) {
-    return (
-      <div>
-        <h2>{networkState.error}</h2>
-      </div>
-    );
+    return <h2 className="error-msg text-center">{networkState.error}</h2>;
   }
 
   if (networkState.loading || !activeLegend) return <Loading fullScreen />;
