@@ -4,8 +4,11 @@
   "description": "Apex Legends player stats tracker",
   "main": "src/index.js",
   "keywords": [
-    "ApexLegends",
-    "lit-html"
+    "Linaria",
+    "Now",
+    "Apex Legends",
+    "Apex Legends API",
+    "Apollo Server"
   ],
   "engines": {
     "node": ">=10.0.0"
