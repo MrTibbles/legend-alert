@@ -11,9 +11,11 @@ const Nav = styled.nav`
   right: 0;
   padding: var(--spacing-base);
   z-index: var(--depth-layer2);
-  justify-content: ${({ hasMoreLegends } : { hasMoreLegends: boolean }): string =>
-    hasMoreLegends ? "space-between" : "flex-end"
-  };
+  justify-content: ${({
+    hasMoreLegends
+  }: {
+    hasMoreLegends: boolean;
+  }): string => (hasMoreLegends ? "space-between" : "flex-end")};
 
   ${Link}, ${Button} {
     width: 1.25rem;

@@ -70,6 +70,7 @@
       "stylelint",
       "prettier --write",
       "eslint --fix",
+      "tsc --noEmit",
       "git add"
     ]
   },
@@ -80,6 +81,7 @@
     "lint:styles": "stylelint \"src/client/**/*.js\"",
     "lint:prettier": "prettier --write \"src/**/*.{js,ts,tsx}\"",
     "lint:eslint": "eslint --fix \"src/**/*.{js,ts,tsx}\"",
+    "lint:type-check": "tsc --noEmit",
     "lint": "npm-run-all --sequential lint:*",
     "start:dev": "npm-run-all --parallel dev:*",
     "ci:ping-api": "curl -X POST -H \"Content-Type: application/json\" --data '{ \"query\": \"{ ping { pong } }\" }' http://localhost:3000/graphql",
