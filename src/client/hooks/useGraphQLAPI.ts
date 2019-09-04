@@ -31,7 +31,7 @@ function useGraphQLAPI<T>(): [NetworkState<T>, SubmitQueryFn] {
     });
   }
 
-  async function handleResponse(res?: Response): Promise<void> {
+  async function handleResponse(res: Response): Promise<void> {
     if (!res || !res.ok) {
       const errorMsg: string = res ? res.statusText : "No network connection";
 
@@ -62,7 +62,7 @@ function useGraphQLAPI<T>(): [NetworkState<T>, SubmitQueryFn] {
       method: "POST"
     })
       .catch(console.warn)
-      .then(handleResponse);
+      .then(res => res && handleResponse(res));
   }
 
   return [networkState, submitQuery];

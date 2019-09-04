@@ -1,22 +1,21 @@
 {
+  "presets": [
+    "@babel/typescript",
+    "@babel/react",
+    "linaria/babel",
+    [
+      "@babel/env",
+      {
+        "useBuiltIns": "usage",
+        "corejs": "3",
+        "targets": {
+          "esmodules": true
+        }
+      }
+    ]
+  ],
+  // "plugins": ["@babel/plugin-syntax-dynamic-import"],
   "env": {
-    "development": {
-      "presets": [
-        "@babel/preset-typescript",
-        [
-          "@babel/preset-env",
-          {
-            "useBuiltIns": "entry",
-            "corejs": "3",
-            "targets": {
-              "esmodules": true
-            }
-          }
-        ],
-        "@babel/preset-react",
-        "linaria/babel"
-      ]
-    },
     "production": {
       "plugins": [
         ["react-remove-properties", { "properties": ["data-testid"] }]
