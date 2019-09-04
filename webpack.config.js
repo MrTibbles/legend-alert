@@ -10,10 +10,10 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { GenerateSW } = require("workbox-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
-module.exports = (env = {}) => {
-  const devEnv = env.production !== true;
+const devEnv = process.env.NODE_ENV !== 'production'
+const ciEnv = process.env.CI_ENV || false;
 
-  const ciEnv = process.env.CI_ENV || false;
+module.exports = (env = {}) => {
   const publicPath = devEnv || ciEnv ? "/" : "/public/";
 
   const PATHS = {
@@ -53,7 +53,7 @@ module.exports = (env = {}) => {
       path: PATHS.dist,
       publicPath: publicPath,
       filename: "legend-alert.[name].[hash].js",
-      chunkFilename: "legend-alert.[name].[chunk].js"
+      chunkFilename: "legend-alert.[name].[chunkhash].js"
     },
     resolve: {
       extensions: [".ts", ".tsx", ".js"]
