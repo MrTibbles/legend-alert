@@ -1,11 +1,7 @@
 import * as localforage from "localforage";
 
-/**
- * Application configuration for offline storage
- *
- * @return {Function} localforage config
- */
-const config = () => {
+// Application configuration for offline storage
+const config = (): void => {
   // players store
   localforage.config({
     description: "Apex Legends player stats tracker",
@@ -14,22 +10,19 @@ const config = () => {
   });
 };
 
-/**
- * Store an item
- */
+// Store an item
 function setOfflineActivePlayer<T>(key: string, value: T): Promise<T | void> {
   return localforage.setItem(key, value).catch(console.warn);
 }
 
-/**
- * Get the active player from offline storage
- */
+// Get the active player from offline storage
 async function getOfflineActivePlayer<T>(): Promise<T | undefined> {
   try {
     const offlineItems = await localforage.length();
 
     if (offlineItems) {
-      const activePlayer = await localforage.iterate(({ isActive }, key) => {
+      const activePlayer = await localforage.iterate(
+        ({ isActive } : { isActive :  boolean }, key : string) => {
         if (isActive) return localforage.getItem(key);
       });
 
