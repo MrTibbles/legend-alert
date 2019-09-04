@@ -2,19 +2,9 @@
   "presets": [
     "@babel/typescript",
     "@babel/react",
-    "linaria/babel",
-    [
-      "@babel/env",
-      {
-        "useBuiltIns": "usage",
-        "corejs": "3",
-        "targets": {
-          "esmodules": true
-        }
-      }
-    ]
+    "linaria/babel"
   ],
-  // "plugins": ["@babel/plugin-syntax-dynamic-import"],
+  "plugins": ["@babel/plugin-syntax-dynamic-import"],
   "env": {
     "production": {
       "plugins": [
