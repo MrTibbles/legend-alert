@@ -10,6 +10,11 @@
         "@babel/plugin-syntax-dynamic-import"
       ],
     },
+    "test": {
+      "plugins": [
+        "@babel/plugin-syntax-dynamic-import"
+      ],
+    },
     "production": {
       "plugins": [
         "@babel/plugin-syntax-dynamic-import",        

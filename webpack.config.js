@@ -22,6 +22,7 @@ module.exports = (env = {}) => {
   };
 
   const babelOptions = {
+    envName: ciEnv ? 'test' : process.env.NODE_ENV || 'development',
     presets: [
       [
         "@babel/env",
