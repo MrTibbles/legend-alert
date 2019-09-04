@@ -1,8 +1,11 @@
 {
     "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
         "outDir": "./dist/",
-        "sourceMap": true,
         "strictNullChecks": true,
+        "sourceMap": true,
+        "strict": true,
         "module": "ESNext",
         "jsx": "react",
         "target": "ESNext",

@@ -47,7 +47,7 @@ module.exports = (env = {}) => {
           exclude: /node_modules/,
           use: [
             {
-              loader: "awesome-typescript-loader"
+              loader: "babel-loader",
             },
             {
               loader: "linaria/loader",
@@ -114,6 +114,11 @@ module.exports = (env = {}) => {
         }
       ]),
       new GenerateSW()
-    ]
+    ],
+    optimization: {
+      splitChunks: {
+        chunks: "all"
+      }
+    }
   };
 };
