@@ -2,8 +2,12 @@ import * as React from "react";
 import { styled } from "linaria/react";
 
 const StyledDiv = styled.div`
-  width: ${({ fullScreen }): string => (fullScreen ? "100vw" : "100%")};
-  height: ${({ fullScreen }): string => (fullScreen ? "100vh" : "100%")};
+  width: ${({ fullScreen } : { fullScreen : boolean }): string =>
+    fullScreen ? "100vw" : "100%"
+  };
+  height: ${({ fullScreen } : { fullScreen : boolean }): string =>
+    fullScreen ? "100vh" : "100%"
+  };
   display: flex;
   align-items: center;
   justify-content: center;
