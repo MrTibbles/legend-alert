@@ -15,7 +15,7 @@ const Slider = styled.div`
   flex: none;
   width: 200%;
   transition: transform 750ms ease-in-out;
-  transform: ${({ showResults } : { showResults : boolean }): string =>
+  transform: ${({ showResults }: { showResults: boolean }): string =>
     `translate3d(${showResults ? "-50%" : 0}, 0, 0)`};
 `;
 

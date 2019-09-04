@@ -7,9 +7,8 @@ interface IconProps {
 }
 
 const SVG = styled.svg`
-  transform: ${({ direction } : { direction: string }): string =>
-    direction === "right" ? "scale(-1)" : ""
-  };
+  transform: ${({ direction }: { direction: string }): string =>
+    direction === "right" ? "scale(-1)" : ""};
 `;
 
 const ArrowIcon = ({ color = "#1D1D1D", ...props }: IconProps): JSX.Element => (

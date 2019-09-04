@@ -22,9 +22,10 @@ async function getOfflineActivePlayer<T>(): Promise<T | undefined> {
 
     if (offlineItems) {
       const activePlayer = await localforage.iterate(
-        ({ isActive } : { isActive :  boolean }, key : string) => {
-        if (isActive) return localforage.getItem(key);
-      });
+        ({ isActive }: { isActive: boolean }, key: string) => {
+          if (isActive) return localforage.getItem(key);
+        }
+      );
 
       return activePlayer ? (activePlayer as T) : undefined;
     }

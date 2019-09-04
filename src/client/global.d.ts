@@ -3,7 +3,7 @@ declare module "*.svg" {
   export default content;
 }
 
-declare module 'linaria/react';
+declare module "linaria/react";
 
 declare const PRODUCTION_ENV: boolean;
 declare const GRAPHQL_API: string;

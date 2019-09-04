@@ -68,25 +68,23 @@ const LegendItem = styled.li`
   padding: var(--spacing-base) 1rem;
   margin-bottom: var(--spacing-double);
   cursor: pointer;
-  color: ${({ isActiveLegend } : { isActiveLegend : boolean }): string =>
-    isActiveLegend ? "var(--color-primary)" : "var(--color-dark)"
-  };
-  
+  color: ${({ isActiveLegend }: { isActiveLegend: boolean }): string =>
+    isActiveLegend ? "var(--color-primary)" : "var(--color-dark)"};
+
   path {
-    fill: ${({ isActiveLegend } : { isActiveLegend : boolean }): string =>
-      isActiveLegend ? "var(--color-primary)" : "var(--color-dark)"
-    };
+    fill: ${({ isActiveLegend }: { isActiveLegend: boolean }): string =>
+      isActiveLegend ? "var(--color-primary)" : "var(--color-dark)"};
   }
 `;
 
 interface IonLegendSelected {
-  (legend: Legend): void
+  (legend: Legend): void;
 }
 
 interface LegendSelectorProps {
   activeLegendName: string;
   legends: Legend[];
-  onLegendSelected: IonLegendSelected
+  onLegendSelected: IonLegendSelected;
 }
 
 const LegendSelector: React.FunctionComponent<LegendSelectorProps> = ({

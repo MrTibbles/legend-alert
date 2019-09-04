@@ -4,7 +4,7 @@ const Container = styled.div`
   width: 100vw;
   min-height: 100vh;
   transition: transform 250ms ease-out;
-  transform: ${({ showLegends } : { showLegends: boolean }): string =>
+  transform: ${({ showLegends }: { showLegends: boolean }): string =>
     `translateX(${showLegends ? "40vw" : 0})`};
 
   @media (min-width: 1024px) {
