@@ -4,10 +4,15 @@
     "@babel/react",
     "linaria/babel"
   ],
-  "plugins": ["@babel/plugin-syntax-dynamic-import"],
   "env": {
+    "development": {
+      "plugins": [
+        "@babel/plugin-syntax-dynamic-import"
+      ],
+    },
     "production": {
       "plugins": [
+        "@babel/plugin-syntax-dynamic-import",        
         ["react-remove-properties", { "properties": ["data-testid"] }]
       ]
     }

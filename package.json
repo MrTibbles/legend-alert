@@ -89,7 +89,7 @@
     "cy:open": "cypress open --env API_URL=http://localhost:4000",
     "cy:verify": "cypress verify",
     "ci:serve": "CI_ENV=true now dev",
-    "build": "tsc --noEmit && webpack --env.production",
+    "build": "tsc --noEmit && NODE_ENV=production webpack",
     "test": "cypress run --record --key f8b075fe-ce9f-4712-ad42-96c913b58cf6 --env API_URL=http://localhost:4000/",
     "test:ci": "cypress run --record --key f8b075fe-ce9f-4712-ad42-96c913b58cf6 --env API_URL=http://localhost:3000/graphql"
   },
