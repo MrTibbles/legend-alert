@@ -31,7 +31,7 @@ module.exports = (env = {}) => {
           "targets": {
             "browsers": devEnv
               ? ["last 2 Chrome versions, last 2 Firefox versions", "last 2 Edge versions"]
-              : ["> 0.5%", "not ie 11"]
+              : ["> 5%", "not ie 11"]
           }
         }
       ]
@@ -52,7 +52,8 @@ module.exports = (env = {}) => {
     output: {
       path: PATHS.dist,
       publicPath: publicPath,
-      filename: "legend-alert.[name].[hash].js"
+      filename: "legend-alert.[name].[hash].js",
+      chunkFilename: "legend-alert.[name].[chunk].js"
     },
     resolve: {
       extensions: [".ts", ".tsx", ".js"]
