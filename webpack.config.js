@@ -21,6 +21,23 @@ module.exports = (env = {}) => {
     dist: path.resolve(__dirname, "dist", devEnv ? "" : "public/")
   };
 
+  const babelOptions = {
+    presets: [
+      [
+        "@babel/env",
+        {
+          "useBuiltIns": "usage",
+          "corejs": "3",
+          "targets": {
+            "browsers": devEnv
+              ? ["last 2 Chrome versions, last 2 Firefox versions", "last 2 Edge versions"]
+              : ["> 0.5%", "not ie 11"]
+          }
+        }
+      ]
+    ]
+  }
+
   return {
     entry: path.resolve(PATHS.src, "App.tsx"),
     mode: devEnv ? "development" : "production",
@@ -48,6 +65,7 @@ module.exports = (env = {}) => {
           use: [
             {
               loader: "babel-loader",
+              options: babelOptions
             },
             {
               loader: "linaria/loader",
