@@ -25,6 +25,10 @@ jobs:
       - run:
           name: Static analysis
           command: npm run ci:lint
+      
+      - run:
+          name: Type check src files
+          command: npm run ci:type-check
             
       - run:
           name: Build client
