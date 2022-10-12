@@ -97,7 +97,7 @@
   },
   "dependencies": {
     "apollo-datasource-rest": "^0.6.1",
-    "apollo-server": "^2.8.1",
+    "apollo-server": "^2.25.4",
     "apollo-server-micro": "^2.8.1",
     "graphql": "^14.4.2",
     "linaria": "^1.4.0-alpha.1",
